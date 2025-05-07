@@ -1,9 +1,10 @@
 extends RigidBody3D
-var velocity := 5.0
+var velocity := 1000.0
 var mouse_sens = 0.3
 @onready var hrzn = $v
 @onready var vert = $v/h
 @onready var mNode = $movementNode
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -15,10 +16,12 @@ func _process(delta):
 	var horizon_basis = mNode.basis
 	horizon_basis  = horizon_basis * Basis.FLIP_X
 	horizon_basis  = horizon_basis * Basis.FLIP_Z
-	print(horizon_basis)
-	apply_central_force(Vector3(input.x, 0 ,input.y) * 1200.00 * 1 * delta * horizon_basis)
-	
-		
+	print(velocity)
+	apply_central_force(Vector3(input.x, 0 ,input.y) * velocity * 1 * delta * horizon_basis)
+	if Input.is_action_pressed("shift"):
+		velocity = 00
+	else:
+		velocity = 1000
 func _unhandled_input(event):  		
 	if event is InputEventMouseMotion:#and Input.is_action_pressed("mouse_right"):
 		mNode.rotate_y(deg_to_rad(event.relative.x*mouse_sens))
