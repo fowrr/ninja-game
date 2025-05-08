@@ -8,6 +8,7 @@ var mouse_sens = 0.3
 @onready var velocity_label = $"Control/velocity"
 var grounded = 0
 var max_horizontal_speed := 4.0
+var max_diagonal_speed := 4.0
 var jumps = 2
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,12 +32,17 @@ func _process(delta):
 	var input = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
 	var horizon_basis = mNode.basis
 	apply_central_force(Vector3(input.x, 0 ,input.y) * velocity * 1 * delta * horizon_basis)
+	
+	
 	if Input.is_action_pressed("shift"):
 		velocity = 2500
 		max_horizontal_speed = 6.0
+		max_diagonal_speed = 4.24264068712
 	else:
 		velocity = 1000
-		max_horizontal_speed = 3.0
+		#max_horizontal_speed = 3.0
+		
+		
 func _unhandled_input(event):  		
 	if event is InputEventMouseMotion:#and Input.is_action_pressed("mouse_right"):
 		mNode.rotate_y(deg_to_rad(event.relative.x*mouse_sens))
