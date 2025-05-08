@@ -1,4 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://0myexbcst06a"]
+[gd_scene load_steps=7 format=3 uid="uid://0myexbcst06a"]
+
+[ext_resource type="Script" path="res://velocity.gd" id="1_sf2ci"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_27feu"]
+friction = 0.25
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_5pyfu"]
 
@@ -11,8 +16,9 @@ points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607,
 albedo_color = Color(0.141176, 0.141176, 0.141176, 1)
 
 [node name="bean" type="RigidBody3D"]
+physics_material_override = SubResource("PhysicsMaterial_27feu")
 lock_rotation = true
-linear_damp = 5.0
+linear_damp = 32.242
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_5pyfu")
@@ -36,3 +42,21 @@ surface_material_override/0 = SubResource("StandardMaterial3D_tvmkg")
 
 [node name="movementNode" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.140992, 0.209254, 0)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="velocity" type="Label" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_sf2ci")
+
+[node name="feet" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.2182, 0, 0, 0, 1, 0, -0.770507, 0)
+hit_from_inside = true
+debug_shape_custom_color = Color(1, 0, 0, 1)
+debug_shape_thickness = 5
