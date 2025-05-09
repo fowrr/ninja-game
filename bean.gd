@@ -10,7 +10,6 @@ var grounded = 0
 var max_horizontal_speed := 2.0
 var max_diagonal_speed := 2.82842712475
 var jumps = 2
-var linear_v := 0.0000
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -19,13 +18,14 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-
+	var horizontal_velocity = Vector2(linear_velocity.x, linear_velocity.z)
+	
 	#Code making sure my velocity is never higher than my max speed.
 	var current_velocity = linear_velocity # Get the current velocity of the rigid body
-	if current_velocity.length() > max_horizontal_speed:
-		current_velocity = current_velocity.normalized() * max_horizontal_speed
-		linear_velocity = current_velocity
-	print(linear_velocity.length())
+	#if horizontal_velocity.length()> 3:
+	#	horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
+	#	linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
+	#print(current_velocity.length())
 	
 	
 	#Label for velocity
@@ -40,11 +40,20 @@ func _process(delta):
 	if Input.is_action_pressed("shift"):
 		velocity = 2500
 		max_horizontal_speed = 6.0
+		if horizontal_velocity.length()> 7:
+			horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
+			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
+		print(current_velocity.length())
 	else:
-		velocity = 1000
-		#max_horizontal_speed = 3.0
-		
-		
+		max_horizontal_speed = 2.0
+		if horizontal_velocity.length()> 3:
+			horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
+			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
+	print(current_velocity.length())
+	if linear_velocity.y <= -1.5:
+		gravity_scale = 2
+	else:
+		gravity_scale = 1
 func _unhandled_input(event):  		
 	if event is InputEventMouseMotion:#and Input.is_action_pressed("mouse_right"):
 		mNode.rotate_y(deg_to_rad(event.relative.x*mouse_sens))
@@ -57,11 +66,11 @@ func _unhandled_input(event):
 	if Input.is_action_just_pressed("space"):
 		if grounded == 1:
 			if jumps == 2:
-				apply_central_impulse(Vector3(0, 1 ,0) * 6 )
+				apply_central_impulse(Vector3(0, 1 ,0) * 7 )
 				jumps -=1
 			elif jumps == 1:
-				if linear_velocity.y <= 0:
-					apply_central_impulse(Vector3(0, 1 ,0) * 6 )
+				if linear_velocity.y <= 0.25:
+					apply_central_impulse(Vector3(0, 1 ,0) * 10 )
 					jumps -=1
 			elif jumps == 0:
 				grounded = 0
