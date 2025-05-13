@@ -11,7 +11,7 @@ var max_horizontal_speed := 2.0
 var max_diagonal_speed := 2.82842712475
 var jumps = 2
 @onready var rayCast = $v/h/Camera3D/RayCast3D
-
+@onready var h = ($"v/h/Camera3D/RayCast3D/rayball").get_surface_override_material(0)
 @onready var ball = $v/h/Camera3D/RayCast3D/rayball
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -56,8 +56,12 @@ func _process(delta):
 	
 	#Check raycast
 	if rayCast.is_colliding():
-		var material = $v/h/Camera3D/RayCast3D/rayball.get_surface_material()
-		material.albedo_color = Color(255, 0, 0)
+		h.albedo_color = Color(1,0,0)
+		var collision_point = rayCast.get_collision_point()
+		ball.global_transform.origin = collision_point
+	else:
+		h.albedo_color = Color(0,1,0)
+		ball.global_transform.origin = rayCast.get_ray_end_point()
 	
 		
 
