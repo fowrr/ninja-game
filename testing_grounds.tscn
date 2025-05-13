@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://v7e5apk0pq8s"]
+[gd_scene load_steps=7 format=3 uid="uid://v7e5apk0pq8s"]
 
 [ext_resource type="Texture2D" uid="uid://bcklkn2wq7gl2" path="res://512X512.png" id="1_x8rf2"]
 [ext_resource type="PackedScene" uid="uid://0myexbcst06a" path="res://bean2.tscn" id="2_cypw4"]
-[ext_resource type="Script" path="res://bean.gd" id="3_bj37r"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gi3u0"]
 albedo_texture = ExtResource("1_x8rf2")
@@ -35,7 +34,6 @@ use_collision = true
 
 [node name="bean" parent="." instance=ExtResource("2_cypw4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
-script = ExtResource("3_bj37r")
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, 0)

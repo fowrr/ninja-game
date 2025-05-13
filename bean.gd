@@ -10,6 +10,9 @@ var grounded = 0
 var max_horizontal_speed := 2.0
 var max_diagonal_speed := 2.82842712475
 var jumps = 2
+@onready var rayCast = $v/h/Camera3D/RayCast3D
+
+@onready var ball = $v/h/Camera3D/RayCast3D/rayball
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -21,32 +24,18 @@ func _process(delta):
 	var horizontal_velocity = Vector2(linear_velocity.x, linear_velocity.z)
 	
 	#Code making sure my velocity is never higher than my max speed.
+	#===============================================================#
 	var current_velocity = linear_velocity # Get the current velocity of the rigid body
-	#if horizontal_velocity.length()> 3:
-	#	horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
-	#	linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
-	#print(current_velocity.length())
-	
-	
-	#Label for velocity
-	veloSpeed.emit(current_velocity)
-	velocity_label.text = "Velocity: " + str(current_velocity)
-	
-	var input = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
-	var horizon_basis = mNode.basis
-	apply_central_force(Vector3(input.x, 0 ,input.y) * velocity * 1 * delta * horizon_basis)
-	
-	
 	if Input.is_action_pressed("shift"):
 		velocity = 2500
 		max_horizontal_speed = 6.0
 		if horizontal_velocity.length()> 7:
 			horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
-			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
+			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y) #This code make sure my speed is capped if I'm sprinting
 		print(current_velocity.length())
 	else:
 		max_horizontal_speed = 2.0
-		if horizontal_velocity.length()> 3:
+		if horizontal_velocity.length()> 3: #Same gist as the code above, just now it's when my speed is normal (i.e. not sprinting).
 			horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
 			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
 	print(current_velocity.length())
@@ -54,10 +43,30 @@ func _process(delta):
 		gravity_scale = 2
 	else:
 		gravity_scale = 1
+	
+	
+	#Label for velocity
+	veloSpeed.emit(current_velocity)
+	velocity_label.text = "Velocity: " + str(current_velocity)
+	
+	#Gets my movement (A,W,S,D or arrow keys)
+	var input = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
+	var horizon_basis = mNode.basis #Check for nMode explanation (second line in unhandled input).
+	apply_central_force(Vector3(input.x, 0 ,input.y) * velocity * 1 * delta * horizon_basis)
+	
+	#Check raycast
+	if rayCast.is_colliding():
+		var material = $v/h/Camera3D/RayCast3D/rayball.get_surface_material()
+		material.albedo_color = Color(255, 0, 0)
+	
+		
+
+
+
 func _unhandled_input(event):  		
-	if event is InputEventMouseMotion:#and Input.is_action_pressed("mouse_right"):
-		mNode.rotate_y(deg_to_rad(event.relative.x*mouse_sens))
-		hrzn.rotate_y(deg_to_rad(-event.relative.x*mouse_sens))
+	if event is InputEventMouseMotion: #My movement code
+		mNode.rotate_y(deg_to_rad(event.relative.x*mouse_sens)) #moNode, meaning movement Node, ensures that my movement is going the right way (because the way your camera turns is the opposite way your character should move)
+		hrzn.rotate_y(deg_to_rad(-event.relative.x*mouse_sens)) 
 		vert.rotate_x(deg_to_rad(-event.relative.y*0.3))
 		vert.rotation.x = clamp(vert.rotation.x, deg_to_rad(-90.0), deg_to_rad(60.0))
 	if $feet.is_colliding():
