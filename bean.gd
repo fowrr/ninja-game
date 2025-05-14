@@ -13,6 +13,9 @@ var jumps = 2
 @onready var rayCast = $v/h/Camera3D/RayCast3D
 @onready var h = ($"v/h/Camera3D/RayCast3D/rayball").get_surface_override_material(0)
 @onready var ball = $v/h/Camera3D/RayCast3D/rayball
+@onready var rayEnd = $v/h/Camera3D/longRay/rayEnd
+@onready var longRay = $v/h/Camera3D/longRay
+var colliding = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -43,7 +46,7 @@ func _process(delta):
 		gravity_scale = 2
 	else:
 		gravity_scale = 1
-	
+		
 	
 	#Label for velocity
 	veloSpeed.emit(current_velocity)
@@ -53,18 +56,25 @@ func _process(delta):
 	var input = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
 	var horizon_basis = mNode.basis #Check for nMode explanation (second line in unhandled input).
 	apply_central_force(Vector3(input.x, 0 ,input.y) * velocity * 1 * delta * horizon_basis)
+	col()
 	
-	#Check raycast
-	if rayCast.is_colliding():
-		h.albedo_color = Color(1,0,0)
-		var collision_point = rayCast.get_collision_point()
-		ball.global_transform.origin = collision_point
+func col():
+	if longRay.is_colliding():
+		if rayCast.is_colliding():
+			h.albedo_color = Color(0,1,0)
+			var collision_point = rayCast.get_collision_point()
+			ball.global_transform.origin = collision_point
+			colliding = true
+		else:
+			h.albedo_color = Color(1,0,0)
+			var longRayCol = longRay.get_collision_point()
+			ball.global_transform.origin = longRayCol
+			colliding = false
 	else:
-		h.albedo_color = Color(0,1,0)
-		ball.global_transform.origin = rayCast.get_ray_end_point()
-	
-		
-
+		h.albedo_color = Color(1,0,0)
+		ball.global_transform.origin = rayEnd.global_transform.origin
+		colliding = false
+		return colliding
 
 
 func _unhandled_input(event):  		

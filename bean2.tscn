@@ -42,13 +42,20 @@ shape = SubResource("ConvexPolygonShape3D_p755r")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.140992, 0.209254, 0)
 
 [node name="RayCast3D" type="RayCast3D" parent="v/h/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, -1.29212e-07, -1, 0, 2.95604, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(1.353, 0, 0, 0, -1.74846e-07, -1.353, 0, 4, -5.91415e-08, 0, 0, 0)
 debug_shape_thickness = 5
 
 [node name="rayball" type="MeshInstance3D" parent="v/h/Camera3D/RayCast3D"]
-transform = Transform3D(0.0978316, 0, 0, 0, -1.44665e-09, 0.0330955, 0, -0.0978316, -4.27636e-09, -0.00215934, -0.984816, 0.00108258)
+transform = Transform3D(0.0723072, 0, 0, 0, -1.06909e-09, 0.0244579, 0, -0.0723072, -3.16067e-09, -0.00159597, -0.999694, 0.000800133)
 mesh = SubResource("SphereMesh_wn8xr")
 surface_material_override/0 = SubResource("StandardMaterial3D_8ncp1")
+
+[node name="longRay" type="RayCast3D" parent="v/h/Camera3D"]
+transform = Transform3D(0.805, 0, 0, 0, -2.62268e-07, -0.805, 0, 6, -3.51877e-08, 0, 0, 0)
+debug_shape_thickness = 5
+
+[node name="rayEnd" type="Node3D" parent="v/h/Camera3D/longRay"]
+transform = Transform3D(0.0972481, 0, 0, 0, -5.7018e-10, 0.0130442, 0, -0.0972481, -4.25085e-09, -0.00214647, -0.999558, 0.00107633)
 
 [node name="grapple" type="MeshInstance3D" parent="v/h"]
 transform = Transform3D(0.185116, 0, 0, 0, 0.2182, 0, 0, 0, -0.355081, 0.55767, -0.0778795, -0.58788)
