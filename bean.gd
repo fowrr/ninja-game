@@ -1,6 +1,8 @@
 extends RigidBody3D
 signal veloSpeed
-var velocity := 1000.0
+signal colF
+signal colT
+var velocity := 2500.0
 var mouse_sens = 0.3
 @onready var hrzn = $v
 @onready var vert = $v/h
@@ -16,6 +18,7 @@ var jumps = 2
 @onready var rayEnd = $v/h/Camera3D/longRay/rayEnd
 @onready var longRay = $v/h/Camera3D/longRay
 var colliding = false
+var launch = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -29,21 +32,28 @@ func _process(delta):
 	#Code making sure my velocity is never higher than my max speed.
 	#===============================================================#
 	var current_velocity = linear_velocity # Get the current velocity of the rigid body
-	if Input.is_action_pressed("shift"):
-		velocity = 2500
-		max_horizontal_speed = 6.0
-		if horizontal_velocity.length()> 7:
-			horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
-			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y) #This code make sure my speed is capped if I'm sprinting
-		print(current_velocity.length())
-	else:
-		max_horizontal_speed = 2.0
-		if horizontal_velocity.length()> 3: #Same gist as the code above, just now it's when my speed is normal (i.e. not sprinting).
-			horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
-			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
+	#if launch == true:
+	#	velocity = 2500
+	#	max_horizontal_speed = 10.0
+	#	if horizontal_velocity.length()> 11:
+	#		horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
+	#		linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
+	#	print(current_velocity.length())
+	#elif Input.is_action_pressed("shift") and grounded == 1:
+	#	velocity = 2500
+	#	max_horizontal_speed = 6.0
+	#	if horizontal_velocity.length()> 7:
+	#		horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
+	#		linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y) #This code make sure my speed is capped if I'm sprinting
+	#	print(current_velocity.length())
+	#else:
+	#	max_horizontal_speed = 2.0
+	#	if horizontal_velocity.length()> 3: #Same gist as the code above, just now it's when my speed is normal (i.e. not sprinting).
+	#		horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
+	#		linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
 	print(current_velocity.length())
 	if linear_velocity.y <= -1.5:
-		gravity_scale = 2
+		gravity_scale = 1
 	else:
 		gravity_scale = 1
 		
@@ -65,15 +75,18 @@ func col():
 			var collision_point = rayCast.get_collision_point()
 			ball.global_transform.origin = collision_point
 			colliding = true
+			emit_signal("colT")
 		else:
 			h.albedo_color = Color(1,0,0)
 			var longRayCol = longRay.get_collision_point()
 			ball.global_transform.origin = longRayCol
 			colliding = false
+			emit_signal("colF")
 	else:
 		h.albedo_color = Color(1,0,0)
 		ball.global_transform.origin = rayEnd.global_transform.origin
 		colliding = false
+		emit_signal("colF")
 		return colliding
 
 
@@ -97,3 +110,12 @@ func _unhandled_input(event):
 					jumps -=1
 			elif jumps == 0:
 				grounded = 0
+
+
+func _on_grapple_controller_launching():
+	launch = true
+
+
+
+func _on_grapple_controller_retracted():
+	launch = false
