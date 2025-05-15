@@ -6,7 +6,7 @@ signal retracted
 var colliding = false
 @export var RayCast: RayCast3D
 @onready var ray = $"../v/h/Camera3D/RayCast3D"
-@export var stiffness := 20.0
+@export var stiffness := 50.0
 @export var rest_length := 5.0
 @export var damping := 1.0
 @onready var player = get_parent()
@@ -48,6 +48,7 @@ func grapple_physics(delta):
 																#target.
 		var vel_dot = player.linear_velocity.dot(dir_player_targ) 
 		var damp = -damping * vel_dot * dir_player_targ
+		damp.y -= 7
 		force = stiffness * displacement * dir_player_targ + damp
 	player.apply_central_force(force)
 func _on_bean_col_t():
