@@ -12,13 +12,14 @@ var grounded = 0
 var max_horizontal_speed := 2.0
 var max_diagonal_speed := 2.82842712475
 var jumps = 2
-@onready var rayCast = $v/h/Camera3D/RayCast3D
-@onready var h = ($"v/h/Camera3D/RayCast3D/rayball").get_surface_override_material(0)
-@onready var ball = $v/h/Camera3D/RayCast3D/rayball
-@onready var rayEnd = $v/h/Camera3D/longRay/rayEnd
-@onready var longRay = $v/h/Camera3D/longRay
+@onready var rayCast = $v/h/S/Camera3D/RayCast3D
+@onready var h = ($"v/h/S/Camera3D/RayCast3D/rayball").get_surface_override_material(0)
+@onready var ball = $v/h/S/Camera3D/RayCast3D/rayball
+@onready var rayEnd = $v/h/S/Camera3D/longRay/rayEnd
+@onready var longRay = $v/h/S/Camera3D/longRay
 var colliding = false
 var launch = false
+var launchWas = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -28,30 +29,30 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var horizontal_velocity = Vector2(linear_velocity.x, linear_velocity.z)
-	
+	#print(rayCast.transform.basis)
 	#Code making sure my velocity is never higher than my max speed.
 	#===============================================================#
 	var current_velocity = linear_velocity # Get the current velocity of the rigid body
-	#if launch == true:
-	#	velocity = 2500
-	#	max_horizontal_speed = 10.0
-	#	if horizontal_velocity.length()> 11:
-	#		horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
-	#		linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
-	#	print(current_velocity.length())
-	#elif Input.is_action_pressed("shift") and grounded == 1:
-	#	velocity = 2500
-	#	max_horizontal_speed = 6.0
-	#	if horizontal_velocity.length()> 7:
-	#		horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
-	#		linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y) #This code make sure my speed is capped if I'm sprinting
-	#	print(current_velocity.length())
-	#else:
-	#	max_horizontal_speed = 2.0
-	#	if horizontal_velocity.length()> 3: #Same gist as the code above, just now it's when my speed is normal (i.e. not sprinting).
-	#		horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
-	#		linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
-	print(current_velocity.length())
+	if launch == true and launchWas == true:
+		velocity = 2500
+		max_horizontal_speed = 10.0
+		if horizontal_velocity.length()> 11:
+			horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
+			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
+		#print(current_velocity.length())
+	elif Input.is_action_pressed("shift") and grounded == 1:
+		velocity = 2500
+		max_horizontal_speed = 6.0
+		if horizontal_velocity.length()> 7:
+			horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
+			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y) #This code make sure my speed is capped if I'm sprinting
+		#print(current_velocity.length())
+	else:
+		max_horizontal_speed = 2.0
+		if horizontal_velocity.length()> 3: #Same gist as the code above, just now it's when my speed is normal (i.e. not sprinting).
+			horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
+			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
+	#print(current_velocity.length())
 	if linear_velocity.y <= -1.5:
 		gravity_scale = 1
 	else:
@@ -65,7 +66,10 @@ func _process(delta):
 	#Gets my movement (A,W,S,D or arrow keys)
 	var input = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
 	var horizon_basis = mNode.basis #Check for nMode explanation (second line in unhandled input).
+	#horizon_basis = look_at(grapple_point)
 	apply_central_force(Vector3(input.x, 0 ,input.y) * velocity * 1 * delta * horizon_basis)
+	
+	
 	col()
 	
 func col():
@@ -99,6 +103,7 @@ func _unhandled_input(event):
 	if $feet.is_colliding():
 		grounded = 1
 		jumps = 2
+		launch = false
 	if Input.is_action_just_pressed("space"):
 		if grounded == 1:
 			if jumps == 2:
@@ -114,8 +119,11 @@ func _unhandled_input(event):
 
 func _on_grapple_controller_launching():
 	launch = true
-
+	launchWas = true
 
 
 func _on_grapple_controller_retracted():
-	launch = false
+	launchWas = false
+
+
+
