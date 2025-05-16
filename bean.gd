@@ -69,7 +69,7 @@ func _process(delta):
 	#horizon_basis = look_at(grapple_point)
 	apply_central_force(Vector3(input.x, 0 ,input.y) * velocity * 1 * delta * horizon_basis)
 	
-	
+	#hi
 	col()
 	
 func col():
