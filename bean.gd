@@ -10,6 +10,7 @@ var grounded = 0
 var max_horizontal_speed := 2.0
 var max_diagonal_speed := 2.82842712475
 var jumps = 2
+<<<<<<< HEAD
 @onready var rayCast = $v/h/s/Camera3D/RayCast3D
 @onready var h = ($v/h/s/Camera3D/RayCast3D/rayball).get_surface_override_material(0)
 @onready var ball = $v/h/s/Camera3D/RayCast3D/rayball
@@ -21,6 +22,11 @@ var launch = false
 var target : Vector3
 =======
 >>>>>>> parent of 534d8e5 (fix grappling)
+=======
+@onready var rayCast = $v/h/Camera3D/RayCast3D
+@onready var h = ($"v/h/Camera3D/RayCast3D/rayball").get_surface_override_material(0)
+@onready var ball = $v/h/Camera3D/RayCast3D/rayball
+>>>>>>> parent of 0d8c837 (time to grapple)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -72,7 +78,7 @@ func _process(delta):
 		gravity_scale = 2
 	else:
 		gravity_scale = 1
-		
+	
 	
 	#Label for velocity
 	veloSpeed.emit(current_velocity)
@@ -81,25 +87,18 @@ func _process(delta):
 	var input = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
 	var horizon_basis = mNode.basis #Check for nMode explanation (second line in unhandled input).
 	apply_central_force(Vector3(input.x, 0 ,input.y) * velocity * 1 * delta * horizon_basis)
-	col()
 	
-func col():
-	if longRay.is_colliding():
-		if rayCast.is_colliding():
-			h.albedo_color = Color(0,1,0)
-			var collision_point = rayCast.get_collision_point()
-			ball.global_transform.origin = collision_point
-			colliding = true
-		else:
-			h.albedo_color = Color(1,0,0)
-			var longRayCol = longRay.get_collision_point()
-			ball.global_transform.origin = longRayCol
-			colliding = false
-	else:
+	#Check raycast
+	if rayCast.is_colliding():
 		h.albedo_color = Color(1,0,0)
-		ball.global_transform.origin = rayEnd.global_transform.origin
-		colliding = false
-		return colliding
+		var collision_point = rayCast.get_collision_point()
+		ball.global_transform.origin = collision_point
+	else:
+		h.albedo_color = Color(0,1,0)
+		ball.global_transform.origin = rayCast.get_ray_end_point()
+	
+		
+
 
 
 func _unhandled_input(event):  		
