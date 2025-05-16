@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://brpvbp272mpdf"]
-
-[ext_resource type="Script" path="res://grapplingGun.gd" id="1_rqcba"]
-
-[node name="gunController" type="Node3D"]
-script = ExtResource("1_rqcba")
-stiffness = null
-rest_length = null
-damping = null

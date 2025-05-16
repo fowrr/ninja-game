@@ -1,8 +1,6 @@
 extends RigidBody3D
 signal veloSpeed
-signal colF
-signal colT
-var velocity := 2500.0
+var velocity := 1000.0
 var mouse_sens = 0.3
 @onready var hrzn = $v
 @onready var vert = $v/h
@@ -12,13 +10,17 @@ var grounded = 0
 var max_horizontal_speed := 2.0
 var max_diagonal_speed := 2.82842712475
 var jumps = 2
-@onready var rayCast = $v/h/Camera3D/RayCast3D
-@onready var h = ($"v/h/Camera3D/RayCast3D/rayball").get_surface_override_material(0)
-@onready var ball = $v/h/Camera3D/RayCast3D/rayball
-@onready var rayEnd = $v/h/Camera3D/longRay/rayEnd
-@onready var longRay = $v/h/Camera3D/longRay
+@onready var rayCast = $v/h/s/Camera3D/RayCast3D
+@onready var h = ($v/h/s/Camera3D/RayCast3D/rayball).get_surface_override_material(0)
+@onready var ball = $v/h/s/Camera3D/RayCast3D/rayball
+@onready var rayEnd = $v/h/s/Camera3D/longRay/rayEnd
+@onready var longRay = $v/h/s/Camera3D/longRay
 var colliding = false
+<<<<<<< HEAD
 var launch = false
+var target : Vector3
+=======
+>>>>>>> parent of 534d8e5 (fix grappling)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -32,28 +34,42 @@ func _process(delta):
 	#Code making sure my velocity is never higher than my max speed.
 	#===============================================================#
 	var current_velocity = linear_velocity # Get the current velocity of the rigid body
-	#if launch == true:
-	#	velocity = 2500
-	#	max_horizontal_speed = 10.0
-	#	if horizontal_velocity.length()> 11:
-	#		horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
-	#		linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
+<<<<<<< HEAD
+	if launch == true:
+		velocity = 2500
+		max_horizontal_speed = 10.0
+		if horizontal_velocity.length()> 11:
+			horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
+			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
 	#	print(current_velocity.length())
-	#elif Input.is_action_pressed("shift") and grounded == 1:
-	#	velocity = 2500
-	#	max_horizontal_speed = 6.0
-	#	if horizontal_velocity.length()> 7:
-	#		horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
-	#		linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y) #This code make sure my speed is capped if I'm sprinting
+	elif Input.is_action_pressed("shift") and grounded == 1:
+=======
+	if Input.is_action_pressed("shift"):
+>>>>>>> parent of 534d8e5 (fix grappling)
+		velocity = 2500
+		max_horizontal_speed = 6.0
+		if horizontal_velocity.length()> 7:
+			horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
+			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y) #This code make sure my speed is capped if I'm sprinting
+<<<<<<< HEAD
 	#	print(current_velocity.length())
-	#else:
-	#	max_horizontal_speed = 2.0
-	#	if horizontal_velocity.length()> 3: #Same gist as the code above, just now it's when my speed is normal (i.e. not sprinting).
-	#		horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
-	#		linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
+	else:
+		max_horizontal_speed = 2.0
+		if horizontal_velocity.length()> 4: #Same gist as the code above, just now it's when my speed is normal (i.e. not sprinting).
+			horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
+			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
+	#print(current_velocity.length())
+=======
+		print(current_velocity.length())
+	else:
+		max_horizontal_speed = 2.0
+		if horizontal_velocity.length()> 3: #Same gist as the code above, just now it's when my speed is normal (i.e. not sprinting).
+			horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
+			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
 	print(current_velocity.length())
+>>>>>>> parent of 534d8e5 (fix grappling)
 	if linear_velocity.y <= -1.5:
-		gravity_scale = 1
+		gravity_scale = 2
 	else:
 		gravity_scale = 1
 		
@@ -61,7 +77,6 @@ func _process(delta):
 	#Label for velocity
 	veloSpeed.emit(current_velocity)
 	velocity_label.text = "Velocity: " + str(current_velocity)
-	
 	#Gets my movement (A,W,S,D or arrow keys)
 	var input = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
 	var horizon_basis = mNode.basis #Check for nMode explanation (second line in unhandled input).
@@ -75,18 +90,15 @@ func col():
 			var collision_point = rayCast.get_collision_point()
 			ball.global_transform.origin = collision_point
 			colliding = true
-			emit_signal("colT")
 		else:
 			h.albedo_color = Color(1,0,0)
 			var longRayCol = longRay.get_collision_point()
 			ball.global_transform.origin = longRayCol
 			colliding = false
-			emit_signal("colF")
 	else:
 		h.albedo_color = Color(1,0,0)
 		ball.global_transform.origin = rayEnd.global_transform.origin
 		colliding = false
-		emit_signal("colF")
 		return colliding
 
 
@@ -110,12 +122,16 @@ func _unhandled_input(event):
 					jumps -=1
 			elif jumps == 0:
 				grounded = 0
+<<<<<<< HEAD
 
 
 func _on_grapple_controller_launching():
 	launch = true
-
+	print(target)
+	
 
 
 func _on_grapple_controller_retracted():
 	launch = false
+=======
+>>>>>>> parent of 534d8e5 (fix grappling)

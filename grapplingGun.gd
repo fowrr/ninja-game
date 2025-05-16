@@ -1,21 +1,18 @@
 extends Node3D
-signal launching
+signal launching(hook_target)
 signal retracted
 #This whole code will the grappling code
 #I will attempt to make a 3D version of the springJoint that the 2D space has.
 var colliding = false
 @export var RayCast: RayCast3D
-@onready var ray = $"../v/h/Camera3D/RayCast3D"
+@onready var ray = $"../v/h/s/Camera3D/RayCast3D"
 @export var stiffness := 50.0
 @export var rest_length := 5.0
 @export var damping := 1.0
 @onready var player = get_parent()
-
 func _ready():
-	pass # Replace with function body.
-
+	pass
 var launched = false
-var hook_target = Vector3.ZERO
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Input.is_action_just_pressed("shoot") and colliding == true:
@@ -26,15 +23,14 @@ func _process(delta):
 		emit_signal("retracted")
 	if launched == true:
 		grapple_physics(delta)
-
 func retract():
 	launched = false
-
+var hook_target: Vector3
 func launch():
-	hook_target = ray.get_collision_point()
+	hook_target = ray.get_collision_point() 
 	launched = true
-
-func grapple_physics(delta):
+	
+func grapple_physics(_delta):
 	var dir_player_targ = player.global_position.direction_to(hook_target)
 	var dist_player_targ = player.global_position.distance_to(hook_target)
 	

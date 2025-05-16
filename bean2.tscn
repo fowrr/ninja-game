@@ -1,8 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://0myexbcst06a"]
+[gd_scene load_steps=11 format=3 uid="uid://0myexbcst06a"]
 
 [ext_resource type="Script" path="res://bean.gd" id="1_qxflj"]
 [ext_resource type="Script" path="res://velocity.gd" id="1_sf2ci"]
-[ext_resource type="Script" path="res://grapplingGun.gd" id="3_ahoc6"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_27feu"]
 friction = 0.25
@@ -23,7 +22,7 @@ points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607,
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tvmkg"]
 albedo_color = Color(0.141176, 0.141176, 0.141176, 1)
 
-[node name="bean" type="RigidBody3D"]
+[node name="Bean" type="RigidBody3D"]
 physics_material_override = SubResource("PhysicsMaterial_27feu")
 lock_rotation = true
 linear_damp = 32.242
@@ -39,30 +38,51 @@ shape = SubResource("ConvexPolygonShape3D_p755r")
 
 [node name="h" type="Node3D" parent="v"]
 
-[node name="Camera3D" type="Camera3D" parent="v/h"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.52019, 0.209254, 3.56745)
+<<<<<<< HEAD
+[node name="s" type="SpringArm3D" parent="v/h"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.50677, 0.137061, -0.57467)
+spring_length = 4.0
 
-[node name="RayCast3D" type="RayCast3D" parent="v/h/Camera3D"]
+[node name="Camera3D" type="Camera3D" parent="v/h/s"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0134174, 0.072193, 4.14212)
+
+[node name="RayCast3D" type="RayCast3D" parent="v/h/s/Camera3D"]
 transform = Transform3D(2.03, 0, 0, 0, -2.62268e-07, -2.03, 0, 6, -8.87341e-08, 0, 0, -4.12111)
 debug_shape_custom_color = Color(0, 1, 0, 1)
 debug_shape_thickness = 5
 
-[node name="rayball" type="MeshInstance3D" parent="v/h/Camera3D/RayCast3D"]
+[node name="rayball" type="MeshInstance3D" parent="v/h/s/Camera3D/RayCast3D"]
 transform = Transform3D(0.0723072, 0, 0, 0, -1.06909e-09, 0.0244579, 0, -0.0723072, -3.16067e-09, -0.00159597, -0.997927, 0.000800118)
 mesh = SubResource("SphereMesh_wn8xr")
 surface_material_override/0 = SubResource("StandardMaterial3D_8ncp1")
 
-[node name="longRay" type="RayCast3D" parent="v/h/Camera3D"]
+[node name="longRay" type="RayCast3D" parent="v/h/s/Camera3D"]
 transform = Transform3D(1.342, 0, 0, 0, -4.37114e-07, -1.342, 0, 10, -5.86607e-08, 0, 0, -4.12111)
+=======
+[node name="Camera3D" type="Camera3D" parent="v/h"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.140992, 0.209254, 0)
+
+[node name="RayCast3D" type="RayCast3D" parent="v/h/Camera3D"]
+transform = Transform3D(1.353, 0, 0, 0, -1.74846e-07, -1.353, 0, 4, -5.91415e-08, 0, 0, 0)
 debug_shape_thickness = 5
 
-[node name="rayEnd" type="Node3D" parent="v/h/Camera3D/longRay"]
+[node name="rayball" type="MeshInstance3D" parent="v/h/Camera3D/RayCast3D"]
+transform = Transform3D(0.0723072, 0, 0, 0, -1.06909e-09, 0.0244579, 0, -0.0723072, -3.16067e-09, -0.00159597, -0.999694, 0.000800133)
+mesh = SubResource("SphereMesh_wn8xr")
+surface_material_override/0 = SubResource("StandardMaterial3D_8ncp1")
+
+[node name="longRay" type="RayCast3D" parent="v/h/Camera3D"]
+transform = Transform3D(0.805, 0, 0, 0, -2.62268e-07, -0.805, 0, 6, -3.51877e-08, 0, 0, 0)
+>>>>>>> parent of 534d8e5 (fix grappling)
+debug_shape_thickness = 5
+
+[node name="rayEnd" type="Node3D" parent="v/h/s/Camera3D/longRay"]
 transform = Transform3D(0.0972481, 0, 0, 0, -5.7018e-10, 0.0130442, 0, -0.0972481, -4.25085e-09, -0.00214647, -0.999558, 0.00107633)
 
-[node name="grapple" type="MeshInstance3D" parent="v/h"]
-transform = Transform3D(0.185116, 0, 0, 0, 0.2182, 0, 0, 0, -0.355081, 0.55767, -0.0778795, -0.58788)
+[node name="grapple" type="MeshInstance3D" parent="v/h/s/Camera3D"]
+transform = Transform3D(0.185116, 0, 0, 0, 0.2182, 0, 0, 0, -0.355081, -0.962521, -0.287134, -4.15533)
 mesh = SubResource("BoxMesh_cagre")
-skeleton = NodePath("../../../feet")
+skeleton = NodePath("../../../../../feet")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="v"]
 transform = Transform3D(0.357546, 0, 0, 0, 0.3, 0, 0, 0, 0.648738, 0.349525, 0.199342, 0)
@@ -91,12 +111,15 @@ transform = Transform3D(1, 0, 0, 0, 0.2182, 0, 0, 0, 1, 0, -0.772497, 0)
 hit_from_inside = true
 debug_shape_custom_color = Color(1, 0, 0, 1)
 debug_shape_thickness = 5
+<<<<<<< HEAD
 
 [node name="grappleController" type="Node3D" parent="." node_paths=PackedStringArray("RayCast")]
 script = ExtResource("3_ahoc6")
-RayCast = NodePath("../v/h/Camera3D/RayCast3D")
+RayCast = NodePath("../v/h/s/Camera3D/RayCast3D")
 
 [connection signal="colF" from="." to="grappleController" method="_on_bean_col_f"]
 [connection signal="colT" from="." to="grappleController" method="_on_bean_col_t"]
 [connection signal="launching" from="grappleController" to="." method="_on_grapple_controller_launching"]
 [connection signal="retracted" from="grappleController" to="." method="_on_grapple_controller_retracted"]
+=======
+>>>>>>> parent of 534d8e5 (fix grappling)
