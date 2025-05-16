@@ -58,7 +58,7 @@ func _process(delta):
 	else:
 		gravity_scale = 1
 		
-	
+
 	#Label for velocity
 	veloSpeed.emit(current_velocity)
 	velocity_label.text = "Velocity: " + str(current_velocity)
@@ -66,9 +66,13 @@ func _process(delta):
 	#Gets my movement (A,W,S,D or arrow keys)
 	var input = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
 	var horizon_basis = mNode.basis #Check for nMode explanation (second line in unhandled input).
-	#horizon_basis = look_at(grapple_point)
-	apply_central_force(Vector3(input.x, 0 ,input.y) * velocity * 1 * delta * horizon_basis)
-	
+	var grappleBasis = vert.basis
+	grappleBasis = Basis(Vector3(0,0,0), Vector3(0,0,0), Vector3(grappleBasis.x.z, grappleBasis.y.z, grappleBasis.z.z))
+	if launch == false:
+		apply_central_force(Vector3(input.x, 0 ,input.y) * velocity * 1 * delta * horizon_basis)
+	elif launch == true:
+		apply_central_force(Vector3(input.x, 0 ,0) * velocity * 1 * delta * grappleBasis)
+	print(grappleBasis)
 	#hi
 	col()
 	
