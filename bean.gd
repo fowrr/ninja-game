@@ -32,26 +32,7 @@ func _process(delta):
 	#print(rayCast.transform.basis)
 	#Code making sure my velocity is never higher than my max speed.
 	#===============================================================#
-	var current_velocity = linear_velocity # Get the current velocity of the rigid body
-	if launch == true and launchWas == true:
-		velocity = 2500
-		max_horizontal_speed = 10.0
-		if horizontal_velocity.length()> 11:
-			horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
-			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
-		#print(current_velocity.length())
-	elif Input.is_action_pressed("shift") and grounded == 1:
-		velocity = 2500
-		max_horizontal_speed = 6.0
-		if horizontal_velocity.length()> 7:
-			horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
-			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y) #This code make sure my speed is capped if I'm sprinting
-		#print(current_velocity.length())
-	else:
-		max_horizontal_speed = 2.0
-		if horizontal_velocity.length()> 3: #Same gist as the code above, just now it's when my speed is normal (i.e. not sprinting).
-			horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
-			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
+	var current_velocity = linear_velocity # Get the current velocity of the rigid body 
 	#print(current_velocity.length())
 	if linear_velocity.y <= -1.5:
 		gravity_scale = 1
@@ -66,12 +47,12 @@ func _process(delta):
 	#Gets my movement (A,W,S,D or arrow keys)
 	var input = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
 	var horizon_basis = mNode.basis #Check for nMode explanation (second line in unhandled input).
-	#horizon_basis = look_at(grapple_point)
 	apply_central_force(Vector3(input.x, 0 ,input.y) * velocity * 1 * delta * horizon_basis)
 	
 	#hi
 	col()
-	
+
+#This works
 func col():
 	if longRay.is_colliding():
 		if rayCast.is_colliding():
@@ -93,7 +74,7 @@ func col():
 		emit_signal("colF")
 		return colliding
 
-
+#This works
 func _unhandled_input(event):  		
 	if event is InputEventMouseMotion: #My movement code
 		mNode.rotate_y(deg_to_rad(event.relative.x*mouse_sens)) #moNode, meaning movement Node, ensures that my movement is going the right way (because the way your camera turns is the opposite way your character should move)
@@ -111,7 +92,7 @@ func _unhandled_input(event):
 				jumps -=1
 			elif jumps == 1:
 				if linear_velocity.y <= 0.25:
-					apply_central_impulse(Vector3(0, 1 ,0) * 10 )
+					apply_central_impulse(Vector3(0, 1 ,0) * 15 )
 					jumps -=1
 			elif jumps == 0:
 				grounded = 0
@@ -120,6 +101,9 @@ func _unhandled_input(event):
 func _on_grapple_controller_launching():
 	launch = true
 	launchWas = true
+	if jumps == 0:
+		jumps += 1
+	print(jumps)
 
 
 func _on_grapple_controller_retracted():

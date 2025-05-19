@@ -7,7 +7,7 @@ signal point
 var colliding = false
 @export var RayCast: RayCast3D
 @onready var ray = $"../v/h/S/Camera3D/RayCast3D"
-@export var stiffness := 50.0
+@export var stiffness := 100.0
 @export var rest_length := 5.0
 @export var damping := 1.0
 @onready var player = get_parent()
