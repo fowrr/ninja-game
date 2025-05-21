@@ -44,13 +44,12 @@ func _process(delta):
 	#Code for my movement
 	#===============================================================#
 	var horizontal_velocity = Vector2(linear_velocity.x, linear_velocity.z)
-	
 	#Gets my movement (A,W,S,D or arrow keys)
 	var input = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
 	var horizon_basis = mNode.basis #Check for nMode explanation (second line in unhandled input).)
 	apply_central_force(inputVector * vMultiplier * 1 * delta * horizon_basis) #Apply movement
 	if Input.is_action_pressed("shift"):
-		max_horizontal_speed = 9.0
+		max_horizontal_speed = 8.0
 		vMultiplier = 4000
 	else:
 		max_horizontal_speed = lerp(max_horizontal_speed, 3.0, 0.1)
@@ -62,14 +61,18 @@ func _process(delta):
 		inputVector = Vector3( 0 , 0 ,input.y)
 	elif launch == false and Input.is_action_pressed("shift"):
 		inputVector = Vector3(input.x, 0 ,input.y)
-		if horizontal_velocity.length() > 9.2:
+		if horizontal_velocity.length() > 8.2:
 			horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
 			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
+			if linear_velocity.y > 10:
+				linear_velocity.y = 9.9
 	else:
 		inputVector = Vector3(input.x, 0 ,input.y)
 		if horizontal_velocity.length()> 3.1:
 			horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
 			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
+			if linear_velocity.y > 10:
+				linear_velocity.y = 9.9
 	col()
 
 #This works
@@ -108,11 +111,11 @@ func _unhandled_input(event):
 	if Input.is_action_just_pressed("space"):
 		if grounded == 1:
 			if jumps == 2:
-				apply_central_impulse(Vector3(0, 1 ,0) * 15 )
+				apply_central_impulse(Vector3(0,1,0) * 15)
 				jumps -=1
 			elif jumps == 1:
 				if linear_velocity.y <= 0.25:
-					apply_central_impulse(Vector3(0, 1 ,0) * 15 )
+					apply_central_impulse(Vector3(0, 1 ,0) * 20 )
 					jumps -=1
 			elif jumps == 0:
 				grounded = 0
