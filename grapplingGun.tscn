@@ -4,6 +4,3 @@
 
 [node name="gunController" type="Node3D"]
 script = ExtResource("1_rqcba")
-stiffness = null
-rest_length = null
-damping = null

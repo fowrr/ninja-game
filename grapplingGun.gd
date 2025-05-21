@@ -2,14 +2,15 @@ extends Node3D
 signal launching
 signal retracted
 signal point
+
 #This whole code will the grappling code
 #I will attempt to make a 3D version of the springJoint that the 2D space has.
 var colliding = false
 @export var RayCast: RayCast3D
 @onready var ray = $"../v/h/S/Camera3D/RayCast3D"
-@export var stiffness := 50.0
-@export var rest_length := 5.0
-@export var damping := 1.0
+@export var stiffness := 10.0
+@export var rest_length := 4.0
+@export var damping := 2.0
 @onready var player = get_parent()
 
 func _ready():
@@ -26,7 +27,7 @@ func _process(delta):
 		retract()
 		emit_signal("retracted")
 	if launched == true:
-		grapple_physics(delta)
+		grapple_physics()
 
 func retract():
 	launched = false
@@ -34,8 +35,8 @@ func retract():
 func launch():
 	hook_target = ray.get_collision_point()
 	launched = true
-
-func grapple_physics(delta):
+	
+func grapple_physics():
 	var dir_player_targ = player.global_position.direction_to(hook_target)
 	var dist_player_targ = player.global_position.distance_to(hook_target)
 	emit_signal("point")
@@ -43,14 +44,13 @@ func grapple_physics(delta):
 	var displacement = dist_player_targ - rest_length  #Springy part. If the distance is more than it should be,
 	#our player will move towards what it should be(rest length). Else, gravity will take care of it.
 	if displacement > 0:
-		#var spring_force_mag = stiffness * displacement #force of our spring springing back, higher stiffness = 
-		#var spring_force = spring_force_mag * dir_player_targ # more harder to spring in the first place, which is what i'm going for. This line makes sure that we're springing back to the
+		var spring_force_mag = stiffness * displacement #force of our spring springing back, higher stiffness = 
+		var spring_force = spring_force_mag * dir_player_targ # more harder to spring in the first place, which is what i'm going for. This line makes sure that we're springing back to the
 																#target.
 		var vel_dot = player.linear_velocity.dot(dir_player_targ) 
 		var damp = -damping * vel_dot * dir_player_targ
-		damp.y -= 7
-		force = stiffness * displacement * dir_player_targ + damp
-		#print(vel_dot)
+		force = spring_force + damp
+		
 	player.apply_central_force(force)
 func _on_bean_col_t():
 	colliding = true
