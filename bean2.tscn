@@ -5,7 +5,6 @@
 [ext_resource type="Script" path="res://grapplingGun.gd" id="3_ahoc6"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_27feu"]
-friction = 0.25
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_5pyfu"]
 
@@ -26,7 +25,6 @@ albedo_color = Color(0.141176, 0.141176, 0.141176, 1)
 [node name="bean" type="RigidBody3D"]
 physics_material_override = SubResource("PhysicsMaterial_27feu")
 lock_rotation = true
-constant_force = Vector3(0, -10, 0)
 script = ExtResource("1_qxflj")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -99,8 +97,11 @@ debug_shape_thickness = 5
 [node name="grappleController" type="Node3D" parent="." node_paths=PackedStringArray("RayCast")]
 script = ExtResource("3_ahoc6")
 RayCast = NodePath("../v/h/S/Camera3D/RayCast3D")
+stiffness = 20.0
+damping = 1.0
 
 [connection signal="colF" from="." to="grappleController" method="_on_bean_col_f"]
 [connection signal="colT" from="." to="grappleController" method="_on_bean_col_t"]
 [connection signal="launching" from="grappleController" to="." method="_on_grapple_controller_launching"]
+[connection signal="point" from="grappleController" to="." method="_on_grapple_controller_point"]
 [connection signal="retracted" from="grappleController" to="." method="_on_grapple_controller_retracted"]

@@ -1,8 +1,8 @@
 extends Node3D
 signal launching
 signal retracted
-signal point
-
+signal point(dir_player_targ)
+@onready var mNode = $"../movementNode"
 #This whole code will the grappling code
 #I will attempt to make a 3D version of the springJoint that the 2D space has.
 var colliding = false
@@ -12,7 +12,7 @@ var colliding = false
 @export var rest_length := 4.0
 @export var damping := 2.0
 @onready var player = get_parent()
-
+@onready var mBasis = mNode.basis
 func _ready():
 	pass # Replace with function body.
 
@@ -39,7 +39,7 @@ func launch():
 func grapple_physics():
 	var dir_player_targ = player.global_position.direction_to(hook_target)
 	var dist_player_targ = player.global_position.distance_to(hook_target)
-	emit_signal("point")
+	emit_signal("point", dir_player_targ)
 	var force = Vector3.ZERO
 	var displacement = dist_player_targ - rest_length  #Springy part. If the distance is more than it should be,
 	#our player will move towards what it should be(rest length). Else, gravity will take care of it.
@@ -50,7 +50,6 @@ func grapple_physics():
 		var vel_dot = player.linear_velocity.dot(dir_player_targ) 
 		var damp = -damping * vel_dot * dir_player_targ
 		force = spring_force + damp
-		
 	player.apply_central_force(force)
 func _on_bean_col_t():
 	colliding = true

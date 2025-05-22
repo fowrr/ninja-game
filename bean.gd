@@ -9,7 +9,7 @@ var mouse_sens = 0.3
 @onready var mNode = $movementNode
 @onready var velocity_label = $"Control/velocity"
 var grounded = 0
-var max_horizontal_speed := 3.0
+var max_speed := 3.0
 var jumps = 2
 @onready var rayCast = $v/h/S/Camera3D/RayCast3D
 @onready var h = ($"v/h/S/Camera3D/RayCast3D/rayball").get_surface_override_material(0)
@@ -18,14 +18,17 @@ var jumps = 2
 @onready var longRay = $v/h/S/Camera3D/longRay
 var colliding = false
 var launch = false
-var launchWas = false
+var launchChain = false
 var inputVector = Vector3.ZERO
+var input = Vector3.ZERO
+var horizontal_velocity = Vector2.ZERO
+var rope_dir = Vector3.ZERO
+var torque_axis = null
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	linear_damp = 1.0
 	
-var rope_dir = Vector3.ZERO
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
@@ -40,39 +43,25 @@ func _process(delta):
 	veloSpeed.emit(linear_velocity)
 	velocity_label.text = "Velocity: " + str(linear_velocity)
 	
-	
+	horizontal_velocity = Vector2(linear_velocity.x, linear_velocity.z)
 	#Code for my movement
 	#===============================================================#
-	var horizontal_velocity = Vector2(linear_velocity.x, linear_velocity.z)
+	
 	#Gets my movement (A,W,S,D or arrow keys)
-	var input = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
-	var horizon_basis = mNode.basis #Check for nMode explanation (second line in unhandled input).)
+	input = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
+	var horizon_basis = mNode.basis #Check for nMode explanation (second line in unhandled input).
 	apply_central_force(inputVector * vMultiplier * 1 * delta * horizon_basis) #Apply movement
 	if Input.is_action_pressed("shift"):
-		max_horizontal_speed = 8.0
+		max_speed = 8.0
 		vMultiplier = 4000
 	else:
-		max_horizontal_speed = lerp(max_horizontal_speed, 3.0, 0.1)
+		max_speed = lerp(max_speed, 3.0, 0.1)
 		vMultiplier = 2500
-	#print(horizontal_velocity.length())
-	#Limiting velocity:
-	#print(horizon_basis)
-	if launch == true:
-		inputVector = Vector3( 0 , 0 ,input.y)
-	elif launch == false and Input.is_action_pressed("shift"):
-		inputVector = Vector3(input.x, 0 ,input.y)
-		if horizontal_velocity.length() > 8.2:
-			horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
-			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
-			if linear_velocity.y > 10:
-				linear_velocity.y = 9.9
-	else:
-		inputVector = Vector3(input.x, 0 ,input.y)
-		if horizontal_velocity.length()> 3.1:
-			horizontal_velocity = horizontal_velocity.normalized() * max_horizontal_speed
-			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
-			if linear_velocity.y > 10:
-				linear_velocity.y = 9.9
+	if input == Vector2.ZERO and colliding == true:
+		max_speed = lerp(max_speed, 0.0, 0.1)
+
+	print(linear_velocity)
+	#print(rope_dir)
 	col()
 
 #This works
@@ -107,31 +96,62 @@ func _unhandled_input(event):
 	if $feet.is_colliding():
 		grounded = 1
 		jumps = 2
-		launch = false
+		launchChain = false
 	if Input.is_action_just_pressed("space"):
 		if grounded == 1:
 			if jumps == 2:
-				apply_central_impulse(Vector3(0,1,0) * 15)
+				apply_central_impulse(Vector3.UP * 15)
 				jumps -=1
 			elif jumps == 1:
 				if linear_velocity.y <= 0.25:
-					apply_central_impulse(Vector3(0, 1 ,0) * 20 )
+					apply_central_impulse(Vector3.UP * 15 )
 					jumps -=1
 			elif jumps == 0:
 				grounded = 0
 
+func _integrate_forces(state):
+	if launch == true:
+		inputVector = Vector3( 0 , 0 ,input.y)
+		#var tangent_dir = (inputVector - inputVector.dot(rope_dir) * rope_dir).normalized()
+		torque_axis = rope_dir.cross(inputVector).normalized()
+		apply_torque_impulse(torque_axis * 50)
+	elif launchChain == true and colliding == false:
+		torque_axis = null
+		inputVector = Vector3( input.x , 0 ,input.y)
+		apply_central_force(inputVector * mNode.basis)
+		if horizontal_velocity.length() > 8.2:
+			horizontal_velocity = horizontal_velocity.normalized() * max_speed
+			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
+	elif launch == false and launchChain == false and Input.is_action_pressed("shift"):
+		inputVector = Vector3(input.x, 0 ,input.y)
+		if horizontal_velocity.length() > 8.2:
+			horizontal_velocity = horizontal_velocity.normalized() * max_speed
+			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
+			if linear_velocity.y > 15.1:
+				linear_velocity.y = 15
+	else:
+		inputVector = Vector3(input.x, 0 ,input.y)
+		if horizontal_velocity.length()> 3.1:
+			horizontal_velocity = horizontal_velocity.normalized() * max_speed
+			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
+			if linear_velocity.y > 15.1:
+				linear_velocity.y = 15
 
 func _on_grapple_controller_launching():
 	launch = true
-	launchWas = true
+	launchChain = true
 	if jumps == 0:
 		jumps += 1
 	print(jumps)
 
 
 func _on_grapple_controller_retracted():
-	launchWas = false
+	launch = false
+	rope_dir = null
 
 
 
 
+
+func _on_grapple_controller_point(dir_player_targ):
+	rope_dir = dir_player_targ
