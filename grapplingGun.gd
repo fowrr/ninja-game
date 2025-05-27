@@ -45,6 +45,7 @@ func grapple_physics():
 	#our player will move towards what it should be(rest length). Else, gravity will take care of it.
 	if displacement > 0:
 		var spring_force_mag = stiffness * displacement #force of our spring springing back, higher stiffness = 
+		spring_force_mag = clamp(spring_force_mag, 0, 1000)
 		var spring_force = spring_force_mag * dir_player_targ # more harder to spring in the first place, which is what i'm going for. This line makes sure that we're springing back to the
 																#target.
 		var vel_dot = player.linear_velocity.dot(dir_player_targ) 

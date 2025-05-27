@@ -97,8 +97,6 @@ debug_shape_thickness = 5
 [node name="grappleController" type="Node3D" parent="." node_paths=PackedStringArray("RayCast")]
 script = ExtResource("3_ahoc6")
 RayCast = NodePath("../v/h/S/Camera3D/RayCast3D")
-stiffness = 20.0
-damping = 1.0
 
 [connection signal="colF" from="." to="grappleController" method="_on_bean_col_f"]
 [connection signal="colT" from="." to="grappleController" method="_on_bean_col_t"]
