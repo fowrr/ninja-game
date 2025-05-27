@@ -18,9 +18,3 @@ if launch == true and launchWas == true:
 			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
 			
 			
-if launch == true:
-		inputVector = Vector3( 0 , 0 ,input.y)
-		if inputVector:
-			var tangent = (linear_velocity - linear_velocity.project(rope_dir)).normalized()
-			var swing_force = tangent * inputVector.z 
-			apply_central_force(swing_force)

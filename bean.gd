@@ -1,5 +1,4 @@
 extends RigidBody3D
-
 signal veloSpeed
 signal colF
 signal colT
@@ -35,7 +34,7 @@ func _process(delta):
 	
 	#If you're in the air, fall faster.
 	if linear_velocity.y <= -1.0:
-		gravity_scale = 1
+		gravity_scale = 1.5
 	else:
 		gravity_scale = 1
 		
@@ -111,25 +110,17 @@ func _unhandled_input(event):
 				grounded = 0
 
 func _integrate_forces(state):
-	if launch:
-		inputVector = Vector3(0, 0, input.y)
-
-		if inputVector.length() > 0:
-			# Find the perpendicular direction to the rope to apply swing force
-			var tangent = (linear_velocity - linear_velocity.project(rope_dir))
-			if tangent.length() > 0.01:
-				tangent = tangent.normalized()
-
-			# Boost momentum like a real swing
-			var swing_force = tangent * inputVector.z   # Boost this for more acceleration
-			apply_central_force(swing_force)
-
-
+	if launch == true:
+		inputVector = Vector3( 0 , 0 ,input.y)
+		torque_axis = rope_dir.cross(inputVector).normalized()
+		apply_torque_impulse(torque_axis * 50)
 	elif launchChain == true and colliding == false:
 		torque_axis = null
 		inputVector = Vector3( input.x , 0 ,input.y)
 		apply_central_force(inputVector * mNode.basis)
-		
+		if horizontal_velocity.length() < 8.2:
+			horizontal_velocity = horizontal_velocity.normalized() * max_speed
+			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
 	elif launch == false and launchChain == false and Input.is_action_pressed("shift"):
 		inputVector = Vector3(input.x, 0 ,input.y)
 		if horizontal_velocity.length() > 8.2:
