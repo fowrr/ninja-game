@@ -51,16 +51,17 @@ func _process(delta):
 	input = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
 	var horizon_basis = mNode.basis #Check for nMode explanation (second line in unhandled input).
 	apply_central_force(inputVector * vMultiplier * 1 * delta * horizon_basis) #Apply movement
-	if Input.is_action_pressed("shift"):
+	if Input.is_action_pressed("shift") and launchChain == false:
 		max_speed = 8.0
 		vMultiplier = 4000
-	else:
+	elif launchChain == false:
 		max_speed = lerp(max_speed, 3.0, 0.1)
 		vMultiplier = 2500
+
 	if input == Vector2.ZERO and colliding == true:
 		max_speed = lerp(max_speed, 0.0, 0.1)
 
-	print(linear_velocity)
+	#print(launchChain)
 	#print(rope_dir)
 	col()
 
@@ -115,11 +116,15 @@ func _integrate_forces(state):
 		#var tangent_dir = (inputVector - inputVector.dot(rope_dir) * rope_dir).normalized()
 		torque_axis = rope_dir.cross(inputVector).normalized()
 		apply_torque_impulse(torque_axis * 50)
-	elif launchChain == true and colliding == false:
+	elif launchChain == true and colliding == false and launch == false:
+		print(inputVector)
 		torque_axis = null
 		inputVector = Vector3( input.x , 0 ,input.y)
-		apply_central_force(inputVector * mNode.basis)
-		if horizontal_velocity.length() > 8.2:
+		if horizontal_velocity.length() >= 8.2:
+			vMultiplier = lerp(vMultiplier, 1000.00, 0.5)
+			#apply_central_force(inputVector * mNode.basis * vMultiplier)
+		elif horizontal_velocity.length() < 8.2:
+			vMultiplier = 2500
 			horizontal_velocity = horizontal_velocity.normalized() * max_speed
 			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
 	elif launch == false and launchChain == false and Input.is_action_pressed("shift"):
@@ -148,6 +153,7 @@ func _on_grapple_controller_launching():
 func _on_grapple_controller_retracted():
 	launch = false
 	rope_dir = null
+	vMultiplier = 5000
 
 
 
