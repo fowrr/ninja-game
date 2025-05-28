@@ -115,10 +115,13 @@ func _integrate_forces(state):
 		#var tangent_dir = (inputVector - inputVector.dot(rope_dir) * rope_dir).normalized()
 		torque_axis = rope_dir.cross(inputVector).normalized()
 		apply_torque_impulse(torque_axis * 50)
-	elif launchChain == true:
+	elif launchChain == true and colliding == false:
 		torque_axis = null
 		inputVector = Vector3( input.x , 0 ,input.y)
-		apply_central_force(mNode.basis)
+		apply_central_force(inputVector * mNode.basis)
+		if horizontal_velocity.length() > 8.2:
+			horizontal_velocity = horizontal_velocity.normalized() * max_speed
+			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
 	elif launch == false and launchChain == false and Input.is_action_pressed("shift"):
 		inputVector = Vector3(input.x, 0 ,input.y)
 		if horizontal_velocity.length() > 8.2:
