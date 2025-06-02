@@ -50,6 +50,12 @@ shape = SubResource("BoxShape3D_unrcs")
 [node name="bean" parent="." instance=ExtResource("2_mnx2g")]
 transform = Transform3D(0.0208203, 0, 0.999783, 0, 1, 0, -0.999783, 0, 0.0208203, 10.8412, 5.30802, 0)
 
+[node name="knifePos" parent="bean/v/h" index="0"]
+transform = Transform3D(1, 1.86265e-09, 5.55112e-17, 0, -4.37114e-08, 1, 1.86265e-09, -1, -4.37114e-08, 0, 0.274129, -1)
+
+[node name="knife" parent="bean/v/h" index="1"]
+transform = Transform3D(0.163469, -0.00363708, -0.0585305, 0.0585433, -2.55901e-09, 0.163505, -0.0034242, -0.173632, 0.00122604, 0.807, 0.12, -1.248)
+
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 9, 4.80825e-07)
 use_collision = true
@@ -80,3 +86,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84105e-07, 1.46769, 4.21183
 [node name="knifeProj" parent="." instance=ExtResource("6_oo3tn")]
 
 [connection signal="body_entered" from="void" to="bean" method="_on_void_body_entered"]
+
+[editable path="bean"]
+[editable path="bean/v/h/knife"]
+[editable path="bean/v/h/grapple2"]
+[editable path="bean/v/h/rope"]
