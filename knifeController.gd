@@ -4,6 +4,8 @@ signal sensChange2
 var knifeAvailable = false
 @onready var zoom = $"../Control/zoom"
 @onready var camera = $"../v/h/Camera3D"
+@onready var pos = $"../v/h/knifePos"
+var knife_proj = preload("res://knife_proj.tscn").instantiate() 
 #@onready var 
 #@onready var 
 #@onready var 
@@ -24,8 +26,11 @@ func _process(delta):
 			camera.fov = 75
 			emit_signal("sensChange2")
 		if Input.is_action_just_pressed("shoot"):
-			pass
-
+			shoot()
+func shoot():
+	knife_proj.position = pos.global_position
+	knife_proj.transform.basis = pos.global_transform.basis
+	get_parent().add_child(knife_proj)
 
 func _on_bean_grapple_1():
 	knifeAvailable = false
