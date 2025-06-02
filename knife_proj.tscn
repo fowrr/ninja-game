@@ -8,7 +8,7 @@ top_level = true
 script = ExtResource("1_1pffk")
 
 [node name="knife" parent="." instance=ExtResource("1_2kl2s")]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.11692, -0.33306, 0.23985)
+transform = Transform3D(-0.2, 0, -1.74846e-08, 0, 0.2, 0, 1.74846e-08, 0, -0.2, 0, 0, 0)
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 40.0
