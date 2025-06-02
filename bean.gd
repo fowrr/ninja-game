@@ -2,6 +2,8 @@ extends RigidBody3D
 signal veloSpeed
 signal colF
 signal colT
+signal Grapple1
+signal Knife1
 var vMultiplier := 1000.0
 var mouse_sens = 0.3
 @onready var hrzn = $v
@@ -11,11 +13,13 @@ var mouse_sens = 0.3
 var grounded = 0
 var max_speed := 3.0
 var jumps = 2
-@onready var rayCast = $v/h/S/Camera3D/RayCast3D
-@onready var h = ($"v/h/S/Camera3D/RayCast3D/rayball").get_surface_override_material(0)
-@onready var ball = $v/h/S/Camera3D/RayCast3D/rayball
-@onready var rayEnd = $v/h/S/Camera3D/longRay/rayEnd
-@onready var longRay = $v/h/S/Camera3D/longRay
+@onready var rayCast = $v/h/Camera3D/RayCast3D
+@onready var h = ($"v/h/Camera3D/RayCast3D/rayball").get_surface_override_material(0)
+@onready var ball = $v/h/Camera3D/RayCast3D/rayball
+@onready var rayEnd = $v/h/Camera3D/longRay/rayEnd
+@onready var longRay = $v/h/Camera3D/longRay
+@onready var grapLogo = $Control/grappler
+@onready var knifeLogo = $Control/knife
 var colliding = false
 var launch = false
 var launchChain = false
@@ -24,11 +28,26 @@ var input = Vector3.ZERO
 var horizontal_velocity = Vector2.ZERO
 var rope_dir = Vector3.ZERO
 var torque_axis = null
+@onready var plunger = $v/h/grapple2/Plunger
+@onready var gunPlunger = $v/h/grapple2/Tinker
+@onready var knife = $v/h/knife/knife
+@onready var knifeRay = $"v/h/Camera3D/knife ray"
+@onready var initial_pos = global_position
+@onready var crosshair = $v/h/Camera3D/crosshair
+var plungerUse = 0
+var knifeUse = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	crosshair.visible = false
+	print(initial_pos)
+	grapLogo.visible = false
+	knifeLogo.visible = false
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	linear_damp = 1.0
-	
+	gunPlunger.visible = false
+	plunger.visible = false
+	knife.visible = false
+	ball.visible = false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
@@ -55,16 +74,55 @@ func _process(delta):
 		max_speed = 8.0
 		vMultiplier = 4000
 	elif launchChain == false:
-		max_speed = lerp(max_speed, 3.0, 0.1)
+		max_speed = lerp(max_speed, 4.0, 0.5)
 		vMultiplier = 2500
 
 	if input == Vector2.ZERO and colliding == true:
 		max_speed = lerp(max_speed, 0.0, 0.1)
-
+	
+	
+	#To process my items and when i can use them and what not
+	if plungerUse == 0:
+		pass
+	elif plungerUse == 1:
+		if Input.is_action_just_pressed("1"):
+			crosshair.visible = true
+			plunger.visible = true
+			ball.visible = true
+			gunPlunger.visible = true
+			knife.visible = false
+			emit_signal("Grapple1")
+	if knifeUse == 0:
+		pass
+	elif knifeUse == 1:
+		crosshair.visible = true
+		ball.visible = true
+		if Input.is_action_just_pressed("2"):
+			emit_signal("Knife1")
+			plunger.visible = false
+			gunPlunger.visible = false
+			knife.visible = true
+	if plunger.visible == true:
+		col()
+	elif knife.visible == true:
+		colK()
+	
 	#print(launchChain)
 	#print(rope_dir)
-	col()
-
+	
+func colK():
+	if knifeRay.is_colliding():
+		h.albedo_color = Color(0,1,0)
+		var collision_point = rayCast.get_collision_point()
+		ball.global_transform.origin = collision_point
+		colliding = true
+		emit_signal("colT")
+	else:
+		h.albedo_color = Color(1,0,0)
+		ball.global_transform.origin = rayEnd.global_transform.origin
+		colliding = false
+		emit_signal("colF")
+		return colliding
 #This works
 func col():
 	if longRay.is_colliding():
@@ -88,11 +146,11 @@ func col():
 		return colliding
 
 #This works
-func _unhandled_input(event):  		
+func _input(event):  	
 	if event is InputEventMouseMotion: #My movement code
 		mNode.rotate_y(deg_to_rad(event.relative.x*mouse_sens)) #moNode, meaning movement Node, ensures that my movement is going the right way (because the way your camera turns is the opposite way your character should move)
 		hrzn.rotate_y(deg_to_rad(-event.relative.x*mouse_sens)) 
-		vert.rotate_x(deg_to_rad(-event.relative.y*0.3))
+		vert.rotate_x(deg_to_rad(-event.relative.y*mouse_sens))
 		vert.rotation.x = clamp(vert.rotation.x, deg_to_rad(-90.0), deg_to_rad(60.0))
 	if $feet.is_colliding():
 		grounded = 1
@@ -107,8 +165,7 @@ func _unhandled_input(event):
 				if linear_velocity.y <= 0.25:
 					apply_central_impulse(Vector3.UP * 15 )
 					jumps -=1
-			elif jumps == 0:
-				grounded = 0
+		
 
 func _integrate_forces(state):
 	if launch == true:
@@ -116,16 +173,15 @@ func _integrate_forces(state):
 		#var tangent_dir = (inputVector - inputVector.dot(rope_dir) * rope_dir).normalized()
 		torque_axis = rope_dir.cross(inputVector).normalized()
 		apply_torque_impulse(torque_axis * 50)
-	elif launchChain == true and colliding == false and launch == false:
-		print(inputVector)
+	elif launchChain == true and launch == false:
 		torque_axis = null
 		inputVector = Vector3( input.x , 0 ,input.y)
-		if horizontal_velocity.length() >= 8.2:
+		if horizontal_velocity.length() >= 10.0:
 			vMultiplier = lerp(vMultiplier, 1000.00, 0.5)
-			#apply_central_force(inputVector * mNode.basis * vMultiplier)
-		elif horizontal_velocity.length() < 8.2:
-			vMultiplier = 2500
-			horizontal_velocity = horizontal_velocity.normalized() * max_speed
+		elif horizontal_velocity.length() > 8.1:
+			print("bruhbruh")
+			vMultiplier = 2000
+			horizontal_velocity = horizontal_velocity.normalized() * 8
 			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
 	elif launch == false and launchChain == false and Input.is_action_pressed("shift"):
 		inputVector = Vector3(input.x, 0 ,input.y)
@@ -136,7 +192,7 @@ func _integrate_forces(state):
 				linear_velocity.y = 15
 	else:
 		inputVector = Vector3(input.x, 0 ,input.y)
-		if horizontal_velocity.length()> 3.1:
+		if horizontal_velocity.length()> 4.1:
 			horizontal_velocity = horizontal_velocity.normalized() * max_speed
 			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
 			if linear_velocity.y > 15.1:
@@ -144,6 +200,7 @@ func _integrate_forces(state):
 
 func _on_grapple_controller_launching():
 	launch = true
+	plunger.visible = false
 	launchChain = true
 	if jumps == 0:
 		jumps += 1
@@ -152,12 +209,30 @@ func _on_grapple_controller_launching():
 
 func _on_grapple_controller_retracted():
 	launch = false
+	plunger.visible = true
 	rope_dir = null
 	vMultiplier = 5000
 
 
-
-
-
 func _on_grapple_controller_point(dir_player_targ):
 	rope_dir = dir_player_targ
+ 
+
+func _on_void_body_entered(body):
+	if "bean" == body.get_name():
+		global_position = initial_pos
+
+func grapple_visibilty():
+	grapLogo.visible = true
+	plungerUse = 1
+func knife_visibilty():
+	knifeLogo.visible = true
+	knifeUse = 1
+
+
+func _on_knife_controller_sens_change():
+	mouse_sens = 0.05
+
+
+func _on_knife_controller_sens_change_2():
+	mouse_sens = 0.3

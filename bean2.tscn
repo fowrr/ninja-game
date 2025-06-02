@@ -1,17 +1,26 @@
-[gd_scene load_steps=12 format=3 uid="uid://0myexbcst06a"]
+[gd_scene load_steps=21 format=3 uid="uid://0myexbcst06a"]
 
 [ext_resource type="Script" path="res://bean.gd" id="1_qxflj"]
 [ext_resource type="Script" path="res://velocity.gd" id="1_sf2ci"]
+[ext_resource type="PackedScene" uid="uid://bj5wqrc2ju5dt" path="res://grappleHook.tscn" id="2_3mny3"]
+[ext_resource type="PackedScene" uid="uid://b1k7gm4u1f071" path="res://knife.tscn" id="2_3or4o"]
 [ext_resource type="Script" path="res://grapplingGun.gd" id="3_ahoc6"]
+[ext_resource type="Script" path="res://crosshair.gd" id="3_ci4wn"]
+[ext_resource type="Texture2D" uid="uid://cdfbut88bodvg" path="res://1545215.png" id="3_dqfq7"]
+[ext_resource type="PackedScene" uid="uid://c31d4me6odojn" path="res://rope.tscn" id="4_32k68"]
+[ext_resource type="Texture2D" uid="uid://bsvn0hgh0hjq0" path="res://inventory_slot.webp" id="7_yqfbj"]
+[ext_resource type="Texture2D" uid="uid://ccrmjsl8ubndb" path="res://texutre/plunger_grappler-removebg-preview.png" id="8_orrfh"]
+[ext_resource type="Texture2D" uid="uid://pcetl67vgjhl" path="res://texutre/knife-removebg-preview.png" id="9_fj52j"]
+[ext_resource type="Texture2D" uid="uid://0ul5afc1iojb" path="res://zoom_background.svg" id="11_pqti6"]
+[ext_resource type="Script" path="res://knifeController.gd" id="12_dteog"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_27feu"]
+friction = 0.3
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_5pyfu"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_p755r"]
-points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607, 0.498884, 0.169713, 0.559144, 0.464172, 0.231051, -0.803591, 0.320455, 0.40741, 0.651043, -0.243523, -0.482789, 0.594843, 0.0822132, -0.362868, -0.682312, 0.289697, 0.469044, -0.654529, -0.0662713, -0.127444, 0.842701, -0.338103, -0.393435, -0.683942, -0.244717, 0.438255, 0.623309, 0.200849, 0.0841477, 0.977454, 0.114795, -0.0682023, -0.976458, -0.12927, 0.20055, -0.563129, -0.451454, -0.185527, 0.595453, -0.453475, -0.273363, 0.592268, 0.407754, -0.00693649, -0.476823, 0.49966, 0.375821, -0.588614, 0.316955, 0.111579, 0.563059, -0.481177, -0.41725, 0.527866, -0.270497, -0.484546, -0.596972, -0.0665097, -0.279747, 0.908561, 0.0533361, -0.250197, -0.880712, 0.205319, 0.263647, -0.902771, -0.127394, 0.293368, 0.871526, -0.157196, 0.373412, -0.526319, -0.328246, 0.499663, 0.476641, -0.00688856, 0.0531056, 0.875001, 0.324703, -0.154543, -0.590854, 0.465879, -0.0972799, -0.782358, -0.398188, -0.387649, -0.498171, 0.31565, -0.30068, -0.587995, -0.388901)
-
-[sub_resource type="BoxMesh" id="BoxMesh_cagre"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_o17uy"]
+size = Vector3(1, 2, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_wn8xr"]
 
@@ -31,40 +40,56 @@ script = ExtResource("1_qxflj")
 mesh = SubResource("CapsuleMesh_5pyfu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("ConvexPolygonShape3D_p755r")
+shape = SubResource("BoxShape3D_o17uy")
 
 [node name="v" type="Node3D" parent="."]
 
 [node name="h" type="Node3D" parent="v"]
 
-[node name="grapple" type="MeshInstance3D" parent="v/h"]
-transform = Transform3D(0.185116, 0, 0, 0, 0.2182, 0, 0, 0, -0.355081, 0.55767, -0.0778795, -0.58788)
-mesh = SubResource("BoxMesh_cagre")
-skeleton = NodePath("../../../feet")
+[node name="knife" parent="v/h" instance=ExtResource("2_3or4o")]
+transform = Transform3D(0.17367, 0, 0, 0, 0.17367, 0, 0, 0, 0.17367, 0.935572, -0.128508, -1.13141)
 
-[node name="S" type="SpringArm3D" parent="v/h"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.52019, 0.209254, -0.43255)
-spring_length = 4.0
+[node name="grapple2" parent="v/h" instance=ExtResource("2_3mny3")]
+transform = Transform3D(0.0163518, 0.155578, 0.987688, 0.103242, 0.982278, -0.156434, -0.994522, 0.104528, -4.31732e-08, 1.005, -0.39, -1.309)
 
-[node name="Camera3D" type="Camera3D" parent="v/h/S"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+[node name="rope" parent="v/h" instance=ExtResource("4_32k68")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.89, 0, -1.337)
+visible = false
 
-[node name="RayCast3D" type="RayCast3D" parent="v/h/S/Camera3D"]
-transform = Transform3D(2.03, 0, 0, 0, -2.62268e-07, -2.03, 0, 6, -8.87341e-08, 0, 0, -4.12111)
+[node name="Camera3D" type="Camera3D" parent="v/h"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.270561, 0)
+
+[node name="RayCast3D" type="RayCast3D" parent="v/h/Camera3D"]
+transform = Transform3D(2.03, 0, 0, 0, -4.48072e-07, -2.03, 0, 10.2507, -8.87341e-08, 0, 0, -0.905088)
+collision_mask = 2
 debug_shape_custom_color = Color(0, 1, 0, 1)
 debug_shape_thickness = 5
 
-[node name="rayball" type="MeshInstance3D" parent="v/h/S/Camera3D/RayCast3D"]
-transform = Transform3D(0.0723072, 0, 0, 0, -1.06909e-09, 0.0244579, 0, -0.0723072, -3.16067e-09, -0.00159597, -0.997927, 0.000800118)
+[node name="rayball" type="MeshInstance3D" parent="v/h/Camera3D/RayCast3D"]
+transform = Transform3D(0.0723072, 0, 0, 0, -1.85001e-09, 0.0143158, 0, -0.0723072, -1.06909e-09, -0.00159615, -1.00189, 0.000800207)
 mesh = SubResource("SphereMesh_wn8xr")
 surface_material_override/0 = SubResource("StandardMaterial3D_8ncp1")
 
-[node name="longRay" type="RayCast3D" parent="v/h/S/Camera3D"]
-transform = Transform3D(1.342, 0, 0, 0, -4.37114e-07, -1.342, 0, 10, -5.86607e-08, 0, 0, -4.12111)
+[node name="longRay" type="RayCast3D" parent="v/h/Camera3D"]
+transform = Transform3D(1.342, 0, 0, 0, -7.46788e-07, -1.342, 0, 17.0845, -5.86607e-08, 0, 0, -1.60201)
+collision_mask = 2
 debug_shape_thickness = 5
 
-[node name="rayEnd" type="Node3D" parent="v/h/S/Camera3D/longRay"]
-transform = Transform3D(0.0972481, 0, 0, 0, -5.7018e-10, 0.0130442, 0, -0.0972481, -4.25085e-09, -0.00214647, -0.999558, 0.00107633)
+[node name="rayEnd" type="Node3D" parent="v/h/Camera3D/longRay"]
+transform = Transform3D(0.0972481, 0, 0, 0, -3.33741e-10, 0.0076351, 0, -0.0972481, -4.25085e-09, -0.00214648, -0.999873, 0.00107653)
+
+[node name="crosshair" type="TextureRect" parent="v/h/Camera3D"]
+modulate = Color(0, 0.760784, 0.14902, 1)
+offset_left = 537.668
+offset_top = 284.635
+offset_right = 1049.67
+offset_bottom = 796.635
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("3_dqfq7")
+script = ExtResource("3_ci4wn")
+
+[node name="knife ray" type="RayCast3D" parent="v/h/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, -1.47609e-06, -1, 0, 33.769, -4.37114e-08, 0, 0, -0.90563)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="v"]
 transform = Transform3D(0.357546, 0, 0, 0, 0.3, 0, 0, 0, 0.648738, 0.349525, 0.199342, 0)
@@ -88,20 +113,144 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_sf2ci")
 
+[node name="slot1" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_left = 478.656
+offset_top = 549.069
+offset_right = 574.656
+offset_bottom = 645.069
+texture = ExtResource("7_yqfbj")
+expand_mode = 1
+
+[node name="1" type="Label" parent="Control/slot1"]
+z_index = 2
+layout_mode = 0
+offset_left = 19.7281
+offset_top = 53.286
+offset_right = 59.7281
+offset_bottom = 79.286
+text = "1"
+
+[node name="grappler" type="TextureRect" parent="Control"]
+z_index = 1
+layout_mode = 0
+offset_left = 498.384
+offset_top = 557.078
+offset_right = 559.384
+offset_bottom = 625.078
+texture = ExtResource("8_orrfh")
+expand_mode = 1
+
+[node name="knife" type="TextureRect" parent="Control"]
+z_index = 1
+layout_mode = 0
+offset_left = 592.384
+offset_top = 557.078
+offset_right = 653.384
+offset_bottom = 625.078
+texture = ExtResource("9_fj52j")
+expand_mode = 1
+
+[node name="slot2" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_left = 572.656
+offset_top = 549.069
+offset_right = 668.656
+offset_bottom = 645.069
+texture = ExtResource("7_yqfbj")
+expand_mode = 1
+
+[node name="2" type="Label" parent="Control/slot2"]
+z_index = 3
+layout_mode = 0
+offset_left = 19.728
+offset_top = 53.286
+offset_right = 59.728
+offset_bottom = 79.286
+text = "2
+"
+
+[node name="zoom" type="Control" parent="Control"]
+z_index = 6
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="Control/zoom"]
+layout_mode = 0
+offset_left = 302.653
+offset_top = 41.2009
+offset_right = 949.653
+offset_bottom = 688.201
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("11_pqti6")
+expand_mode = 1
+
+[node name="ColorRect" type="ColorRect" parent="Control/zoom"]
+layout_mode = 0
+offset_left = -56.0
+offset_top = 2.0
+offset_right = -13.0
+offset_bottom = 42.0
+scale = Vector2(28.9, 2.65)
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="Control/zoom"]
+layout_mode = 0
+offset_left = 4.32124
+offset_top = 549.653
+offset_right = 47.3212
+offset_bottom = 589.653
+scale = Vector2(28.9, 2.65)
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="Control/zoom"]
+layout_mode = 0
+offset_left = -18.0
+offset_top = 97.0
+offset_right = -6.0
+offset_bottom = 310.0
+scale = Vector2(28.9, 2.65)
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="Control/zoom"]
+layout_mode = 0
+offset_left = 824.91
+offset_top = 90.6504
+offset_right = 836.91
+offset_bottom = 303.65
+scale = Vector2(28.9, 2.65)
+color = Color(0, 0, 0, 1)
+
 [node name="feet" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.2182, 0, 0, 0, 1, 0, -0.772497, 0)
+transform = Transform3D(1, 0, 0, 0, 0.2182, 0, 0, 0, 1, 0, -0.795914, 0)
 hit_from_inside = true
 debug_shape_custom_color = Color(1, 0, 0, 1)
 debug_shape_thickness = 5
 
 [node name="grappleController" type="Node3D" parent="." node_paths=PackedStringArray("RayCast")]
 script = ExtResource("3_ahoc6")
-RayCast = NodePath("../v/h/S/Camera3D/RayCast3D")
+RayCast = NodePath("../v/h/Camera3D/RayCast3D")
 stiffness = 20.0
 damping = 1.0
 
+[node name="knifeController" type="Node3D" parent="."]
+script = ExtResource("12_dteog")
+
+[connection signal="Grapple1" from="." to="grappleController" method="_on_bean_grapple_1"]
+[connection signal="Grapple1" from="." to="knifeController" method="_on_bean_grapple_1"]
+[connection signal="Knife1" from="." to="grappleController" method="_on_bean_knife_1"]
+[connection signal="Knife1" from="." to="knifeController" method="_on_bean_knife_1"]
+[connection signal="colF" from="." to="v/h/Camera3D/crosshair" method="_on_bean_col_f"]
 [connection signal="colF" from="." to="grappleController" method="_on_bean_col_f"]
+[connection signal="colT" from="." to="v/h/Camera3D/crosshair" method="_on_bean_col_t"]
 [connection signal="colT" from="." to="grappleController" method="_on_bean_col_t"]
 [connection signal="launching" from="grappleController" to="." method="_on_grapple_controller_launching"]
 [connection signal="point" from="grappleController" to="." method="_on_grapple_controller_point"]
 [connection signal="retracted" from="grappleController" to="." method="_on_grapple_controller_retracted"]
+[connection signal="sensChange" from="knifeController" to="." method="_on_knife_controller_sens_change"]
+[connection signal="sensChange2" from="knifeController" to="." method="_on_knife_controller_sens_change_2"]
+
+[editable path="v/h/knife"]
+[editable path="v/h/grapple2"]
+[editable path="v/h/rope"]

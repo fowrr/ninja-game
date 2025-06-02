@@ -1,0 +1,82 @@
+[gd_scene load_steps=13 format=3 uid="uid://deco3d5tgnl7s"]
+
+[ext_resource type="Texture2D" uid="uid://bcklkn2wq7gl2" path="res://512X512.png" id="1_1d2po"]
+[ext_resource type="PackedScene" uid="uid://0myexbcst06a" path="res://bean2.tscn" id="2_mnx2g"]
+[ext_resource type="Texture2D" uid="uid://cks7vxsf48h1e" path="res://DayEnvironmentHDRI043_2K-HDR.exr" id="3_0dhgv"]
+[ext_resource type="PackedScene" uid="uid://bp3iv3b1bt23s" path="res://grapple_area_node.tscn" id="4_rcyvc"]
+[ext_resource type="PackedScene" uid="uid://bocxhkd2arpln" path="res://knife_area_node.tscn" id="5_t4j6a"]
+[ext_resource type="PackedScene" uid="uid://co8syxmms3ci0" path="res://knife_proj.tscn" id="6_oo3tn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7m3a3"]
+albedo_texture = ExtResource("1_1d2po")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_unrcs"]
+size = Vector3(1, 2, 2)
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_5lgmj"]
+panorama = ExtResource("3_0dhgv")
+
+[sub_resource type="Sky" id="Sky_1f7kj"]
+sky_material = SubResource("PanoramaSkyMaterial_5lgmj")
+
+[sub_resource type="Environment" id="Environment_nr22m"]
+resource_local_to_scene = true
+background_mode = 2
+background_color = Color(0.992157, 0.992157, 0.992157, 1)
+background_energy_multiplier = 0.33
+sky = SubResource("Sky_1f7kj")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kpxyb"]
+
+[node name="Node3D" type="Node3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="starting island" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.70738, 0)
+material_override = SubResource("StandardMaterial3D_7m3a3")
+use_collision = true
+size = Vector3(30, 1, 20)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.309647, 0.598283, -0.739038, 0.231199, 0.801285, 0.551805, 0.922316, 1.37436e-08, -0.386437, -31.434, 14.8129, 0)
+
+[node name="tutorial trigger" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 1.31134e-07)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="tutorial trigger"]
+transform = Transform3D(0.346855, 0, 0, 0, 10.3358, 0, 0, 0, 20.0236, 7.39172, 0, 0)
+shape = SubResource("BoxShape3D_unrcs")
+
+[node name="bean" parent="." instance=ExtResource("2_mnx2g")]
+transform = Transform3D(0.0208203, 0, 0.999783, 0, 1, 0, -0.999783, 0, 0.0208203, 10.8412, 5.30802, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 9, 4.80825e-07)
+use_collision = true
+collision_layer = 3
+collision_mask = 2
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 8, 3)
+use_collision = true
+size = Vector3(14, 1, 28)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_nr22m")
+
+[node name="void" type="Area3D" parent="."]
+transform = Transform3D(10.4937, 0, 527.736, 0, 1, 0, -503.904, 0, 10.99, 10.8412, -11.692, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="void"]
+transform = Transform3D(1, 0, -1.86265e-09, 0, 1, 0, 1.86265e-09, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_kpxyb")
+
+[node name="grapple_areaNode" parent="." instance=ExtResource("4_rcyvc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.27688e-08, 0.491164, -1.43598)
+
+[node name="knife_areaNode" parent="." instance=ExtResource("5_t4j6a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84105e-07, 1.46769, 4.21183)
+
+[node name="knifeProj" parent="." instance=ExtResource("6_oo3tn")]
+
+[connection signal="body_entered" from="void" to="bean" method="_on_void_body_entered"]

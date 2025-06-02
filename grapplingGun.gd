@@ -7,12 +7,14 @@ signal point(dir_player_targ)
 #I will attempt to make a 3D version of the springJoint that the 2D space has.
 var colliding = false
 @export var RayCast: RayCast3D
-@onready var ray = $"../v/h/S/Camera3D/RayCast3D"
+@onready var ray = $"../v/h/Camera3D/RayCast3D"
 @export var stiffness := 10.0
 @export var rest_length := 4.0
 @export var damping := 2.0
 @onready var player = get_parent()
 @onready var mBasis = mNode.basis
+@onready var rope = $"../v/h/rope"
+var plungerAvailable = false
 func _ready():
 	pass # Replace with function body.
 
@@ -20,15 +22,16 @@ var launched = false
 var hook_target = Vector3.ZERO
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_just_pressed("shoot") and colliding == true:
-		launch()
-		emit_signal("launching")
-	if Input.is_action_just_released("shoot"):
-		retract()
-		emit_signal("retracted")
-	if launched == true:
-		grapple_physics()
-
+	if plungerAvailable == true:
+		if Input.is_action_just_pressed("shoot") and colliding == true:
+			launch()
+			emit_signal("launching")
+		if Input.is_action_just_released("shoot"):
+			retract()
+			emit_signal("retracted")
+		if launched == true:
+			grapple_physics()
+		draw_rope()
 func retract():
 	launched = false
 
@@ -57,3 +60,24 @@ func _on_bean_col_t():
 
 func _on_bean_col_f():
 	colliding = false
+
+func draw_rope():
+	if !launched:
+		rope.visible = false
+		return
+	rope.visible = true
+	
+	var distance = player.global_position.distance_to(hook_target) 
+	
+	rope.look_at(hook_target)
+	rope.scale = Vector3(1,1,distance/2)
+	
+
+
+func _on_bean_grapple_1():
+	plungerAvailable = true
+
+
+
+func _on_bean_knife_1():
+	plungerAvailable = false

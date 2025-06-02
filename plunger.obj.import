@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://byiq81w3j20s3"
+path="res://.godot/imported/plunger.obj-b4fb5b7fc53306b29561c1c64b44f285.mesh"
+
+[deps]
+
+files=["res://.godot/imported/plunger.obj-b4fb5b7fc53306b29561c1c64b44f285.mesh"]
+
+source_file="res://plunger.obj"
+dest_files=["res://.godot/imported/plunger.obj-b4fb5b7fc53306b29561c1c64b44f285.mesh", "res://.godot/imported/plunger.obj-b4fb5b7fc53306b29561c1c64b44f285.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
