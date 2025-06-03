@@ -11,7 +11,8 @@ extends Control
 @onready var nine = $"9"
 @onready var ten = $"10"
 
-@onready var current_level = [ten,nine,eight,seven,six,five,four,three,two,one]
+@onready var current_levels = [ten,nine,eight,seven,six,five,four,three,two,one]
+@onready var all_levels = [ten,nine,eight,seven,six,five,four,three,two,one]
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -19,6 +20,16 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	for level in current_level:
-		level.disabled = true
-
+	for level in all_levels:
+		if level in current_levels:
+			level.disabled = true
+		else:
+			level.disabled = false
+			
+	if Globals.current_level != len(current_levels):
+		change()
+func change():
+	print(Globals.current_level)
+	print(len(current_levels))
+	current_levels.pop_at(-1)
+	print(current_levels)

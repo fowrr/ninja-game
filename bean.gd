@@ -41,6 +41,7 @@ var torque_axis = null
 var plungerUse = 0
 var knifeUse = 0
 var paused = false
+var win = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	crosshair.visible = false
@@ -279,3 +280,9 @@ func _on_tutorial_trigger_body_entered(body):
 
 func _on_resume_pressed():
 	paused = false
+
+
+
+func _on_body_entered(body):
+	if body.get_:
+		win = true

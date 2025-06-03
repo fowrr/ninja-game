@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://etdkw4tyrp7j"]
+[gd_scene load_steps=5 format=3 uid="uid://etdkw4tyrp7j"]
 
 [ext_resource type="ArrayMesh" uid="uid://bn3dtj4rwkedn" path="res://tinker.obj" id="1_n2mwj"]
 [ext_resource type="ArrayMesh" uid="uid://byiq81w3j20s3" path="res://plunger.obj" id="2_pspbi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bnuwp"]
+albedo_color = Color(0.678431, 0.454902, 0.172549, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_afms2"]
+albedo_color = Color(0.843137, 0.0431373, 0.54902, 1)
 
 [node name="grapple" type="Node3D"]
 
@@ -12,3 +18,5 @@ mesh = ExtResource("1_n2mwj")
 [node name="Plunger" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.033, 0, 0, 0, 0.033, 0, 0, 0, 0.033, 0.617, -0.858, -0.534)
 mesh = ExtResource("2_pspbi")
+surface_material_override/0 = SubResource("StandardMaterial3D_bnuwp")
+surface_material_override/1 = SubResource("StandardMaterial3D_afms2")

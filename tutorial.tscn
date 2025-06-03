@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://deco3d5tgnl7s"]
+[gd_scene load_steps=29 format=3 uid="uid://deco3d5tgnl7s"]
 
 [ext_resource type="PackedScene" uid="uid://p7xn40rgk8ng" path="res://grassIsland.tscn" id="1_01hec"]
 [ext_resource type="Script" path="res://barrier.gd" id="1_8xbtq"]
@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://cpmmf482d6yic" path="res://GLB format/arrow.glb" id="9_3g5m4"]
 [ext_resource type="PackedScene" uid="uid://b6knc7wh0hnym" path="res://target.tscn" id="11_avpb1"]
 [ext_resource type="PackedScene" uid="uid://f73hmnmgq2up" path="res://box_grapple.tscn" id="12_yh3xv"]
+[ext_resource type="Script" path="res://gem_tutorial.gd" id="13_pq2ok"]
+[ext_resource type="PackedScene" uid="uid://nkuj3cyhvye7" path="res://GLB format/jewel.glb" id="14_100ps"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_rwa2k"]
 
@@ -56,6 +58,8 @@ viewport_path = NodePath("SubViewport4")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_6v714"]
 viewport_path = NodePath("SubViewport5")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rnru6"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -247,6 +251,15 @@ visible = false
 
 [node name="target" parent="." instance=ExtResource("11_avpb1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.7755, -2.79054, 5.69495)
+
+[node name="gem_tutorial" type="Area3D" parent="." groups=["gem"]]
+script = ExtResource("13_pq2ok")
+
+[node name="jewel" parent="gem_tutorial" instance=ExtResource("14_100ps")]
+transform = Transform3D(2.37209, 0, 0, 0, 2.37209, 0, 0, 0, 2.37209, 0, -0.447384, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="gem_tutorial"]
+shape = SubResource("BoxShape3D_rnru6")
 
 [connection signal="body_entered" from="tutorial trigger" to="bean" method="_on_tutorial_trigger_body_entered"]
 [connection signal="barrier" from="bean" to="barrier" method="_on_bean_barrier"]
