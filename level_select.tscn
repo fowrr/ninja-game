@@ -1,0 +1,212 @@
+[gd_scene load_steps=10 format=3 uid="uid://0lom2qvikxt8"]
+
+[ext_resource type="Script" path="res://level select.gd" id="1_81tdj"]
+[ext_resource type="FontFile" uid="uid://cre70xujsdxx0" path="res://VCR_OSD_MONO_1.001.ttf" id="2_5wgv5"]
+[ext_resource type="Script" path="res://0.gd" id="3_87j2i"]
+[ext_resource type="Texture2D" uid="uid://dcwedc2c0md8c" path="res://texutre/blue-arrow-png.png" id="4_yypt3"]
+[ext_resource type="Script" path="res://back_Level.gd" id="5_xoqce"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_khdwo"]
+bg_color = Color(0.568627, 0.352941, 0.207843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oky5k"]
+bg_color = Color(0.403922, 0.772549, 1, 1)
+border_color = Color(0.32549, 0.592157, 0.8, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7b5r1"]
+bg_color = Color(0, 0.54902, 0.85098, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7quw8"]
+bg_color = Color(0.403922, 0.772549, 1, 1)
+border_color = Color(0.32549, 0.592157, 0.8, 1)
+
+[node name="level select" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_81tdj")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1172.0
+offset_bottom = 683.0
+scale = Vector2(1.21644, 1.30162)
+color = Color(0, 0.52549, 0.278431, 1)
+
+[node name="0" type="Button" parent="."]
+layout_mode = 0
+offset_left = 842.0
+offset_top = 64.0
+offset_right = 968.0
+offset_bottom = 93.0
+scale = Vector2(1.44393, 1.99814)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_5wgv5")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_khdwo")
+theme_override_styles/hover = SubResource("StyleBoxFlat_oky5k")
+text = "Tutorial"
+script = ExtResource("3_87j2i")
+
+[node name="1" type="Button" parent="."]
+layout_mode = 0
+offset_left = 150.0
+offset_top = 236.0
+offset_right = 216.0
+offset_bottom = 284.0
+scale = Vector2(1.44393, 1.99814)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_5wgv5")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_khdwo")
+theme_override_styles/hover = SubResource("StyleBoxFlat_oky5k")
+text = "1"
+
+[node name="11" type="Button" parent="."]
+layout_mode = 0
+offset_left = 143.0
+offset_top = 122.0
+offset_right = 721.0
+offset_bottom = 686.0
+rotation = 3.14159
+scale = Vector2(0.175, 0.175)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_5wgv5")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_7b5r1")
+theme_override_styles/hover = SubResource("StyleBoxFlat_7quw8")
+text = "1"
+icon = ExtResource("4_yypt3")
+script = ExtResource("5_xoqce")
+
+[node name="2" type="Button" parent="."]
+layout_mode = 0
+offset_left = 335.0
+offset_top = 236.0
+offset_right = 401.0
+offset_bottom = 284.0
+scale = Vector2(1.44393, 1.99814)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_5wgv5")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_khdwo")
+theme_override_styles/hover = SubResource("StyleBoxFlat_oky5k")
+text = "2"
+
+[node name="3" type="Button" parent="."]
+layout_mode = 0
+offset_left = 537.0
+offset_top = 235.0
+offset_right = 603.0
+offset_bottom = 283.0
+scale = Vector2(1.44393, 1.99814)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_5wgv5")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_khdwo")
+theme_override_styles/hover = SubResource("StyleBoxFlat_oky5k")
+text = "3"
+
+[node name="4" type="Button" parent="."]
+layout_mode = 0
+offset_left = 719.0
+offset_top = 235.0
+offset_right = 785.0
+offset_bottom = 283.0
+scale = Vector2(1.44393, 1.99814)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_5wgv5")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_khdwo")
+theme_override_styles/hover = SubResource("StyleBoxFlat_oky5k")
+text = "4"
+
+[node name="5" type="Button" parent="."]
+layout_mode = 0
+offset_left = 894.0
+offset_top = 232.0
+offset_right = 960.0
+offset_bottom = 280.0
+scale = Vector2(1.44393, 1.99814)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_5wgv5")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_khdwo")
+theme_override_styles/hover = SubResource("StyleBoxFlat_oky5k")
+text = "5"
+
+[node name="6" type="Button" parent="."]
+layout_mode = 0
+offset_left = 143.0
+offset_top = 426.0
+offset_right = 209.0
+offset_bottom = 474.0
+scale = Vector2(1.44393, 1.99814)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_5wgv5")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_khdwo")
+theme_override_styles/hover = SubResource("StyleBoxFlat_oky5k")
+text = "6"
+
+[node name="7" type="Button" parent="."]
+layout_mode = 0
+offset_left = 328.0
+offset_top = 426.0
+offset_right = 394.0
+offset_bottom = 474.0
+scale = Vector2(1.44393, 1.99814)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_5wgv5")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_khdwo")
+theme_override_styles/hover = SubResource("StyleBoxFlat_oky5k")
+text = "7"
+
+[node name="8" type="Button" parent="."]
+layout_mode = 0
+offset_left = 530.0
+offset_top = 425.0
+offset_right = 596.0
+offset_bottom = 473.0
+scale = Vector2(1.44393, 1.99814)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_5wgv5")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_khdwo")
+theme_override_styles/hover = SubResource("StyleBoxFlat_oky5k")
+text = "8"
+
+[node name="9" type="Button" parent="."]
+layout_mode = 0
+offset_left = 712.0
+offset_top = 425.0
+offset_right = 778.0
+offset_bottom = 473.0
+scale = Vector2(1.44393, 1.99814)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_5wgv5")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_khdwo")
+theme_override_styles/hover = SubResource("StyleBoxFlat_oky5k")
+text = "9"
+
+[node name="10" type="Button" parent="."]
+layout_mode = 0
+offset_left = 887.0
+offset_top = 422.0
+offset_right = 953.0
+offset_bottom = 470.0
+scale = Vector2(1.44393, 1.99814)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_5wgv5")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_khdwo")
+theme_override_styles/hover = SubResource("StyleBoxFlat_oky5k")
+text = "10"
+
+[connection signal="pressed" from="0" to="0" method="_on_pressed"]
+[connection signal="pressed" from="11" to="11" method="_on_pressed"]

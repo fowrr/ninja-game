@@ -1,6 +1,6 @@
 extends Area3D
 var player_scene = preload("res://bean2.tscn").instantiate() 
-@onready var grapLogo = player_scene.get_node("Control/grappler")
+@onready var grapLogo = player_scene.get_node("Slots/grappler")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

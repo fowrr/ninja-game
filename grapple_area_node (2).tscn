@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bp3iv3b1bt23s"]
+
+[ext_resource type="Script" path="res://grapple_area_node.gd" id="1_a47ec"]
+[ext_resource type="PackedScene" uid="uid://bj5wqrc2ju5dt" path="res://grappleHook.tscn" id="1_my0t4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fvpxy"]
+size = Vector3(1.66516, 1, 1)
+
+[node name="grapple_areaNode" type="Area3D"]
+script = ExtResource("1_a47ec")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.191592, -0.256515)
+shape = SubResource("BoxShape3D_fvpxy")
+
+[node name="grapple" parent="." instance=ExtResource("1_my0t4")]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

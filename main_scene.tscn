@@ -1,0 +1,129 @@
+[gd_scene load_steps=9 format=3 uid="uid://c6knomm6jobvo"]
+
+[ext_resource type="Texture2D" uid="uid://b8p51mx5c4g20" path="res://enivronment/autumn_field_puresky_4k.exr" id="1_emgpi"]
+[ext_resource type="Texture2D" uid="uid://dg7v4ippuigqt" path="res://block-grass-corner-low.png" id="2_cny71"]
+[ext_resource type="Texture2D" uid="uid://ccrmjsl8ubndb" path="res://texutre/plunger_grappler-removebg-preview.png" id="3_wkisk"]
+[ext_resource type="Texture2D" uid="uid://pcetl67vgjhl" path="res://texutre/knife-removebg-preview.png" id="4_r0msl"]
+[ext_resource type="FontFile" uid="uid://cre70xujsdxx0" path="res://VCR_OSD_MONO_1.001.ttf" id="5_lgcap"]
+[ext_resource type="Script" path="res://Levels.gd" id="6_b02ea"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6hy4r"]
+bg_color = Color(0.568627, 0.352941, 0.207843, 1)
+border_width_left = 8
+border_width_top = 4
+border_width_right = 8
+border_width_bottom = 4
+border_color = Color(0, 0.427451, 0.8, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n23vp"]
+bg_color = Color(0.752941, 0.490196, 0.317647, 1)
+border_width_left = 8
+border_width_top = 4
+border_width_right = 8
+border_width_bottom = 4
+border_color = Color(0.32549, 0.592157, 0.8, 1)
+
+[node name="Main Scene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AutumnFieldPuresky4k" type="Sprite2D" parent="."]
+position = Vector2(-629, 506)
+texture = ExtResource("1_emgpi")
+
+[node name="Block-grass-corner-low" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(165, 563)
+rotation = 0.182946
+scale = Vector2(8.40486, 7.72279)
+texture = ExtResource("2_cny71")
+
+[node name="Block-grass-corner-low2" type="Sprite2D" parent="."]
+position = Vector2(341, 519)
+scale = Vector2(7.03659, 10.6933)
+texture = ExtResource("2_cny71")
+flip_h = true
+
+[node name="PlungerGrappler-removebg-preview" type="Sprite2D" parent="."]
+position = Vector2(128, 103)
+scale = Vector2(0.553822, 0.547402)
+texture = ExtResource("3_wkisk")
+
+[node name="Knife-removebg-preview" type="Sprite2D" parent="."]
+position = Vector2(993, 121)
+scale = Vector2(0.403948, 0.348321)
+texture = ExtResource("4_r0msl")
+flip_h = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 281.0
+offset_top = 58.0
+offset_right = 1009.0
+offset_bottom = 146.0
+scale = Vector2(0.993159, 1.17979)
+theme_override_fonts/font = ExtResource("5_lgcap")
+theme_override_font_sizes/font_size = 78
+text = "Island Hopper"
+
+[node name="ColorRect" type="ColorRect" parent="Label"]
+layout_mode = 0
+offset_left = 5.03445
+offset_top = 75.437
+offset_right = 45.0345
+offset_bottom = 115.437
+scale = Vector2(14.9798, 0.135269)
+
+[node name="Levels" type="Button" parent="."]
+layout_mode = 0
+offset_left = 611.0
+offset_top = 241.0
+offset_right = 839.0
+offset_bottom = 270.0
+scale = Vector2(1.44393, 1.99814)
+theme_override_colors/font_color = Color(0, 0.658824, 0, 1)
+theme_override_fonts/font = ExtResource("5_lgcap")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_6hy4r")
+theme_override_styles/hover = SubResource("StyleBoxFlat_n23vp")
+text = "Level Select"
+script = ExtResource("6_b02ea")
+
+[node name="Credits" type="Button" parent="."]
+layout_mode = 0
+offset_left = 610.0
+offset_top = 332.0
+offset_right = 838.0
+offset_bottom = 361.0
+scale = Vector2(1.44393, 1.99814)
+theme_override_colors/font_color = Color(0, 0.658824, 0, 1)
+theme_override_fonts/font = ExtResource("5_lgcap")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_6hy4r")
+theme_override_styles/hover = SubResource("StyleBoxFlat_n23vp")
+text = "Credits"
+
+[node name="Credits2" type="Button" parent="."]
+layout_mode = 0
+offset_left = 610.0
+offset_top = 415.0
+offset_right = 838.0
+offset_bottom = 444.0
+scale = Vector2(1.44393, 1.99814)
+theme_override_colors/font_color = Color(0, 0.658824, 0, 1)
+theme_override_fonts/font = ExtResource("5_lgcap")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_6hy4r")
+theme_override_styles/hover = SubResource("StyleBoxFlat_n23vp")
+text = "Quit"
+
+[connection signal="pressed" from="Levels" to="Levels" method="_on_pressed"]

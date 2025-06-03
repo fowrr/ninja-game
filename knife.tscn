@@ -1,9 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://b1k7gm4u1f071"]
+[gd_scene load_steps=2 format=3 uid="uid://p18qlblm2xgi"]
 
-[ext_resource type="ArrayMesh" uid="uid://0dc1vfhek87j" path="res://Cool Jarv/tinker.obj" id="1_k4u8g"]
+[ext_resource type="ArrayMesh" uid="uid://0dc1vfhek87j" path="res://Cool Jarv/tinker.obj" id="1_ifyaa"]
 
 [node name="knife" type="Node3D"]
 
 [node name="knife" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.0915179, 0, 0, 0, 0.0915179, 0, 0, 0, 0.0915179, -0.692929, -0.217111, -1.60927)
-mesh = ExtResource("1_k4u8g")
+transform = Transform3D(0.0915179, 0, 0, 0, 0.0915179, 0, 0, 0, 0.0915179, 0, 0, 0)
+mesh = ExtResource("1_ifyaa")

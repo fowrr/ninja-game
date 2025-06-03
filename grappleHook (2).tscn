@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bj5wqrc2ju5dt"]
+
+[ext_resource type="ArrayMesh" uid="uid://bn3dtj4rwkedn" path="res://tinker.obj" id="1_n2mwj"]
+[ext_resource type="ArrayMesh" uid="uid://byiq81w3j20s3" path="res://plunger.obj" id="2_pspbi"]
+
+[node name="grapple" type="Node3D"]
+
+[node name="Tinker" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.95211e-10, 0.0331417, 0, -3.95211e-10, 4.71285e-18, 0.0331417, 0.0331417, -3.95211e-10, 3.95211e-10, -0.705845, -0.0945125, 0.324028)
+mesh = ExtResource("1_n2mwj")
+
+[node name="Plunger" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.033, 0, 0, 0, 0.033, 0, 0, 0, 0.033, 0.617, -0.858, -0.534)
+mesh = ExtResource("2_pspbi")

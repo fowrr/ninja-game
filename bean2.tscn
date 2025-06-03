@@ -1,17 +1,21 @@
-[gd_scene load_steps=21 format=3 uid="uid://0myexbcst06a"]
+[gd_scene load_steps=28 format=3 uid="uid://0myexbcst06a"]
 
 [ext_resource type="Script" path="res://bean.gd" id="1_qxflj"]
 [ext_resource type="Script" path="res://velocity.gd" id="1_sf2ci"]
-[ext_resource type="PackedScene" uid="uid://bj5wqrc2ju5dt" path="res://grappleHook.tscn" id="2_3mny3"]
-[ext_resource type="PackedScene" uid="uid://b1k7gm4u1f071" path="res://knife.tscn" id="2_3or4o"]
+[ext_resource type="PackedScene" uid="uid://etdkw4tyrp7j" path="res://grappleHook.tscn" id="2_3mny3"]
+[ext_resource type="PackedScene" uid="uid://p18qlblm2xgi" path="res://knife.tscn" id="2_3or4o"]
 [ext_resource type="Script" path="res://grapplingGun.gd" id="3_ahoc6"]
 [ext_resource type="Script" path="res://crosshair.gd" id="3_ci4wn"]
-[ext_resource type="Texture2D" uid="uid://cdfbut88bodvg" path="res://1545215.png" id="3_dqfq7"]
 [ext_resource type="PackedScene" uid="uid://c31d4me6odojn" path="res://rope.tscn" id="4_32k68"]
-[ext_resource type="Texture2D" uid="uid://bsvn0hgh0hjq0" path="res://inventory_slot.webp" id="7_yqfbj"]
+[ext_resource type="Texture2D" uid="uid://b2xluqbyoolf5" path="res://texutre/other crosshair.png" id="5_13j1e"]
+[ext_resource type="Texture2D" uid="uid://dgcok5twy05ws" path="res://texutre/1545215.png" id="5_gtdxs"]
 [ext_resource type="Texture2D" uid="uid://ccrmjsl8ubndb" path="res://texutre/plunger_grappler-removebg-preview.png" id="8_orrfh"]
+[ext_resource type="Texture2D" uid="uid://bsvn0hgh0hjq0" path="res://texutre/inventory_slot.webp" id="8_rx1lk"]
 [ext_resource type="Texture2D" uid="uid://pcetl67vgjhl" path="res://texutre/knife-removebg-preview.png" id="9_fj52j"]
-[ext_resource type="Texture2D" uid="uid://0ul5afc1iojb" path="res://zoom_background.svg" id="11_pqti6"]
+[ext_resource type="Script" path="res://Resume.gd" id="10_vqpbd"]
+[ext_resource type="Script" path="res://Quit_Pause.gd" id="11_1iu1m"]
+[ext_resource type="FontFile" uid="uid://cre70xujsdxx0" path="res://VCR_OSD_MONO_1.001.ttf" id="12_80owi"]
+[ext_resource type="Script" path="res://level_pause.gd" id="12_dkmfd"]
 [ext_resource type="Script" path="res://knifeController.gd" id="12_dteog"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_27feu"]
@@ -31,6 +35,14 @@ size = Vector3(1, 2, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tvmkg"]
 albedo_color = Color(0.141176, 0.141176, 0.141176, 1)
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ph5kl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y00lq"]
+bg_color = Color(0.270588, 0, 0.639216, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gargb"]
+bg_color = Color(0.458824, 0.188235, 1, 1)
+
 [node name="bean" type="RigidBody3D"]
 physics_material_override = SubResource("PhysicsMaterial_27feu")
 lock_rotation = true
@@ -47,10 +59,10 @@ shape = SubResource("BoxShape3D_o17uy")
 [node name="h" type="Node3D" parent="v"]
 
 [node name="knifePos" type="Node3D" parent="v/h"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.274129, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.345662, -1.6288)
 
 [node name="knife" parent="v/h" instance=ExtResource("2_3or4o")]
-transform = Transform3D(0.17367, 0, 0, 0, 0.17367, 0, 0, 0, 0.17367, 0.935572, -0.128508, -1.13141)
+transform = Transform3D(0.173559, -0.0104081, -0.00671599, 0.00946489, 0.0505752, 0.166218, -0.00799053, -0.166162, 0.051013, 0.57, 0.045, -1.149)
 
 [node name="grapple2" parent="v/h" instance=ExtResource("2_3mny3")]
 transform = Transform3D(0.0163518, 0.155578, 0.987688, 0.103242, 0.982278, -0.156434, -0.994522, 0.104528, -4.31732e-08, 1.005, -0.39, -1.309)
@@ -81,18 +93,54 @@ debug_shape_thickness = 5
 [node name="rayEnd" type="Node3D" parent="v/h/Camera3D/longRay"]
 transform = Transform3D(0.0972481, 0, 0, 0, -3.33741e-10, 0.0076351, 0, -0.0972481, -4.25085e-09, -0.00214648, -0.999873, 0.00107653)
 
-[node name="crosshair" type="TextureRect" parent="v/h/Camera3D"]
-modulate = Color(0, 0.760784, 0.14902, 1)
-offset_left = 537.668
-offset_top = 284.635
-offset_right = 1049.67
-offset_bottom = 796.635
-scale = Vector2(0.15, 0.15)
-texture = ExtResource("3_dqfq7")
-script = ExtResource("3_ci4wn")
-
 [node name="knife ray" type="RayCast3D" parent="v/h/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, -1.47609e-06, -1, 0, 33.769, -4.37114e-08, 0, 0, -0.90563)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="v/h/Camera3D"]
+layer = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="v/h/Camera3D/CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -52.4645
+offset_top = -52.0
+offset_right = 459.535
+offset_bottom = 460.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
+
+[node name="crosshair" type="TextureRect" parent="v/h/Camera3D/CanvasLayer/HBoxContainer"]
+modulate = Color(0, 0.760784, 0.14902, 1)
+layout_mode = 2
+texture = ExtResource("5_gtdxs")
+script = ExtResource("3_ci4wn")
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="v/h/Camera3D"]
+layer = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="v/h/Camera3D/CanvasLayer2"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -206.412
+offset_top = -205.889
+offset_right = 1841.59
+offset_bottom = 1842.11
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
+
+[node name="crosshair2" type="TextureRect" parent="v/h/Camera3D/CanvasLayer2/HBoxContainer"]
+modulate = Color(0, 0.760784, 0.14902, 1)
+layout_mode = 2
+texture = ExtResource("5_13j1e")
+script = ExtResource("3_ci4wn")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="v"]
 transform = Transform3D(0.357546, 0, 0, 0, 0.3, 0, 0, 0, 0.648738, 0.349525, 0.199342, 0)
@@ -103,6 +151,48 @@ surface_material_override/0 = SubResource("StandardMaterial3D_tvmkg")
 
 [node name="movementNode" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.140992, 0.209254, 0)
+
+[node name="zoom" type="Control" parent="."]
+z_index = 6
+layout_mode = 3
+anchors_preset = 0
+size_flags_stretch_ratio = 1.2
+
+[node name="ColorRect" type="ColorRect" parent="zoom"]
+layout_mode = 2
+offset_left = -2.91675
+offset_top = -2.02979
+offset_right = 509.083
+offset_bottom = 509.97
+scale = Vector2(2.45, 0.25)
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="zoom"]
+layout_mode = 2
+offset_left = -6.67902
+offset_top = 106.618
+offset_right = 505.321
+offset_bottom = 618.618
+scale = Vector2(0.85, 1.1)
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="zoom"]
+layout_mode = 2
+offset_left = 285.972
+offset_top = 464.859
+offset_right = 797.972
+offset_bottom = 976.859
+scale = Vector2(2.05, 0.4)
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="zoom"]
+layout_mode = 2
+offset_left = 759.434
+offset_top = 538.915
+offset_right = 1171.43
+offset_bottom = 662.915
+scale = Vector2(1.25, -3.45)
+color = Color(0, 0, 0, 1)
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -116,114 +206,105 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_sf2ci")
 
-[node name="slot1" type="TextureRect" parent="Control"]
-layout_mode = 0
-offset_left = 478.656
-offset_top = 549.069
-offset_right = 574.656
-offset_bottom = 645.069
-texture = ExtResource("7_yqfbj")
-expand_mode = 1
-
-[node name="1" type="Label" parent="Control/slot1"]
-z_index = 2
-layout_mode = 0
-offset_left = 19.7281
-offset_top = 53.286
-offset_right = 59.7281
-offset_bottom = 79.286
-text = "1"
-
-[node name="grappler" type="TextureRect" parent="Control"]
-z_index = 1
-layout_mode = 0
-offset_left = 498.384
-offset_top = 557.078
-offset_right = 559.384
-offset_bottom = 625.078
-texture = ExtResource("8_orrfh")
-expand_mode = 1
-
-[node name="knife" type="TextureRect" parent="Control"]
-z_index = 1
-layout_mode = 0
-offset_left = 592.384
-offset_top = 557.078
-offset_right = 653.384
-offset_bottom = 625.078
-texture = ExtResource("9_fj52j")
-expand_mode = 1
-
-[node name="slot2" type="TextureRect" parent="Control"]
-layout_mode = 0
-offset_left = 572.656
-offset_top = 549.069
-offset_right = 668.656
-offset_bottom = 645.069
-texture = ExtResource("7_yqfbj")
-expand_mode = 1
-
-[node name="2" type="Label" parent="Control/slot2"]
-z_index = 3
-layout_mode = 0
-offset_left = 19.728
-offset_top = 53.286
-offset_right = 59.728
-offset_bottom = 79.286
-text = "2
-"
-
-[node name="zoom" type="Control" parent="Control"]
-z_index = 6
+[node name="pause" type="Control" parent="Control"]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="TextureRect" type="TextureRect" parent="Control/zoom"]
+[node name="ColorRect" type="ColorRect" parent="Control/pause"]
+z_index = 3
 layout_mode = 0
-offset_left = 302.653
-offset_top = 41.2009
-offset_right = 949.653
-offset_bottom = 688.201
-scale = Vector2(0.85, 0.85)
-texture = ExtResource("11_pqti6")
-expand_mode = 1
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(37.85, 74.75)
+color = Color(0.2, 0.2, 0.2, 0.698039)
 
-[node name="ColorRect" type="ColorRect" parent="Control/zoom"]
+[node name="Label" type="Label" parent="Control/pause"]
+z_index = 6
 layout_mode = 0
-offset_left = -56.0
-offset_top = 2.0
-offset_right = -13.0
-offset_bottom = 42.0
-scale = Vector2(28.9, 2.65)
-color = Color(0, 0, 0, 1)
+offset_top = 74.3354
+offset_right = 1155.0
+offset_bottom = 162.335
+theme_override_fonts/font = ExtResource("12_80owi")
+theme_override_font_sizes/font_size = 96
+text = "Game Paused"
+horizontal_alignment = 1
 
-[node name="ColorRect4" type="ColorRect" parent="Control/zoom"]
+[node name="Label2" type="Label" parent="Control/pause"]
+z_index = 6
 layout_mode = 0
-offset_left = 4.32124
-offset_top = 549.653
-offset_right = 47.3212
-offset_bottom = 589.653
-scale = Vector2(28.9, 2.65)
-color = Color(0, 0, 0, 1)
+offset_left = -1.25989
+offset_top = 170.089
+offset_right = 1153.74
+offset_bottom = 258.089
+theme_override_fonts/font = ExtResource("12_80owi")
+theme_override_font_sizes/font_size = 36
+text = "(click escape to resume)"
+horizontal_alignment = 1
 
-[node name="ColorRect2" type="ColorRect" parent="Control/zoom"]
+[node name="Resume" type="Button" parent="Control/pause"]
+z_index = 5
+z_as_relative = false
+material = SubResource("CanvasItemMaterial_ph5kl")
 layout_mode = 0
-offset_left = -18.0
-offset_top = 97.0
-offset_right = -6.0
-offset_bottom = 310.0
-scale = Vector2(28.9, 2.65)
-color = Color(0, 0, 0, 1)
+offset_left = 430.0
+offset_top = 228.0
+offset_right = 752.0
+offset_bottom = 291.0
+theme_override_fonts/font = ExtResource("12_80owi")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_y00lq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gargb")
+text = "Resume"
+script = ExtResource("10_vqpbd")
 
-[node name="ColorRect3" type="ColorRect" parent="Control/zoom"]
+[node name="Quit" type="Button" parent="Control/pause"]
+z_index = 5
+material = SubResource("CanvasItemMaterial_ph5kl")
 layout_mode = 0
-offset_left = 824.91
-offset_top = 90.6504
-offset_right = 836.91
-offset_bottom = 303.65
-scale = Vector2(28.9, 2.65)
-color = Color(0, 0, 0, 1)
+offset_left = 431.26
+offset_top = 390.53
+offset_right = 753.26
+offset_bottom = 453.53
+theme_override_fonts/font = ExtResource("12_80owi")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_y00lq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gargb")
+text = "Quit"
+script = ExtResource("11_1iu1m")
+
+[node name="Level" type="Button" parent="Control/pause"]
+z_index = 7
+z_as_relative = false
+material = SubResource("CanvasItemMaterial_ph5kl")
+layout_mode = 0
+offset_left = 428.704
+offset_top = 311.0
+offset_right = 751.704
+offset_bottom = 374.0
+theme_override_fonts/font = ExtResource("12_80owi")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_y00lq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gargb")
+text = "Level Select"
+script = ExtResource("12_dkmfd")
+
+[node name="dialogueBox" type="ColorRect" parent="Control"]
+layout_mode = 0
+offset_left = 54.4441
+offset_top = 412.492
+offset_right = 422.444
+offset_bottom = 549.492
+color = Color(1, 1, 1, 0.490196)
+
+[node name="dialogue" type="RichTextLabel" parent="Control/dialogueBox"]
+layout_mode = 0
+offset_right = 366.0
+offset_bottom = 137.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("12_80owi")
+theme_override_font_sizes/normal_font_size = 20
+text = "Yo whats up"
 
 [node name="feet" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.2182, 0, 0, 0, 1, 0, -0.795914, 0)
@@ -240,20 +321,93 @@ damping = 1.0
 [node name="knifeController" type="Node3D" parent="."]
 script = ExtResource("12_dteog")
 
+[node name="Timer" type="Timer" parent="knifeController"]
+wait_time = 3.0
+one_shot = true
+
+[node name="Slots" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="grappler" type="TextureRect" parent="Slots"]
+z_index = 1
+layout_mode = 2
+offset_left = -77.3625
+offset_top = -80.7261
+offset_right = -22.3625
+offset_bottom = -20.7261
+texture = ExtResource("8_orrfh")
+expand_mode = 1
+
+[node name="slot1" type="TextureRect" parent="Slots"]
+layout_mode = 2
+offset_left = -103.007
+offset_top = -98.7527
+offset_right = -3.0072
+offset_bottom = 1.24725
+texture = ExtResource("8_rx1lk")
+expand_mode = 1
+
+[node name="1" type="Label" parent="Slots/slot1"]
+z_index = 2
+layout_mode = 0
+offset_left = 19.7281
+offset_top = 53.286
+offset_right = 59.7281
+offset_bottom = 79.286
+text = "1"
+
+[node name="knife" type="TextureRect" parent="Slots"]
+z_index = 1
+layout_mode = 2
+offset_left = 13.5976
+offset_top = -86.2501
+offset_right = 78.5976
+offset_bottom = -21.2501
+texture = ExtResource("9_fj52j")
+expand_mode = 1
+
+[node name="slot2" type="TextureRect" parent="Slots"]
+layout_mode = 2
+offset_left = -3.34399
+offset_top = -98.931
+offset_right = 96.656
+offset_bottom = 1.06897
+texture = ExtResource("8_rx1lk")
+expand_mode = 1
+
+[node name="2" type="Label" parent="Slots/slot2"]
+z_index = 2
+layout_mode = 0
+offset_left = 19.728
+offset_top = 53.286
+offset_right = 59.728
+offset_bottom = 79.286
+text = "2
+"
+
 [connection signal="Grapple1" from="." to="grappleController" method="_on_bean_grapple_1"]
 [connection signal="Grapple1" from="." to="knifeController" method="_on_bean_grapple_1"]
 [connection signal="Knife1" from="." to="grappleController" method="_on_bean_knife_1"]
 [connection signal="Knife1" from="." to="knifeController" method="_on_bean_knife_1"]
-[connection signal="colF" from="." to="v/h/Camera3D/crosshair" method="_on_bean_col_f"]
+[connection signal="colF" from="." to="v/h/Camera3D/CanvasLayer/HBoxContainer/crosshair" method="_on_bean_col_f"]
 [connection signal="colF" from="." to="grappleController" method="_on_bean_col_f"]
-[connection signal="colT" from="." to="v/h/Camera3D/crosshair" method="_on_bean_col_t"]
+[connection signal="colT" from="." to="v/h/Camera3D/CanvasLayer/HBoxContainer/crosshair" method="_on_bean_col_t"]
 [connection signal="colT" from="." to="grappleController" method="_on_bean_col_t"]
+[connection signal="pressed" from="Control/pause/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Control/pause/Quit" to="Control/pause/Quit" method="_on_pressed"]
+[connection signal="pressed" from="Control/pause/Level" to="Control/pause/Level" method="_on_pressed"]
 [connection signal="launching" from="grappleController" to="." method="_on_grapple_controller_launching"]
 [connection signal="point" from="grappleController" to="." method="_on_grapple_controller_point"]
 [connection signal="retracted" from="grappleController" to="." method="_on_grapple_controller_retracted"]
 [connection signal="sensChange" from="knifeController" to="." method="_on_knife_controller_sens_change"]
 [connection signal="sensChange2" from="knifeController" to="." method="_on_knife_controller_sens_change_2"]
 
-[editable path="v/h/knife"]
 [editable path="v/h/grapple2"]
 [editable path="v/h/rope"]

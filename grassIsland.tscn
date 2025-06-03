@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://p7xn40rgk8ng"]
+
+[ext_resource type="PackedScene" uid="uid://cabb2u82bqkp8" path="res://GLB format/block-grass-large.glb" id="1_m7fmg"]
+
+[node name="block-grass-large" instance=ExtResource("1_m7fmg")]

@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bj5wqrc2ju5dt"]
+[gd_scene load_steps=3 format=3 uid="uid://etdkw4tyrp7j"]
 
-[ext_resource type="ArrayMesh" uid="uid://0fmo5e0hafh4" path="res://tinker.obj" id="1_n2mwj"]
+[ext_resource type="ArrayMesh" uid="uid://bn3dtj4rwkedn" path="res://tinker.obj" id="1_n2mwj"]
 [ext_resource type="ArrayMesh" uid="uid://byiq81w3j20s3" path="res://plunger.obj" id="2_pspbi"]
 
 [node name="grapple" type="Node3D"]

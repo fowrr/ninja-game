@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bocxhkd2arpln"]
 
-[ext_resource type="PackedScene" uid="uid://b1k7gm4u1f071" path="res://knife.tscn" id="1_eeiey"]
+[ext_resource type="PackedScene" uid="uid://p18qlblm2xgi" path="res://knife.tscn" id="1_eeiey"]
 [ext_resource type="Script" path="res://knife_area_node.gd" id="1_fdu3e"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7k3h2"]

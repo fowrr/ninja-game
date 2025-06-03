@@ -4,6 +4,8 @@ signal colF
 signal colT
 signal Grapple1
 signal Knife1
+signal voidTutTrigger
+signal barrier
 var vMultiplier := 1000.0
 var mouse_sens = 0.3
 @onready var hrzn = $v
@@ -18,8 +20,8 @@ var jumps = 2
 @onready var ball = $v/h/Camera3D/RayCast3D/rayball
 @onready var rayEnd = $v/h/Camera3D/longRay/rayEnd
 @onready var longRay = $v/h/Camera3D/longRay
-@onready var grapLogo = $Control/grappler
-@onready var knifeLogo = $Control/knife
+@onready var grapLogo = $Slots/grappler
+@onready var knifeLogo = $Slots/knife
 var colliding = false
 var launch = false
 var launchChain = false
@@ -33,9 +35,12 @@ var torque_axis = null
 @onready var knife = $v/h/knife/knife
 @onready var knifeRay = $"v/h/Camera3D/knife ray"
 @onready var initial_pos = global_position
-@onready var crosshair = $v/h/Camera3D/crosshair
+@onready var crosshair = $v/h/Camera3D/CanvasLayer/HBoxContainer/crosshair
+@onready var pausedScreen = $Control/pause
+@onready var dialogue = $Control/dialogueBox/dialogue
 var plungerUse = 0
 var knifeUse = 0
+var paused = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	crosshair.visible = false
@@ -48,6 +53,7 @@ func _ready():
 	plunger.visible = false
 	knife.visible = false
 	ball.visible = false
+	$Control/dialogueBox.visible = false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
@@ -69,7 +75,8 @@ func _process(delta):
 	#Gets my movement (A,W,S,D or arrow keys)
 	input = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
 	var horizon_basis = mNode.basis #Check for nMode explanation (second line in unhandled input).
-	apply_central_force(inputVector * vMultiplier * 1 * delta * horizon_basis) #Apply movement
+	if paused == false:
+		apply_central_force(inputVector * vMultiplier * 1 * delta * horizon_basis) #Apply movement
 	if Input.is_action_pressed("shift") and launchChain == false:
 		max_speed = 8.0
 		vMultiplier = 4000
@@ -79,7 +86,11 @@ func _process(delta):
 
 	if input == Vector2.ZERO and colliding == true:
 		max_speed = lerp(max_speed, 0.0, 0.1)
-	
+	if Input.is_action_just_pressed("pause"):
+		if paused == true:
+			paused = false
+		elif paused == false:
+			paused = true
 	
 	#To process my items and when i can use them and what not
 	if plungerUse == 0:
@@ -146,26 +157,31 @@ func col():
 		return colliding
 
 #This works
-func _input(event):  	
-	if event is InputEventMouseMotion: #My movement code
-		mNode.rotate_y(deg_to_rad(event.relative.x*mouse_sens)) #moNode, meaning movement Node, ensures that my movement is going the right way (because the way your camera turns is the opposite way your character should move)
-		hrzn.rotate_y(deg_to_rad(-event.relative.x*mouse_sens)) 
-		vert.rotate_x(deg_to_rad(-event.relative.y*mouse_sens))
-		vert.rotation.x = clamp(vert.rotation.x, deg_to_rad(-90.0), deg_to_rad(60.0))
-	if $feet.is_colliding():
-		grounded = 1
-		jumps = 2
-		launchChain = false
-	if Input.is_action_just_pressed("space"):
-		if grounded == 1:
-			if jumps == 2:
-				apply_central_impulse(Vector3.UP * 15)
-				jumps -=1
-			elif jumps == 1:
-				if linear_velocity.y <= 0.25:
-					apply_central_impulse(Vector3.UP * 15 )
+func _input(event): 
+	if paused == false:
+		pausedScreen.visible = false
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		if event is InputEventMouseMotion: #My movement code
+			mNode.rotate_y(deg_to_rad(event.relative.x*mouse_sens)) #moNode, meaning movement Node, ensures that my movement is going the right way (because the way your camera turns is the opposite way your character should move)
+			hrzn.rotate_y(deg_to_rad(-event.relative.x*mouse_sens)) 
+			vert.rotate_x(deg_to_rad(-event.relative.y*mouse_sens))
+			vert.rotation.x = clamp(vert.rotation.x, deg_to_rad(-90.0), deg_to_rad(60.0))
+		if $feet.is_colliding():
+			grounded = 1
+			jumps = 2
+			launchChain = false
+		if Input.is_action_just_pressed("space"):
+			if grounded == 1:
+				if jumps == 2:
+					apply_central_impulse(Vector3.UP * 15)
 					jumps -=1
-		
+				elif jumps == 1:
+					if linear_velocity.y <= 0.25:
+						apply_central_impulse(Vector3.UP * 15 )
+						jumps -=1
+	else:
+		pausedScreen.visible = true
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _integrate_forces(state):
 	if launch == true:
@@ -236,3 +252,30 @@ func _on_knife_controller_sens_change():
 
 func _on_knife_controller_sens_change_2():
 	mouse_sens = 0.3
+
+#Dialogues
+func _on_tutorial_trigger_body_entered(body):
+	if body.get_name() == "bean":
+		emit_signal("voidTutTrigger")
+		$Control/dialogueBox.visible = true
+		dialogue.text = "Hello."
+		await get_tree().create_timer(3.0).timeout
+		dialogue.text = "You're probably wondering who I am." 
+		await get_tree().create_timer(5.0).timeout
+		dialogue.text = "I am Mr. Nemeth, and I'm talking directly to your subconcious"
+		await get_tree().create_timer(7.0).timeout
+		dialogue.text = "Listen, I need you to collect gems for me."
+		await get_tree().create_timer(5.0).timeout
+		dialogue.text = "There should be an image on how it should look like."
+		await get_tree().create_timer(4.0).timeout
+		dialogue.text = "I've left more signs around on this level, to teach you more about this game."
+		await get_tree().create_timer(6.0).timeout
+		dialogue.text = "Good luck, I need those gems to get friday morning goodies."
+		await get_tree().create_timer(6.0).timeout
+		$Control/dialogueBox.visible = false
+		emit_signal("barrier")
+	
+
+
+func _on_resume_pressed():
+	paused = false
