@@ -98,6 +98,7 @@ transform = Transform3D(1, 0, 0, 0, -1.47609e-06, -1, 0, 33.769, -4.37114e-08, 0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="v/h/Camera3D"]
 layer = 0
+visible = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="v/h/Camera3D/CanvasLayer"]
 anchors_preset = 8
@@ -121,6 +122,7 @@ script = ExtResource("3_ci4wn")
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="v/h/Camera3D"]
 layer = 0
+visible = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="v/h/Camera3D/CanvasLayer2"]
 anchors_preset = 8
@@ -153,6 +155,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_tvmkg")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.140992, 0.209254, 0)
 
 [node name="zoom" type="Control" parent="."]
+visible = false
 z_index = 6
 layout_mode = 3
 anchors_preset = 0
@@ -207,6 +210,7 @@ offset_bottom = 40.0
 script = ExtResource("1_sf2ci")
 
 [node name="pause" type="Control" parent="Control"]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -274,6 +278,88 @@ text = "Quit"
 script = ExtResource("11_1iu1m")
 
 [node name="Level" type="Button" parent="Control/pause"]
+z_index = 7
+z_as_relative = false
+material = SubResource("CanvasItemMaterial_ph5kl")
+layout_mode = 0
+offset_left = 428.704
+offset_top = 311.0
+offset_right = 751.704
+offset_bottom = 374.0
+theme_override_fonts/font = ExtResource("12_80owi")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_y00lq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gargb")
+text = "Level Select"
+script = ExtResource("12_dkmfd")
+
+[node name="win" type="Control" parent="Control"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Control/win"]
+z_index = 3
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(37.85, 74.75)
+color = Color(0.2, 0.2, 0.2, 0.698039)
+
+[node name="winLabel" type="Label" parent="Control/win"]
+z_index = 6
+layout_mode = 0
+offset_top = 74.3354
+offset_right = 1155.0
+offset_bottom = 162.335
+theme_override_fonts/font = ExtResource("12_80owi")
+theme_override_font_sizes/font_size = 96
+text = "You won!"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Control/win"]
+z_index = 6
+layout_mode = 0
+offset_left = -1.25989
+offset_top = 170.089
+offset_right = 1153.74
+offset_bottom = 258.089
+theme_override_fonts/font = ExtResource("12_80owi")
+theme_override_font_sizes/font_size = 36
+horizontal_alignment = 1
+
+[node name="Resume" type="Button" parent="Control/win"]
+z_index = 5
+z_as_relative = false
+material = SubResource("CanvasItemMaterial_ph5kl")
+layout_mode = 0
+offset_left = 430.0
+offset_top = 228.0
+offset_right = 752.0
+offset_bottom = 291.0
+theme_override_fonts/font = ExtResource("12_80owi")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_y00lq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gargb")
+text = "Next Level"
+script = ExtResource("10_vqpbd")
+
+[node name="Quit" type="Button" parent="Control/win"]
+z_index = 5
+material = SubResource("CanvasItemMaterial_ph5kl")
+layout_mode = 0
+offset_left = 431.26
+offset_top = 390.53
+offset_right = 753.26
+offset_bottom = 453.53
+theme_override_fonts/font = ExtResource("12_80owi")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_y00lq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gargb")
+text = "Quit"
+script = ExtResource("11_1iu1m")
+
+[node name="Level" type="Button" parent="Control/win"]
 z_index = 7
 z_as_relative = false
 material = SubResource("CanvasItemMaterial_ph5kl")
@@ -396,7 +482,6 @@ text = "2
 [connection signal="Grapple1" from="." to="knifeController" method="_on_bean_grapple_1"]
 [connection signal="Knife1" from="." to="grappleController" method="_on_bean_knife_1"]
 [connection signal="Knife1" from="." to="knifeController" method="_on_bean_knife_1"]
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="colF" from="." to="v/h/Camera3D/CanvasLayer/HBoxContainer/crosshair" method="_on_bean_col_f"]
 [connection signal="colF" from="." to="grappleController" method="_on_bean_col_f"]
 [connection signal="colT" from="." to="v/h/Camera3D/CanvasLayer/HBoxContainer/crosshair" method="_on_bean_col_t"]
@@ -404,6 +489,9 @@ text = "2
 [connection signal="pressed" from="Control/pause/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="Control/pause/Quit" to="Control/pause/Quit" method="_on_pressed"]
 [connection signal="pressed" from="Control/pause/Level" to="Control/pause/Level" method="_on_pressed"]
+[connection signal="pressed" from="Control/win/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Control/win/Quit" to="Control/win/Quit" method="_on_pressed"]
+[connection signal="pressed" from="Control/win/Level" to="Control/win/Level" method="_on_pressed"]
 [connection signal="launching" from="grappleController" to="." method="_on_grapple_controller_launching"]
 [connection signal="point" from="grappleController" to="." method="_on_grapple_controller_point"]
 [connection signal="retracted" from="grappleController" to="." method="_on_grapple_controller_retracted"]

@@ -38,10 +38,11 @@ var torque_axis = null
 @onready var crosshair = $v/h/Camera3D/CanvasLayer/HBoxContainer/crosshair
 @onready var pausedScreen = $Control/pause
 @onready var dialogue = $Control/dialogueBox/dialogue
+@onready var winGUI = $Control/win
+@onready var winLabel = $Control/win/winLabel
 var plungerUse = 0
 var knifeUse = 0
 var paused = false
-var win = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	crosshair.visible = false
@@ -87,11 +88,12 @@ func _process(delta):
 
 	if input == Vector2.ZERO and colliding == true:
 		max_speed = lerp(max_speed, 0.0, 0.1)
-	if Input.is_action_just_pressed("pause"):
-		if paused == true:
-			paused = false
-		elif paused == false:
-			paused = true
+	if Globals.win == false:
+		if Input.is_action_just_pressed("pause"):
+			if paused == true:
+				paused = false
+			elif paused == false:
+				paused = true
 	
 	#To process my items and when i can use them and what not
 	if plungerUse == 0:
@@ -118,7 +120,9 @@ func _process(delta):
 		col()
 	elif knife.visible == true:
 		colK()
-	
+	if Globals.win == true:
+		winGUI.visible = true
+		winLabel = "You passed" + str(Globals.level_passed) +("!")
 	#print(launchChain)
 	#print(rope_dir)
 	
@@ -282,7 +286,3 @@ func _on_resume_pressed():
 	paused = false
 
 
-
-func _on_body_entered(body):
-	if body.get_:
-		win = true

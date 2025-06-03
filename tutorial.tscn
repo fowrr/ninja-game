@@ -50,13 +50,13 @@ viewport_path = NodePath("SubViewport")
 [sub_resource type="ViewportTexture" id="ViewportTexture_pmxfx"]
 viewport_path = NodePath("SubViewport2")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_kixje"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_6aw2c"]
 viewport_path = NodePath("SubViewport3")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_su27g"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_hkqxu"]
 viewport_path = NodePath("SubViewport4")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_6v714"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_5bmtt"]
 viewport_path = NodePath("SubViewport5")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rnru6"]
@@ -162,10 +162,11 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/normal_font = ExtResource("8_ydvy0")
 theme_override_font_sizes/normal_font_size = 50
-text = "Welcome to Island Hopper. In this game, you must get gems that are located around various locations in each level."
+text = "Welcome to Island Hopper. In this game, you must get gems that are located around various locations in each level.
+SHIFT to sprint."
 
 [node name="SubViewport3" type="SubViewport" parent="."]
-size = Vector2i(1028, 1228)
+size = Vector2i(1400, 1050)
 
 [node name="Label" type="RichTextLabel" parent="SubViewport3"]
 clip_contents = false
@@ -180,9 +181,10 @@ bbcode_enabled = true
 text = "[center]This is a grappler.  Grab it by walking into it.
 Use (W,S) or UP arrow and DOWN arrow keys to move while hooked.
 
-To hook, left-click on a GLOWING BLUE BOX. To unhook, let go of left-click.
+To hook, left-click on a GLOWING BLUE BOX. You must be in range of a GLOWING BLUE BOX to hook onto it. To unhook, let go of left-click.
 
 Keep holding down a key until you reach the peak of your swing before changing key direction. You can use your camera to swing aswell, just hold down your forward key and look around with your camera in the direction you want to go. 
+
 Unhooking will also allow you to fling yourself.[/center]"
 
 [node name="SubViewport4" type="SubViewport" parent="."]
@@ -231,16 +233,16 @@ transform = Transform3D(0.00343788, 0, 0.999996, 0, 1, 0, -0.999996, 0, 0.003437
 size = Vector3(0.002, 9.14295, 4.95146)
 
 [node name="CSGBox3D5" type="Sprite3D" parent="."]
-transform = Transform3D(0.428289, 0, -0.903642, 0, 1, 0, 0.903642, 0, 0.428289, 10.9347, -1.27278, -10.3011)
-texture = SubResource("ViewportTexture_kixje")
+transform = Transform3D(0.428289, 0, -0.903642, 0, 1, 0, 0.903642, 0, 0.428289, 10.9347, -2.34854, -10.3011)
+texture = SubResource("ViewportTexture_6aw2c")
 
 [node name="CSGBox3D6" type="Sprite3D" parent="."]
 transform = Transform3D(-0.72818, 0, -0.685386, 0, 1, 0, 0.685386, 0, -0.72818, 10.9347, -3.61977, 11.0029)
-texture = SubResource("ViewportTexture_su27g")
+texture = SubResource("ViewportTexture_hkqxu")
 
 [node name="CSGBox3D7" type="Sprite3D" parent="."]
 transform = Transform3D(-0.724533, 0, -0.68924, 0, 1, 0, 0.68924, 0, -0.724533, 57.0128, -4.4761, 10.2592)
-texture = SubResource("ViewportTexture_6v714")
+texture = SubResource("ViewportTexture_5bmtt")
 
 [node name="arrow" parent="." instance=ExtResource("9_3g5m4")]
 transform = Transform3D(4.21899, 0, 2.2996, 0, 4.805, 0, -2.2996, 0, 4.21899, -8.38096, -8, 7.6067)
@@ -252,7 +254,7 @@ visible = false
 [node name="target" parent="." instance=ExtResource("11_avpb1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.7755, -2.79054, 5.69495)
 
-[node name="gem_tutorial" type="Area3D" parent="." groups=["gem"]]
+[node name="gem_tutorial" type="Area3D" parent="."]
 script = ExtResource("13_pq2ok")
 
 [node name="jewel" parent="gem_tutorial" instance=ExtResource("14_100ps")]
@@ -266,6 +268,7 @@ shape = SubResource("BoxShape3D_rnru6")
 [connection signal="voidTutTrigger" from="bean" to="tutorial trigger" method="_on_bean_void_tut_trigger"]
 [connection signal="body_entered" from="void" to="bean" method="_on_void_body_entered"]
 [connection signal="targetHit" from="target" to="BoxGrapple/CSGBox3D" method="_on_target_target_hit"]
+[connection signal="body_entered" from="gem_tutorial" to="gem_tutorial" method="_on_body_entered"]
 
 [editable path="block-grass-large"]
 [editable path="block-grass-large2"]
