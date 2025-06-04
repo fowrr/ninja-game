@@ -15,3 +15,10 @@ func _process(delta):
 #		#Globals.gem() #handles 
 #		Globals.win = true
 #		queue_free()
+
+
+func _on_body_entered(body):
+	if body.get_name() == "bean":
+		Globals.gem_2() #handles current level 
+		Globals.win = true
+		queue_free()
