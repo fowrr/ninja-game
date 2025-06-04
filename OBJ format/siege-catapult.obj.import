@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dyijcroagc3eq"
+path="res://.godot/imported/siege-catapult.obj-0d05b151ae581ff2205b124c6dac6bd7.mesh"
+
+[deps]
+
+files=["res://.godot/imported/siege-catapult.obj-0d05b151ae581ff2205b124c6dac6bd7.mesh"]
+
+source_file="res://OBJ format/siege-catapult.obj"
+dest_files=["res://.godot/imported/siege-catapult.obj-0d05b151ae581ff2205b124c6dac6bd7.mesh", "res://.godot/imported/siege-catapult.obj-0d05b151ae581ff2205b124c6dac6bd7.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

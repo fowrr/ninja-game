@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://b14001fs03vjo"]
+[gd_scene load_steps=10 format=3 uid="uid://b14001fs03vjo"]
 
 [ext_resource type="Texture2D" uid="uid://b8p51mx5c4g20" path="res://enivronment/autumn_field_puresky_4k.exr" id="1_ftj1q"]
 [ext_resource type="Script" path="res://level_2.gd" id="1_u7ktg"]
 [ext_resource type="Script" path="res://gem_2.gd" id="2_o02y2"]
 [ext_resource type="PackedScene" uid="uid://nkuj3cyhvye7" path="res://GLB format/jewel.glb" id="3_5cuw6"]
+[ext_resource type="PackedScene" uid="uid://c4l2rqe0psf32" path="res://GLB format/door-rotate-large.glb" id="5_7hauh"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_p1tse"]
 panorama = ExtResource("1_ftj1q")
@@ -41,3 +42,7 @@ transform = Transform3D(2.37209, 0, 0, 0, 2.37209, 0, 0, 0, 2.37209, 0, -0.44738
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="gem_2"]
 shape = SubResource("BoxShape3D_vp251")
+
+[node name="door-rotate-large" parent="." instance=ExtResource("5_7hauh")]
+
+[editable path="door-rotate-large"]

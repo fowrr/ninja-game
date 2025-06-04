@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://kbkqcgbgtes"
+path="res://.godot/imported/stairs-stone-square.obj-c0325a18b4a13e7b66755bd87668f15e.mesh"
+
+[deps]
+
+files=["res://.godot/imported/stairs-stone-square.obj-c0325a18b4a13e7b66755bd87668f15e.mesh"]
+
+source_file="res://OBJ format/stairs-stone-square.obj"
+dest_files=["res://.godot/imported/stairs-stone-square.obj-c0325a18b4a13e7b66755bd87668f15e.mesh", "res://.godot/imported/stairs-stone-square.obj-c0325a18b4a13e7b66755bd87668f15e.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

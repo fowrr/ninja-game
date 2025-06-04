@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bbvbbjcivhesl"
+path="res://.godot/imported/wall-narrow-stairs-rail.obj-759f9a0a4e1415d10c0ee93267d4db6e.mesh"
+
+[deps]
+
+files=["res://.godot/imported/wall-narrow-stairs-rail.obj-759f9a0a4e1415d10c0ee93267d4db6e.mesh"]
+
+source_file="res://OBJ format/wall-narrow-stairs-rail.obj"
+dest_files=["res://.godot/imported/wall-narrow-stairs-rail.obj-759f9a0a4e1415d10c0ee93267d4db6e.mesh", "res://.godot/imported/wall-narrow-stairs-rail.obj-759f9a0a4e1415d10c0ee93267d4db6e.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

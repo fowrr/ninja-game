@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://c0540hiel7deb"
+path="res://.godot/imported/tower-hexagon-top.obj-78d921f51942bbbcab9ad92c92ecdf47.mesh"
+
+[deps]
+
+files=["res://.godot/imported/tower-hexagon-top.obj-78d921f51942bbbcab9ad92c92ecdf47.mesh"]
+
+source_file="res://OBJ format/tower-hexagon-top.obj"
+dest_files=["res://.godot/imported/tower-hexagon-top.obj-78d921f51942bbbcab9ad92c92ecdf47.mesh", "res://.godot/imported/tower-hexagon-top.obj-78d921f51942bbbcab9ad92c92ecdf47.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

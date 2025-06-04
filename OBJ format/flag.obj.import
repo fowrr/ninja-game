@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://s31yy5vg5eqw"
+path="res://.godot/imported/flag.obj-299f0fa38afa0378d2c9f2b75acb6be3.mesh"
+
+[deps]
+
+files=["res://.godot/imported/flag.obj-299f0fa38afa0378d2c9f2b75acb6be3.mesh"]
+
+source_file="res://OBJ format/flag.obj"
+dest_files=["res://.godot/imported/flag.obj-299f0fa38afa0378d2c9f2b75acb6be3.mesh", "res://.godot/imported/flag.obj-299f0fa38afa0378d2c9f2b75acb6be3.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

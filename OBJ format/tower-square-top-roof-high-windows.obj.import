@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bfyofqg5huthr"
+path="res://.godot/imported/tower-square-top-roof-high-windows.obj-cc1b7fdb25ebf69668fffead37344fea.mesh"
+
+[deps]
+
+files=["res://.godot/imported/tower-square-top-roof-high-windows.obj-cc1b7fdb25ebf69668fffead37344fea.mesh"]
+
+source_file="res://OBJ format/tower-square-top-roof-high-windows.obj"
+dest_files=["res://.godot/imported/tower-square-top-roof-high-windows.obj-cc1b7fdb25ebf69668fffead37344fea.mesh", "res://.godot/imported/tower-square-top-roof-high-windows.obj-cc1b7fdb25ebf69668fffead37344fea.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

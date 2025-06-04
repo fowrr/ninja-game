@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://d0wubyfkky8vy"
+path="res://.godot/imported/ground-hills.obj-9b306ceff1f96a2e6dccc100f658692f.mesh"
+
+[deps]
+
+files=["res://.godot/imported/ground-hills.obj-9b306ceff1f96a2e6dccc100f658692f.mesh"]
+
+source_file="res://OBJ format/ground-hills.obj"
+dest_files=["res://.godot/imported/ground-hills.obj-9b306ceff1f96a2e6dccc100f658692f.mesh", "res://.godot/imported/ground-hills.obj-9b306ceff1f96a2e6dccc100f658692f.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

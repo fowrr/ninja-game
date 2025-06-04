@@ -132,7 +132,6 @@ func _process(delta):
 		col()
 	elif knife.visible == true:
 		colK()
-	print(Globals.win)
 	if Globals.win == true:
 		winGUI.visible = true
 		winLabel.text = "You passed " + str(Globals.level_passed) +("!")

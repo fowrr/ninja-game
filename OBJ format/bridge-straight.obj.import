@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cdn0kmfyrmefv"
+path="res://.godot/imported/bridge-straight.obj-abc527f89ad2ba9676aa419d88b357ec.mesh"
+
+[deps]
+
+files=["res://.godot/imported/bridge-straight.obj-abc527f89ad2ba9676aa419d88b357ec.mesh"]
+
+source_file="res://OBJ format/bridge-straight.obj"
+dest_files=["res://.godot/imported/bridge-straight.obj-abc527f89ad2ba9676aa419d88b357ec.mesh", "res://.godot/imported/bridge-straight.obj-abc527f89ad2ba9676aa419d88b357ec.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

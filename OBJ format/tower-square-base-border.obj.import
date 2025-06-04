@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://tf5liyqr1vfi"
+path="res://.godot/imported/tower-square-base-border.obj-41c9bbb014a97b720b4586443c4cf41b.mesh"
+
+[deps]
+
+files=["res://.godot/imported/tower-square-base-border.obj-41c9bbb014a97b720b4586443c4cf41b.mesh"]
+
+source_file="res://OBJ format/tower-square-base-border.obj"
+dest_files=["res://.godot/imported/tower-square-base-border.obj-41c9bbb014a97b720b4586443c4cf41b.mesh", "res://.godot/imported/tower-square-base-border.obj-41c9bbb014a97b720b4586443c4cf41b.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
