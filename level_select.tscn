@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://0lom2qvikxt8"]
+[gd_scene load_steps=11 format=3 uid="uid://0lom2qvikxt8"]
 
 [ext_resource type="Script" path="res://level select.gd" id="1_81tdj"]
 [ext_resource type="FontFile" uid="uid://cre70xujsdxx0" path="res://VCR_OSD_MONO_1.001.ttf" id="2_5wgv5"]
 [ext_resource type="Script" path="res://0.gd" id="3_87j2i"]
+[ext_resource type="Script" path="res://1.gd" id="4_b5xct"]
 [ext_resource type="Texture2D" uid="uid://dcwedc2c0md8c" path="res://texutre/blue-arrow-png.png" id="4_yypt3"]
 [ext_resource type="Script" path="res://back_Level.gd" id="5_xoqce"]
 
@@ -64,6 +65,7 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_khdwo")
 theme_override_styles/hover = SubResource("StyleBoxFlat_oky5k")
 text = "1"
+script = ExtResource("4_b5xct")
 
 [node name="11" type="Button" parent="."]
 layout_mode = 0
@@ -209,4 +211,5 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_oky5k")
 text = "10"
 
 [connection signal="pressed" from="0" to="0" method="_on_pressed"]
+[connection signal="pressed" from="1" to="1" method="_on_pressed"]
 [connection signal="pressed" from="11" to="11" method="_on_pressed"]
