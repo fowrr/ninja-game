@@ -9,8 +9,11 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-#if body.get_name() == "bean":
-#		Globals.gem_0() #handles current level
-#		#Globals.gem() #handles 
-#		Globals.win = true
-#		queue_free()
+
+
+
+func _on_body_entered(body):
+	if body.get_name() == "bean":
+		Globals.gem_1() #handles current level
+		Globals.win = true
+		queue_free()

@@ -198,7 +198,7 @@ func _input(event):
 					apply_central_impulse(Vector3.UP * 15)
 					jumps -=1
 				elif jumps == 1:
-					if linear_velocity.y <= 1.0:
+					if linear_velocity.y <= 2.0:
 						apply_central_impulse(Vector3.UP * 15 )
 						jumps -=1
 
@@ -280,17 +280,17 @@ func _on_tutorial_trigger_body_entered(body):
 		dialogue.text = "Hello."
 		await get_tree().create_timer(3.0).timeout
 		dialogue.text = "You're probably wondering who I am." 
-		await get_tree().create_timer(5.0).timeout
+		await get_tree().create_timer(3.0).timeout
 		dialogue.text = "I am Mr. Nemeth, and I'm talking directly to your subconcious"
-		await get_tree().create_timer(4.0).timeout
+		await get_tree().create_timer(3.0).timeout
 		dialogue.text = "Listen, I need you to collect gems for me."
-		await get_tree().create_timer(5.0).timeout
+		await get_tree().create_timer(2.0).timeout
 		dialogue.text = "There should be an image on how it should look like."
-		await get_tree().create_timer(4.0).timeout
+		await get_tree().create_timer(3.0).timeout
 		dialogue.text = "I've left more signs around on this level, to teach you more about this game."
-		await get_tree().create_timer(5.0).timeout
+		await get_tree().create_timer(3.0).timeout
 		dialogue.text = "Good luck, I need those gems to get friday morning goodies."
-		await get_tree().create_timer(4.0).timeout
+		await get_tree().create_timer(2.0).timeout
 		$Control/dialogueBox.visible = false
 		emit_signal("barrier")
 	
@@ -305,3 +305,7 @@ func _on_resume_pressed():
 func _on_next_pressed():
 	Globals.win = false
 	get_tree().change_scene_to_file(Globals.next_level)
+
+
+func _on_gem_1_body_entered(body):
+	pass # Replace with function body.

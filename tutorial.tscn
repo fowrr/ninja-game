@@ -154,28 +154,6 @@ theme_override_font_sizes/normal_font_size = 50
 text = "Welcome to Island Hopper. In this game, you must get gems that are located around various locations in each level.
 SHIFT to sprint."
 
-[node name="SubViewport3" type="SubViewport" parent="."]
-size = Vector2i(1400, 1050)
-
-[node name="Label" type="RichTextLabel" parent="SubViewport3"]
-clip_contents = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/normal_font = ExtResource("8_ydvy0")
-theme_override_font_sizes/normal_font_size = 60
-bbcode_enabled = true
-text = "[center]This is a grappler.  Grab it by walking into it.
-Use (W,S) or UP arrow and DOWN arrow keys to move while hooked.
-
-To hook, left-click on a GLOWING BLUE BOX. You must be in range of a GLOWING BLUE BOX to hook onto it. To unhook, let go of left-click.
-
-Keep holding down a key until you reach the peak of your swing before changing key direction. You can use your camera to swing aswell, just hold down your forward key and look around with your camera in the direction you want to go. 
-
-Unhooking will also allow you to fling yourself.[/center]"
-
 [node name="SubViewport4" type="SubViewport" parent="."]
 size = Vector2i(1028, 800)
 
@@ -190,6 +168,8 @@ theme_override_fonts/normal_font = ExtResource("8_ydvy0")
 theme_override_font_sizes/normal_font_size = 60
 bbcode_enabled = true
 text = "[center]This is a Knife.  Grab it by walking into it.
+Click 2 to equip the knife
+
 Use left-click to shoot, right-click to zoom in (if you want). 
 
 Around the map, some parts may be locked. Sometimes, you need to hit a target with your knife to make a GLOWING BLUE BOX appear or make a door open.[/center]"
@@ -252,6 +232,29 @@ transform = Transform3D(2.37209, 0, 0, 0, 2.37209, 0, 0, 0, 2.37209, 0, -0.44738
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="gem_tutorial"]
 shape = SubResource("BoxShape3D_rnru6")
+
+[node name="SubViewport3" type="SubViewport" parent="."]
+size = Vector2i(1400, 950)
+
+[node name="Label" type="RichTextLabel" parent="SubViewport3"]
+clip_contents = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("8_ydvy0")
+theme_override_font_sizes/normal_font_size = 60
+bbcode_enabled = true
+text = "[center]This is a grappler.  Grab it by walking into it. Click 1 to equip.
+
+Use (W,S) or UP arrow and DOWN arrow keys to move while hooked.
+
+To hook, left-click on a GLOWING BLUE BOX. You must be IN RANGE of a GLOWING BLUE BOX to hook onto it. To unhook, let go of left-click.
+
+When grappling, and to swing, make sure you go all THE WAY in one direction before going the other way
+
+Unhooking will also allow you to fling yourself.[/center]"
 
 [connection signal="body_entered" from="tutorial trigger" to="bean" method="_on_tutorial_trigger_body_entered"]
 [connection signal="barrier" from="bean" to="barrier" method="_on_bean_barrier"]
