@@ -9,9 +9,9 @@ var knife_proj = load("res://knife_proj.tscn")
 @onready var bean = $".."
 @onready var knifeTimer = $Timer
 @onready var knife =  $"../v/h/knife"
-@onready var crosshair = $"../v/h/Camera3D/CanvasLayer/HBoxContainer/crosshair"
-@onready var crosshair2 = $"../v/h/Camera3D/CanvasLayer2/HBoxContainer/crosshair2"
-#@onready var 
+@onready var crosshair = $"../v/h/Camera3D/HBoxContainer/crosshair"
+@onready var crosshair2 = $"../v/h/Camera3D/HBoxContainer2/crosshair2"
+@onready var paused = false 
 #@onready var 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,6 +20,10 @@ func _ready():
 	crosshair.visible = true
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if paused == true:
+		set_process(false)
+	elif paused == false:
+		set_process(true)
 	if knifeAvailable == true:
 		if knifeTimer.is_stopped():
 			knife.visible = true
@@ -55,3 +59,19 @@ func _on_bean_grapple_1():
 
 func _on_bean_knife_1():
 	knifeAvailable = true
+
+
+
+
+
+func _on_bean_paused_false():
+	paused = false
+	set_process(true)
+
+func _on_bean_paused_true():
+	paused = true
+
+
+func _on_resume_pressed():
+	paused = false
+	set_process(true)

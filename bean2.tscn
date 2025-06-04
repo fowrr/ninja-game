@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://0myexbcst06a"]
+[gd_scene load_steps=29 format=3 uid="uid://0myexbcst06a"]
 
 [ext_resource type="Script" path="res://bean.gd" id="1_qxflj"]
 [ext_resource type="Script" path="res://velocity.gd" id="1_sf2ci"]
@@ -17,6 +17,7 @@
 [ext_resource type="FontFile" uid="uid://cre70xujsdxx0" path="res://VCR_OSD_MONO_1.001.ttf" id="12_80owi"]
 [ext_resource type="Script" path="res://level_pause.gd" id="12_dkmfd"]
 [ext_resource type="Script" path="res://knifeController.gd" id="12_dteog"]
+[ext_resource type="Script" path="res://next.gd" id="13_xyerd"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_27feu"]
 friction = 0.3
@@ -96,17 +97,14 @@ transform = Transform3D(0.0972481, 0, 0, 0, -3.33741e-10, 0.0076351, 0, -0.09724
 [node name="knife ray" type="RayCast3D" parent="v/h/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, -1.47609e-06, -1, 0, 33.769, -4.37114e-08, 0, 0, -0.90563)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="v/h/Camera3D"]
-layer = 0
-visible = false
-
-[node name="HBoxContainer" type="HBoxContainer" parent="v/h/Camera3D/CanvasLayer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="v/h/Camera3D"]
+z_index = 6
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -52.4645
+offset_left = -52.4647
 offset_top = -52.0
 offset_right = 459.535
 offset_bottom = 460.0
@@ -114,35 +112,41 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.2, 0.2)
 
-[node name="crosshair" type="TextureRect" parent="v/h/Camera3D/CanvasLayer/HBoxContainer"]
+[node name="crosshair" type="TextureRect" parent="v/h/Camera3D/HBoxContainer"]
 modulate = Color(0, 0.760784, 0.14902, 1)
+z_index = 4
 layout_mode = 2
 texture = ExtResource("5_gtdxs")
 script = ExtResource("3_ci4wn")
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="v/h/Camera3D"]
+[node name="CanvasLayer" type="CanvasLayer" parent="v/h/Camera3D"]
 layer = 0
-visible = false
 
-[node name="HBoxContainer" type="HBoxContainer" parent="v/h/Camera3D/CanvasLayer2"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="v/h/Camera3D"]
+z_index = 6
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -206.412
-offset_top = -205.889
+offset_top = -205.89
 offset_right = 1841.59
 offset_bottom = 1842.11
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.2, 0.2)
 
-[node name="crosshair2" type="TextureRect" parent="v/h/Camera3D/CanvasLayer2/HBoxContainer"]
+[node name="crosshair2" type="TextureRect" parent="v/h/Camera3D/HBoxContainer2"]
+visible = false
 modulate = Color(0, 0.760784, 0.14902, 1)
+z_index = 4
 layout_mode = 2
 texture = ExtResource("5_13j1e")
 script = ExtResource("3_ci4wn")
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="v/h/Camera3D"]
+layer = 0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="v"]
 transform = Transform3D(0.357546, 0, 0, 0, 0.3, 0, 0, 0, 0.648738, 0.349525, 0.199342, 0)
@@ -162,6 +166,7 @@ anchors_preset = 0
 size_flags_stretch_ratio = 1.2
 
 [node name="ColorRect" type="ColorRect" parent="zoom"]
+z_index = 4
 layout_mode = 2
 offset_left = -2.91675
 offset_top = -2.02979
@@ -171,6 +176,7 @@ scale = Vector2(2.45, 0.25)
 color = Color(0, 0, 0, 1)
 
 [node name="ColorRect4" type="ColorRect" parent="zoom"]
+z_index = 4
 layout_mode = 2
 offset_left = -6.67902
 offset_top = 106.618
@@ -180,6 +186,7 @@ scale = Vector2(0.85, 1.1)
 color = Color(0, 0, 0, 1)
 
 [node name="ColorRect2" type="ColorRect" parent="zoom"]
+z_index = 4
 layout_mode = 2
 offset_left = 285.972
 offset_top = 464.859
@@ -189,6 +196,7 @@ scale = Vector2(2.05, 0.4)
 color = Color(0, 0, 0, 1)
 
 [node name="ColorRect3" type="ColorRect" parent="zoom"]
+z_index = 4
 layout_mode = 2
 offset_left = 759.434
 offset_top = 538.915
@@ -211,6 +219,7 @@ script = ExtResource("1_sf2ci")
 
 [node name="pause" type="Control" parent="Control"]
 visible = false
+z_index = 7
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -248,7 +257,6 @@ horizontal_alignment = 1
 
 [node name="Resume" type="Button" parent="Control/pause"]
 z_index = 5
-z_as_relative = false
 material = SubResource("CanvasItemMaterial_ph5kl")
 layout_mode = 0
 offset_left = 430.0
@@ -278,8 +286,7 @@ text = "Quit"
 script = ExtResource("11_1iu1m")
 
 [node name="Level" type="Button" parent="Control/pause"]
-z_index = 7
-z_as_relative = false
+z_index = 5
 material = SubResource("CanvasItemMaterial_ph5kl")
 layout_mode = 0
 offset_left = 428.704
@@ -299,7 +306,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="ColorRect" type="ColorRect" parent="Control/win"]
-z_index = 3
+z_index = 10
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -307,29 +314,17 @@ scale = Vector2(37.85, 74.75)
 color = Color(0.2, 0.2, 0.2, 0.698039)
 
 [node name="winLabel" type="Label" parent="Control/win"]
-z_index = 6
+z_index = 11
 layout_mode = 0
 offset_top = 74.3354
 offset_right = 1155.0
 offset_bottom = 162.335
 theme_override_fonts/font = ExtResource("12_80owi")
-theme_override_font_sizes/font_size = 96
-text = "You won!"
+theme_override_font_sizes/font_size = 72
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="Control/win"]
-z_index = 6
-layout_mode = 0
-offset_left = -1.25989
-offset_top = 170.089
-offset_right = 1153.74
-offset_bottom = 258.089
-theme_override_fonts/font = ExtResource("12_80owi")
-theme_override_font_sizes/font_size = 36
-horizontal_alignment = 1
-
-[node name="Resume" type="Button" parent="Control/win"]
-z_index = 5
+[node name="next" type="Button" parent="Control/win"]
+z_index = 11
 z_as_relative = false
 material = SubResource("CanvasItemMaterial_ph5kl")
 layout_mode = 0
@@ -342,10 +337,10 @@ theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_y00lq")
 theme_override_styles/hover = SubResource("StyleBoxFlat_gargb")
 text = "Next Level"
-script = ExtResource("10_vqpbd")
+script = ExtResource("13_xyerd")
 
 [node name="Quit" type="Button" parent="Control/win"]
-z_index = 5
+z_index = 11
 material = SubResource("CanvasItemMaterial_ph5kl")
 layout_mode = 0
 offset_left = 431.26
@@ -360,7 +355,7 @@ text = "Quit"
 script = ExtResource("11_1iu1m")
 
 [node name="Level" type="Button" parent="Control/win"]
-z_index = 7
+z_index = 11
 z_as_relative = false
 material = SubResource("CanvasItemMaterial_ph5kl")
 layout_mode = 0
@@ -482,14 +477,17 @@ text = "2
 [connection signal="Grapple1" from="." to="knifeController" method="_on_bean_grapple_1"]
 [connection signal="Knife1" from="." to="grappleController" method="_on_bean_knife_1"]
 [connection signal="Knife1" from="." to="knifeController" method="_on_bean_knife_1"]
-[connection signal="colF" from="." to="v/h/Camera3D/CanvasLayer/HBoxContainer/crosshair" method="_on_bean_col_f"]
+[connection signal="colF" from="." to="v/h/Camera3D/HBoxContainer/crosshair" method="_on_bean_col_f"]
 [connection signal="colF" from="." to="grappleController" method="_on_bean_col_f"]
-[connection signal="colT" from="." to="v/h/Camera3D/CanvasLayer/HBoxContainer/crosshair" method="_on_bean_col_t"]
+[connection signal="colT" from="." to="v/h/Camera3D/HBoxContainer/crosshair" method="_on_bean_col_t"]
 [connection signal="colT" from="." to="grappleController" method="_on_bean_col_t"]
+[connection signal="pausedFalse" from="." to="knifeController" method="_on_bean_paused_false"]
+[connection signal="pausedTrue" from="." to="knifeController" method="_on_bean_paused_true"]
 [connection signal="pressed" from="Control/pause/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Control/pause/Resume" to="knifeController" method="_on_resume_pressed"]
 [connection signal="pressed" from="Control/pause/Quit" to="Control/pause/Quit" method="_on_pressed"]
 [connection signal="pressed" from="Control/pause/Level" to="Control/pause/Level" method="_on_pressed"]
-[connection signal="pressed" from="Control/win/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Control/win/next" to="." method="_on_next_pressed"]
 [connection signal="pressed" from="Control/win/Quit" to="Control/win/Quit" method="_on_pressed"]
 [connection signal="pressed" from="Control/win/Level" to="Control/win/Level" method="_on_pressed"]
 [connection signal="launching" from="grappleController" to="." method="_on_grapple_controller_launching"]

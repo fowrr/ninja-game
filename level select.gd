@@ -15,7 +15,7 @@ extends Control
 @onready var all_levels = [ten,nine,eight,seven,six,five,four,three,two,one]
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

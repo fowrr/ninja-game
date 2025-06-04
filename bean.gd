@@ -6,6 +6,8 @@ signal Grapple1
 signal Knife1
 signal voidTutTrigger
 signal barrier
+signal pausedTrue
+signal pausedFalse
 var vMultiplier := 1000.0
 var mouse_sens = 0.3
 @onready var hrzn = $v
@@ -35,7 +37,7 @@ var torque_axis = null
 @onready var knife = $v/h/knife/knife
 @onready var knifeRay = $"v/h/Camera3D/knife ray"
 @onready var initial_pos = global_position
-@onready var crosshair = $v/h/Camera3D/CanvasLayer/HBoxContainer/crosshair
+@onready var crosshair = $v/h/Camera3D/HBoxContainer/crosshair
 @onready var pausedScreen = $Control/pause
 @onready var dialogue = $Control/dialogueBox/dialogue
 @onready var winGUI = $Control/win
@@ -56,6 +58,7 @@ func _ready():
 	knife.visible = false
 	ball.visible = false
 	$Control/dialogueBox.visible = false
+	paused = false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
@@ -88,13 +91,22 @@ func _process(delta):
 
 	if input == Vector2.ZERO and colliding == true:
 		max_speed = lerp(max_speed, 0.0, 0.1)
+	
+	
 	if Globals.win == false:
 		if Input.is_action_just_pressed("pause"):
 			if paused == true:
 				paused = false
+				emit_signal("pausedFalse")
+				pausedScreen.visible = false
 			elif paused == false:
 				paused = true
-	
+				emit_signal("pausedTrue")
+				pausedScreen.visible = true
+	if paused == false:
+		pausedScreen.visible = false
+		
+		
 	#To process my items and when i can use them and what not
 	if plungerUse == 0:
 		pass
@@ -120,9 +132,12 @@ func _process(delta):
 		col()
 	elif knife.visible == true:
 		colK()
+	print(Globals.win)
 	if Globals.win == true:
 		winGUI.visible = true
-		winLabel = "You passed" + str(Globals.level_passed) +("!")
+		winLabel.text = "You passed " + str(Globals.level_passed) +("!")
+	elif Globals.win == false:
+		winGUI.visible = false
 	#print(launchChain)
 	#print(rope_dir)
 	
@@ -163,8 +178,11 @@ func col():
 
 #This works
 func _input(event): 
-	if paused == false:
-		pausedScreen.visible = false
+	if paused == true or Globals.win == true:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		freeze = true
+	elif paused == false or Globals.win == false:
+		freeze = false
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		if event is InputEventMouseMotion: #My movement code
 			mNode.rotate_y(deg_to_rad(event.relative.x*mouse_sens)) #moNode, meaning movement Node, ensures that my movement is going the right way (because the way your camera turns is the opposite way your character should move)
@@ -181,12 +199,9 @@ func _input(event):
 					apply_central_impulse(Vector3.UP * 15)
 					jumps -=1
 				elif jumps == 1:
-					if linear_velocity.y <= 0.25:
+					if linear_velocity.y <= 1.0:
 						apply_central_impulse(Vector3.UP * 15 )
 						jumps -=1
-	else:
-		pausedScreen.visible = true
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _integrate_forces(state):
 	if launch == true:
@@ -268,15 +283,15 @@ func _on_tutorial_trigger_body_entered(body):
 		dialogue.text = "You're probably wondering who I am." 
 		await get_tree().create_timer(5.0).timeout
 		dialogue.text = "I am Mr. Nemeth, and I'm talking directly to your subconcious"
-		await get_tree().create_timer(7.0).timeout
+		await get_tree().create_timer(4.0).timeout
 		dialogue.text = "Listen, I need you to collect gems for me."
 		await get_tree().create_timer(5.0).timeout
 		dialogue.text = "There should be an image on how it should look like."
 		await get_tree().create_timer(4.0).timeout
 		dialogue.text = "I've left more signs around on this level, to teach you more about this game."
-		await get_tree().create_timer(6.0).timeout
+		await get_tree().create_timer(5.0).timeout
 		dialogue.text = "Good luck, I need those gems to get friday morning goodies."
-		await get_tree().create_timer(6.0).timeout
+		await get_tree().create_timer(4.0).timeout
 		$Control/dialogueBox.visible = false
 		emit_signal("barrier")
 	
@@ -286,3 +301,8 @@ func _on_resume_pressed():
 	paused = false
 
 
+
+
+func _on_next_pressed():
+	Globals.win = false
+	get_tree().change_scene_to_file(Globals.next_level)

@@ -1,0 +1,43 @@
+[gd_scene load_steps=9 format=3 uid="uid://bkedjhjv64mmx"]
+
+[ext_resource type="Texture2D" uid="uid://b8p51mx5c4g20" path="res://enivronment/autumn_field_puresky_4k.exr" id="1_2yucf"]
+[ext_resource type="Script" path="res://level_3.gd" id="1_6ucfb"]
+[ext_resource type="Script" path="res://gem_3.gd" id="2_gqy8h"]
+[ext_resource type="PackedScene" uid="uid://nkuj3cyhvye7" path="res://GLB format/jewel.glb" id="3_rkf0x"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_p1tse"]
+panorama = ExtResource("1_2yucf")
+
+[sub_resource type="Sky" id="Sky_1f7kj"]
+sky_material = SubResource("PanoramaSkyMaterial_p1tse")
+
+[sub_resource type="Environment" id="Environment_ga6ri"]
+resource_local_to_scene = true
+background_mode = 2
+background_color = Color(0.992157, 0.992157, 0.992157, 1)
+background_energy_multiplier = 0.33
+sky = SubResource("Sky_1f7kj")
+glow_enabled = true
+glow_strength = 1.62
+glow_bloom = 0.1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vp251"]
+
+[node name="Level3" type="Node3D"]
+script = ExtResource("1_6ucfb")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ga6ri")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.85493, 0.269474, -0.443259, 0, 0.854486, 0.519474, 0.518743, -0.444114, 0.730526, -15.6982, 24.7755, 38.3288)
+
+[node name="gem_3" type="Area3D" parent="."]
+transform = Transform3D(0.85493, 0.269474, -0.443259, 0, 0.854486, 0.519474, 0.518743, -0.444114, 0.730526, -15.6982, 24.7755, 38.3288)
+script = ExtResource("2_gqy8h")
+
+[node name="jewel" parent="gem_3" instance=ExtResource("3_rkf0x")]
+transform = Transform3D(2.37209, 0, 0, 0, 2.37209, 0, 0, 0, 2.37209, 0, -0.447384, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="gem_3"]
+shape = SubResource("BoxShape3D_vp251")
