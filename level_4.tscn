@@ -1,0 +1,60 @@
+[gd_scene load_steps=11 format=3 uid="uid://c7655yxb3qjek"]
+
+[ext_resource type="Texture2D" uid="uid://b8p51mx5c4g20" path="res://enivronment/autumn_field_puresky_4k.exr" id="1_io66g"]
+[ext_resource type="PackedScene" uid="uid://cj00jm78rng6q" path="res://grassIsland.tscn" id="2_ljj7l"]
+[ext_resource type="PackedScene" uid="uid://0myexbcst06a" path="res://bean2.tscn" id="3_gp3yr"]
+[ext_resource type="Script" path="res://gem_3.gd" id="4_n4g8x"]
+[ext_resource type="PackedScene" uid="uid://nkuj3cyhvye7" path="res://GLB format/jewel.glb" id="5_sp4k7"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_lljw8"]
+panorama = ExtResource("1_io66g")
+
+[sub_resource type="Sky" id="Sky_1f7kj"]
+sky_material = SubResource("PanoramaSkyMaterial_lljw8")
+
+[sub_resource type="Environment" id="Environment_4e6oh"]
+resource_local_to_scene = true
+background_mode = 2
+background_color = Color(0.992157, 0.992157, 0.992157, 1)
+background_energy_multiplier = 0.33
+sky = SubResource("Sky_1f7kj")
+glow_enabled = true
+glow_strength = 1.62
+glow_bloom = 0.1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h6pbj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_irc0t"]
+
+[node name="level_4" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_4e6oh")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.85493, 0.269474, -0.443259, 0, 0.854486, 0.519474, 0.518743, -0.444114, 0.730526, -15.6982, 24.7755, 38.3288)
+
+[node name="grassIsland" parent="." instance=ExtResource("2_ljj7l")]
+transform = Transform3D(7.96128, 0, 0, 0, 1, 0, 0, 0, 8.77183, 0, 0, 0)
+
+[node name="bean" parent="." instance=ExtResource("3_gp3yr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.63505, 0)
+
+[node name="gem_4" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.127554, 6.54779, -95.2261)
+script = ExtResource("4_n4g8x")
+
+[node name="jewel" parent="gem_4" instance=ExtResource("5_sp4k7")]
+transform = Transform3D(2.37209, 0, 0, 0, 2.37209, 0, 0, 0, 2.37209, 0, -0.447384, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="gem_4"]
+shape = SubResource("BoxShape3D_h6pbj")
+
+[node name="void" type="Area3D" parent="."]
+transform = Transform3D(10.4937, 0, 527.736, 0, 1, 0, -503.904, 0, 10.99, 10.8412, -12.3558, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="void"]
+transform = Transform3D(1, 0, -1.86265e-09, 0, 1, 0, 1.86265e-09, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_irc0t")
+
+[connection signal="body_entered" from="gem_4" to="gem_4" method="_on_body_entered"]

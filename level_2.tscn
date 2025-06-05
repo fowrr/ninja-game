@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b14001fs03vjo"]
+[gd_scene load_steps=22 format=3 uid="uid://b14001fs03vjo"]
 
 [ext_resource type="Texture2D" uid="uid://b8p51mx5c4g20" path="res://enivronment/autumn_field_puresky_4k.exr" id="1_ftj1q"]
 [ext_resource type="Script" path="res://level_2.gd" id="1_u7ktg"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://f73hmnmgq2up" path="res://box_grapple.tscn" id="9_k4tul"]
 [ext_resource type="PackedScene" uid="uid://b6knc7wh0hnym" path="res://target.tscn" id="10_2u8rr"]
 [ext_resource type="Script" path="res://barrier.gd" id="11_eu67v"]
+[ext_resource type="FontFile" uid="uid://cre70xujsdxx0" path="res://VCR_OSD_MONO_1.001.ttf" id="12_kfakw"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_p1tse"]
 panorama = ExtResource("1_ftj1q")
@@ -41,6 +42,9 @@ albedo_color = Color(0.152941, 0.466667, 1, 1)
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jh63a"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_k3u8u"]
+viewport_path = NodePath("SubViewport")
 
 [node name="Level2" type="Node3D"]
 script = ExtResource("1_u7ktg")
@@ -116,6 +120,23 @@ transform = Transform3D(10.4937, 0, 527.736, 0, 1, 0, -503.904, 0, 10.99, 10.841
 [node name="CollisionShape3D" type="CollisionShape3D" parent="void"]
 transform = Transform3D(1, 0, -1.86265e-09, 0, 1, 0, 1.86265e-09, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_jh63a")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(300, 70)
+
+[node name="Label" type="Label" parent="SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("12_kfakw")
+theme_override_font_sizes/font_size = 70
+text = "LEVEL 2"
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.773577, 0.182045, 0.606991, -0.00236267, 0.958671, -0.284508, -0.633698, 0.218655, 0.742036, -3.76538, 4.56101, -5.48217)
+texture = SubResource("ViewportTexture_k3u8u")
 
 [connection signal="body_entered" from="gem_2" to="gem_2" method="_on_body_entered"]
 [connection signal="targetHit" from="target" to="BoxGrapple2/CSGBox3D" method="_on_target_target_hit"]

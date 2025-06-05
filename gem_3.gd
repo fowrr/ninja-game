@@ -10,8 +10,9 @@ func _ready():
 func _process(delta):
 	pass
 
-#	if body.get_name() == "bean":
-#		Globals.gem_0() #handles current level
-#		#Globals.gem() #handles 
-#		Globals.win = true
-#		queue_free()
+func _on_body_entered(body):
+	if body.get_name() == "bean":
+		Globals.gem_3() #handles current level 
+		Globals.win = true
+		queue_free()
+
