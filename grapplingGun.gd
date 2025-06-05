@@ -2,6 +2,7 @@ extends Node3D
 signal launching
 signal retracted
 signal point(dir_player_targ)
+signal makeSureGrappleDisappears
 @onready var mNode = $"../movementNode"
 #This whole code will the grappling code
 #I will attempt to make a 3D version of the springJoint that the 2D space has.
@@ -15,6 +16,7 @@ var colliding = false
 @onready var mBasis = mNode.basis
 @onready var rope = $"../v/h/rope"
 var plungerAvailable = false
+var retracted2 = false
 func _ready():
 	pass # Replace with function body.
 
@@ -22,8 +24,10 @@ var launched = false
 var hook_target = Vector3.ZERO
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	print(launched)
 	if plungerAvailable == true:
 		if Input.is_action_just_pressed("shoot") and colliding == true:
+			print("bra")
 			launch()
 			emit_signal("launching")
 		if Input.is_action_just_released("shoot"):
@@ -31,10 +35,9 @@ func _process(delta):
 			emit_signal("retracted")
 		if launched == true:
 			grapple_physics()
-		draw_rope()
+	draw_rope()
 func retract():
 	launched = false
-
 func launch():
 	hook_target = ray.get_collision_point()
 	launched = true
@@ -72,8 +75,11 @@ func draw_rope():
 	rope.look_at(hook_target)
 	rope.scale = Vector3(1,1,distance/2)
 	
-
-
+func _input(event):
+	if Input.is_action_pressed("2"):
+		retract()
+		emit_signal("retracted")
+		emit_signal("makeSureGrappleDisappears")
 func _on_bean_grapple_1():
 	plungerAvailable = true
 

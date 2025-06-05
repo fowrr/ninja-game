@@ -491,6 +491,7 @@ text = "2
 [connection signal="pressed" from="Control/win/Quit" to="Control/win/Quit" method="_on_pressed"]
 [connection signal="pressed" from="Control/win/Level" to="Control/win/Level" method="_on_pressed"]
 [connection signal="launching" from="grappleController" to="." method="_on_grapple_controller_launching"]
+[connection signal="makeSureGrappleDisappears" from="grappleController" to="." method="_on_grapple_controller_make_sure_grapple_disappears"]
 [connection signal="point" from="grappleController" to="." method="_on_grapple_controller_point"]
 [connection signal="retracted" from="grappleController" to="." method="_on_grapple_controller_retracted"]
 [connection signal="sensChange" from="knifeController" to="." method="_on_knife_controller_sens_change"]

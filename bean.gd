@@ -139,7 +139,6 @@ func _process(delta):
 		winGUI.visible = false
 	#print(launchChain)
 	#print(rope_dir)
-	
 func colK():
 	if knifeRay.is_colliding():
 		h.albedo_color = Color(0,1,0)
@@ -214,7 +213,6 @@ func _integrate_forces(state):
 		if horizontal_velocity.length() >= 10.0:
 			vMultiplier = lerp(vMultiplier, 1000.00, 0.5)
 		elif horizontal_velocity.length() > 8.1:
-			print("bruhbruh")
 			vMultiplier = 2000
 			horizontal_velocity = horizontal_velocity.normalized() * 8
 			linear_velocity = Vector3(horizontal_velocity.x,linear_velocity.y,horizontal_velocity.y)
@@ -239,7 +237,6 @@ func _on_grapple_controller_launching():
 	launchChain = true
 	if jumps == 0:
 		jumps += 1
-	print(jumps)
 
 
 func _on_grapple_controller_retracted():
@@ -306,6 +303,6 @@ func _on_next_pressed():
 	Globals.win = false
 	get_tree().change_scene_to_file(Globals.next_level)
 
-
-func _on_gem_1_body_entered(body):
-	pass # Replace with function body.
+func _on_grapple_controller_make_sure_grapple_disappears():
+	plunger.visible = false
+	gunPlunger.visible = false

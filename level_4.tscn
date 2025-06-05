@@ -1,10 +1,18 @@
-[gd_scene load_steps=11 format=3 uid="uid://c7655yxb3qjek"]
+[gd_scene load_steps=19 format=3 uid="uid://c7655yxb3qjek"]
 
 [ext_resource type="Texture2D" uid="uid://b8p51mx5c4g20" path="res://enivronment/autumn_field_puresky_4k.exr" id="1_io66g"]
 [ext_resource type="PackedScene" uid="uid://cj00jm78rng6q" path="res://grassIsland.tscn" id="2_ljj7l"]
 [ext_resource type="PackedScene" uid="uid://0myexbcst06a" path="res://bean2.tscn" id="3_gp3yr"]
-[ext_resource type="Script" path="res://gem_3.gd" id="4_n4g8x"]
+[ext_resource type="Script" path="res://level4island1.gd" id="3_ryiyj"]
+[ext_resource type="Script" path="res://grassIsland4.2.gd" id="4_jx5iy"]
+[ext_resource type="Script" path="res://grassIsland3level4.gd" id="5_gm81t"]
 [ext_resource type="PackedScene" uid="uid://nkuj3cyhvye7" path="res://GLB format/jewel.glb" id="5_sp4k7"]
+[ext_resource type="PackedScene" uid="uid://bocxhkd2arpln" path="res://knife_area_node.tscn" id="6_beobc"]
+[ext_resource type="Script" path="res://gem_4.gd" id="7_pd574"]
+[ext_resource type="PackedScene" uid="uid://b6knc7wh0hnym" path="res://target.tscn" id="7_t7oyf"]
+[ext_resource type="Script" path="res://target2.gd" id="11_6cvpo"]
+[ext_resource type="Script" path="res://target1.gd" id="12_bghc3"]
+[ext_resource type="Script" path="res://target3.gd" id="13_dj7kc"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_lljw8"]
 panorama = ExtResource("1_io66g")
@@ -37,12 +45,27 @@ transform = Transform3D(0.85493, 0.269474, -0.443259, 0, 0.854486, 0.519474, 0.5
 [node name="grassIsland" parent="." instance=ExtResource("2_ljj7l")]
 transform = Transform3D(7.96128, 0, 0, 0, 1, 0, 0, 0, 8.77183, 0, 0, 0)
 
+[node name="grassIsland2" parent="." instance=ExtResource("2_ljj7l")]
+transform = Transform3D(7.96128, 0, 0, 0, 1, 0, 0, 0, 8.77183, 0, 0, -94.2201)
+
+[node name="grassIsland3" parent="." instance=ExtResource("2_ljj7l")]
+transform = Transform3D(2.95989, 0, 0, 0, 1, 0, 0, 0, 3.57739, -0.167885, 1.30687, -24.7838)
+script = ExtResource("3_ryiyj")
+
+[node name="grassIsland4" parent="." instance=ExtResource("2_ljj7l")]
+transform = Transform3D(2.95989, 0, 0, 0, 1, 0, 0, 0, 3.57739, -0.167885, 1.30687, -45.3658)
+script = ExtResource("4_jx5iy")
+
+[node name="grassIsland5" parent="." instance=ExtResource("2_ljj7l")]
+transform = Transform3D(2.95989, 0, 0, 0, 1, 0, 0, 0, 3.57739, -0.167885, 1.30687, -65.4756)
+script = ExtResource("5_gm81t")
+
 [node name="bean" parent="." instance=ExtResource("3_gp3yr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.63505, 0)
 
 [node name="gem_4" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.127554, 6.54779, -95.2261)
-script = ExtResource("4_n4g8x")
+script = ExtResource("7_pd574")
 
 [node name="jewel" parent="gem_4" instance=ExtResource("5_sp4k7")]
 transform = Transform3D(2.37209, 0, 0, 0, 2.37209, 0, 0, 0, 2.37209, 0, -0.447384, 0)
@@ -57,4 +80,32 @@ transform = Transform3D(10.4937, 0, 527.736, 0, 1, 0, -503.904, 0, 10.99, 10.841
 transform = Transform3D(1, 0, -1.86265e-09, 0, 1, 0, 1.86265e-09, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_irc0t")
 
+[node name="knife_areaNode" parent="." instance=ExtResource("6_beobc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.16468, -0.434466)
+
+[node name="CollisionShape3D" parent="knife_areaNode" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1.08495, 0, 0, 0, 1, -0.0808939, -0.169115, 0.5174)
+
+[node name="target" parent="." instance=ExtResource("7_t7oyf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.91347, 5.55807, -24.29)
+script = ExtResource("11_6cvpo")
+
+[node name="target2" parent="." instance=ExtResource("7_t7oyf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.91347, 5.55807, -44.504)
+script = ExtResource("12_bghc3")
+
+[node name="target3" parent="." instance=ExtResource("7_t7oyf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.91347, 5.55807, -65.3727)
+script = ExtResource("13_dj7kc")
+
 [connection signal="body_entered" from="gem_4" to="gem_4" method="_on_body_entered"]
+[connection signal="body_entered" from="void" to="bean" method="_on_void_body_entered"]
+[connection signal="redo1" from="target" to="grassIsland3" method="_on_target_redo_1"]
+[connection signal="targetHit1" from="target" to="grassIsland3" method="_on_target_target_hit_1"]
+[connection signal="redo2" from="target2" to="grassIsland4" method="_on_target_2_redo_2"]
+[connection signal="targetHit2" from="target2" to="grassIsland4" method="_on_target_2_target_hit_2"]
+[connection signal="redo3" from="target3" to="grassIsland5" method="_on_target_3_redo_3"]
+[connection signal="targetHit3" from="target3" to="grassIsland5" method="_on_target_3_target_hit_3"]
+
+[editable path="grassIsland3"]
+[editable path="knife_areaNode"]

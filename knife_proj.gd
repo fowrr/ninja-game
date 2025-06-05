@@ -2,7 +2,7 @@ extends RayCast3D
 #https://www.youtube.com/watch?v=vGpFwaLUG4U&ab_channel=Bramwell
 #https://www.youtube.com/watch?v=vGpFwaLUG4U&ab_channel=Bramwell
 #https://www.youtube.com/watch?v=vGpFwaLUG4U&ab_channel=Bramwell
-@export var speed := 5.0
+@export var speed := 10.0
 var player_scene = preload("res://bean2.tscn").instantiate() 
 @onready var player = player_scene.get_node("bean")
 # Called when the node enters the scene tree for the first time.
