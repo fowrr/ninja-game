@@ -24,10 +24,8 @@ var launched = false
 var hook_target = Vector3.ZERO
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	print(launched)
 	if plungerAvailable == true:
 		if Input.is_action_just_pressed("shoot") and colliding == true:
-			print("bra")
 			launch()
 			emit_signal("launching")
 		if Input.is_action_just_released("shoot"):

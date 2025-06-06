@@ -1,3 +1,145 @@
-[gd_scene format=3 uid="uid://71dpy02hk4vo"]
+[gd_scene load_steps=16 format=3 uid="uid://71dpy02hk4vo"]
+
+[ext_resource type="Texture2D" uid="uid://b8p51mx5c4g20" path="res://enivronment/autumn_field_puresky_4k.exr" id="1_nii4t"]
+[ext_resource type="PackedScene" uid="uid://cj00jm78rng6q" path="res://grassIsland.tscn" id="2_70ls4"]
+[ext_resource type="PackedScene" uid="uid://b3txilr4q3v5h" path="res://grapple_area_node.tscn" id="3_0i1ei"]
+[ext_resource type="PackedScene" uid="uid://bocxhkd2arpln" path="res://knife_area_node.tscn" id="4_nch0t"]
+[ext_resource type="PackedScene" uid="uid://f73hmnmgq2up" path="res://box_grapple.tscn" id="5_uuokt"]
+[ext_resource type="PackedScene" uid="uid://b6knc7wh0hnym" path="res://target.tscn" id="6_sumui"]
+[ext_resource type="PackedScene" uid="uid://0myexbcst06a" path="res://bean2.tscn" id="7_3au30"]
+[ext_resource type="FontFile" uid="uid://cre70xujsdxx0" path="res://VCR_OSD_MONO_1.001.ttf" id="8_s74tt"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_3piqa"]
+panorama = ExtResource("1_nii4t")
+
+[sub_resource type="Sky" id="Sky_1f7kj"]
+sky_material = SubResource("PanoramaSkyMaterial_3piqa")
+
+[sub_resource type="Environment" id="Environment_jqyam"]
+resource_local_to_scene = true
+background_mode = 2
+background_color = Color(0.992157, 0.992157, 0.992157, 1)
+background_energy_multiplier = 0.33
+sky = SubResource("Sky_1f7kj")
+glow_enabled = true
+glow_strength = 1.62
+glow_bloom = 0.1
+
+[sub_resource type="Animation" id="Animation_7xx0y"]
+resource_name = "rotate target"
+length = 20.0
+loop_mode = 1
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 5, 1, 0.707, 0, 0, 0.707, 10, 1, 1, 0, 0, 0, 15, 1, 0.707, 0, 0, -0.707)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p3cv6"]
+_data = {
+"rotate target": SubResource("Animation_7xx0y")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sisge"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_wohcp"]
+viewport_path = NodePath("SubViewport")
 
 [node name="level_5" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jqyam")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.85493, 0.269474, -0.443259, 0, 0.854486, 0.519474, 0.518743, -0.444114, 0.730526, -15.6982, 24.7755, 38.3288)
+
+[node name="grassIsland" parent="." instance=ExtResource("2_70ls4")]
+transform = Transform3D(7.96128, 0, 0, 0, 1, 0, 0, 0, 8.77183, 0, 0, 0)
+
+[node name="grassIsland2" parent="." instance=ExtResource("2_70ls4")]
+transform = Transform3D(7.96128, 0, 0, 0, 1, 0, 0, 0, 8.77183, 123.781, -5.12069, 0)
+
+[node name="grapple_areaNode" parent="." instance=ExtResource("3_0i1ei")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.75828, 1.30841, -1.82603)
+
+[node name="knife_areaNode" parent="." instance=ExtResource("4_nch0t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.72673, 2.38575, 0)
+
+[node name="BoxGrapple" parent="." instance=ExtResource("5_uuokt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.906, 10.4764, 0.661084)
+visible = false
+
+[node name="BoxGrapple" parent="BoxGrapple" instance=ExtResource("5_uuokt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.7395, 4.18377, 0.661084)
+visible = false
+
+[node name="BoxGrapple2" parent="." instance=ExtResource("5_uuokt")]
+transform = Transform3D(1, 0, 0, 0, 5.03639, 0, 0, 0, 7.46258, 96.9661, 10.4764, 0.661084)
+visible = false
+
+[node name="rotator" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 50.9047, 12.2301, 0)
+
+[node name="target" parent="rotator" instance=ExtResource("6_sumui")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9.53674e-07, 12.1848)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="rotator"]
+autoplay = "rotate target"
+libraries = {
+"": SubResource("AnimationLibrary_p3cv6")
+}
+
+[node name="bean" parent="." instance=ExtResource("7_3au30")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.67744, 0)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 50.9047, 12.2301, 0)
+radius = 12.4
+height = 0.205392
+sides = 40
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGCylinder3D"]
+operation = 2
+radius = 12.2
+height = 0.722491
+sides = 40
+
+[node name="void" type="Area3D" parent="."]
+transform = Transform3D(10.4937, 0, 527.736, 0, 1, 0, -503.904, 0, 10.99, 10.8412, -17.2806, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="void"]
+transform = Transform3D(1, 0, -1.86265e-09, 0, 1, 0, 1.86265e-09, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_sisge")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(650, 400)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("8_s74tt")
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "[center] TIP:
+
+SOMETIMES, when grappled and hanging in the air, regrappling on a same block can help swing further. Only do this when you feel slowish, doing it otherwise won't do anything."
+fit_content = true
+scroll_active = false
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(-0.913155, 0, -0.407613, 0, 1, 0, 0.407613, 0, -0.913155, 6.86871, 5.85238, 11.0132)
+texture = SubResource("ViewportTexture_wohcp")
+
+[connection signal="targetHit" from="rotator/target" to="BoxGrapple/CSGBox3D" method="_on_target_target_hit"]
+[connection signal="targetHit" from="rotator/target" to="BoxGrapple2/CSGBox3D" method="_on_target_target_hit"]
+[connection signal="targetHit" from="rotator/target" to="BoxGrapple/BoxGrapple/CSGBox3D" method="_on_target_target_hit"]
+[connection signal="body_entered" from="void" to="bean" method="_on_void_body_entered"]
+
+[editable path="BoxGrapple"]
+[editable path="BoxGrapple/BoxGrapple"]
+[editable path="BoxGrapple2"]

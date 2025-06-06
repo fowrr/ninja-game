@@ -186,7 +186,7 @@ func _input(event):
 			mNode.rotate_y(deg_to_rad(event.relative.x*mouse_sens)) #moNode, meaning movement Node, ensures that my movement is going the right way (because the way your camera turns is the opposite way your character should move)
 			hrzn.rotate_y(deg_to_rad(-event.relative.x*mouse_sens)) 
 			vert.rotate_x(deg_to_rad(-event.relative.y*mouse_sens))
-			vert.rotation.x = clamp(vert.rotation.x, deg_to_rad(-90.0), deg_to_rad(60.0))
+			vert.rotation.x = clamp(vert.rotation.x, deg_to_rad(-90.0), deg_to_rad(80.0))
 		if $feet.is_colliding():
 			grounded = 1
 			jumps = 2
@@ -203,10 +203,14 @@ func _input(event):
 
 func _integrate_forces(state):
 	if launch == true:
+		print(linear_velocity.length())
+		if linear_velocity.length() >41.0:
+			linear_velocity = linear_velocity.normalized() * 40.0
 		inputVector = Vector3( 0 , 0 ,input.y)
 		#var tangent_dir = (inputVector - inputVector.dot(rope_dir) * rope_dir).normalized()
 		torque_axis = rope_dir.cross(inputVector).normalized()
 		apply_torque_impulse(torque_axis * 50)
+		
 	elif launchChain == true and launch == false:
 		torque_axis = null
 		inputVector = Vector3( input.x , 0 ,input.y)
@@ -283,13 +287,13 @@ func _on_tutorial_trigger_body_entered(body):
 		dialogue.text = "Listen, I need you to collect gems for me."
 		await get_tree().create_timer(2.0).timeout
 		dialogue.text = "There should be an image on how it should look like."
+		emit_signal("barrier")
 		await get_tree().create_timer(3.0).timeout
 		dialogue.text = "I've left more signs around on this level, to teach you more about this game."
 		await get_tree().create_timer(3.0).timeout
 		dialogue.text = "Good luck, I need those gems to get friday morning goodies."
 		await get_tree().create_timer(2.0).timeout
 		$Control/dialogueBox.visible = false
-		emit_signal("barrier")
 	
 
 
