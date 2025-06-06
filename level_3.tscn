@@ -55,7 +55,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.85886, 5.54126)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.89297, -12.2629)
 
 [node name="grassIsland2" parent="." instance=ExtResource("5_8lfpe")]
-transform = Transform3D(16.8227, 0, 0, 0, 1, 0, 0, 0, 13.5785, 0, -3.07239, -73.5753)
+transform = Transform3D(16.8227, 0, 0, 0, 1, 0, 0, 0, 13.5785, 0, -3.07239, -70.2229)
 
 [node name="grassIsland3" parent="." instance=ExtResource("5_8lfpe")]
 transform = Transform3D(4.3541, 0, 0, 0, 1, 0, 0, 0, 4.51959, 0, 1.97693, -95.6637)

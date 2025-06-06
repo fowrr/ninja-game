@@ -204,8 +204,8 @@ func _input(event):
 func _integrate_forces(state):
 	if launch == true:
 		print(linear_velocity.length())
-		if linear_velocity.length() >41.0:
-			linear_velocity = linear_velocity.normalized() * 40.0
+		if linear_velocity.length() >51.0:
+			linear_velocity = linear_velocity.normalized() * 50.0
 		inputVector = Vector3( 0 , 0 ,input.y)
 		#var tangent_dir = (inputVector - inputVector.dot(rope_dir) * rope_dir).normalized()
 		torque_axis = rope_dir.cross(inputVector).normalized()

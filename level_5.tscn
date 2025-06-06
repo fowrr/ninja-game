@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://71dpy02hk4vo"]
+[gd_scene load_steps=19 format=3 uid="uid://71dpy02hk4vo"]
 
 [ext_resource type="Texture2D" uid="uid://b8p51mx5c4g20" path="res://enivronment/autumn_field_puresky_4k.exr" id="1_nii4t"]
 [ext_resource type="PackedScene" uid="uid://cj00jm78rng6q" path="res://grassIsland.tscn" id="2_70ls4"]
@@ -8,11 +8,13 @@
 [ext_resource type="PackedScene" uid="uid://b6knc7wh0hnym" path="res://target.tscn" id="6_sumui"]
 [ext_resource type="PackedScene" uid="uid://0myexbcst06a" path="res://bean2.tscn" id="7_3au30"]
 [ext_resource type="FontFile" uid="uid://cre70xujsdxx0" path="res://VCR_OSD_MONO_1.001.ttf" id="8_s74tt"]
+[ext_resource type="Script" path="res://gem_5.gd" id="9_hfwfg"]
+[ext_resource type="PackedScene" uid="uid://nkuj3cyhvye7" path="res://GLB format/jewel.glb" id="10_l56nk"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_3piqa"]
 panorama = ExtResource("1_nii4t")
 
-[sub_resource type="Sky" id="Sky_1f7kj"]
+[sub_resource type="Sky" id="Sky_8mpia"]
 sky_material = SubResource("PanoramaSkyMaterial_3piqa")
 
 [sub_resource type="Environment" id="Environment_jqyam"]
@@ -20,7 +22,7 @@ resource_local_to_scene = true
 background_mode = 2
 background_color = Color(0.992157, 0.992157, 0.992157, 1)
 background_energy_multiplier = 0.33
-sky = SubResource("Sky_1f7kj")
+sky = SubResource("Sky_8mpia")
 glow_enabled = true
 glow_strength = 1.62
 glow_bloom = 0.1
@@ -47,6 +49,8 @@ _data = {
 [sub_resource type="ViewportTexture" id="ViewportTexture_wohcp"]
 viewport_path = NodePath("SubViewport")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_l1wq6"]
+
 [node name="level_5" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -72,11 +76,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.906, 10.4764, 0.661084)
 visible = false
 
 [node name="BoxGrapple" parent="BoxGrapple" instance=ExtResource("5_uuokt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.7395, 4.18377, 0.661084)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.1336, 4.18377, 0.661084)
 visible = false
 
 [node name="BoxGrapple2" parent="." instance=ExtResource("5_uuokt")]
-transform = Transform3D(1, 0, 0, 0, 5.03639, 0, 0, 0, 7.46258, 96.9661, 10.4764, 0.661084)
+transform = Transform3D(1, 0, 0, 0, 3.52008, 0, 0, 0, 4.16704, 91.1489, 9.55963, 0.661084)
 visible = false
 
 [node name="rotator" type="Node3D" parent="."]
@@ -135,10 +139,21 @@ scroll_active = false
 transform = Transform3D(-0.913155, 0, -0.407613, 0, 1, 0, 0.407613, 0, -0.913155, 6.86871, 5.85238, 11.0132)
 texture = SubResource("ViewportTexture_wohcp")
 
+[node name="gem_3" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 124.413, -3.62069, 0.23759)
+script = ExtResource("9_hfwfg")
+
+[node name="jewel" parent="gem_3" instance=ExtResource("10_l56nk")]
+transform = Transform3D(2.37209, 0, 0, 0, 2.37209, 0, 0, 0, 2.37209, 0, -0.447384, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="gem_3"]
+shape = SubResource("BoxShape3D_l1wq6")
+
 [connection signal="targetHit" from="rotator/target" to="BoxGrapple/CSGBox3D" method="_on_target_target_hit"]
-[connection signal="targetHit" from="rotator/target" to="BoxGrapple2/CSGBox3D" method="_on_target_target_hit"]
 [connection signal="targetHit" from="rotator/target" to="BoxGrapple/BoxGrapple/CSGBox3D" method="_on_target_target_hit"]
+[connection signal="targetHit" from="rotator/target" to="BoxGrapple2/CSGBox3D" method="_on_target_target_hit"]
 [connection signal="body_entered" from="void" to="bean" method="_on_void_body_entered"]
+[connection signal="body_entered" from="gem_3" to="gem_3" method="_on_body_entered"]
 
 [editable path="BoxGrapple"]
 [editable path="BoxGrapple/BoxGrapple"]

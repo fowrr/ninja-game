@@ -53,3 +53,12 @@ func gem_4():
 	win = true
 	if current_level >= level_passedInt:
 		current_level  = level_passedInt
+
+func gem_5():
+	level_passedInt = 4
+	level_passed = "level 5"
+	next_level = ("res://level_6.tscn")
+	win = true
+	if current_level >= level_passedInt:
+		current_level  = level_passedInt
+
