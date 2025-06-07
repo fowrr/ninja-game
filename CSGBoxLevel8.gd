@@ -8,13 +8,12 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if get_parent().visible == false:
-		use_collision = false
-	else:
-		use_collision = true
+	pass
 
 
-func _on_target_target_hit():
+func _on_target_target_hit_2():
 	get_parent().visible = true
 
 
+func _on_target_redo_2():
+	get_parent().visible = true

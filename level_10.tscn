@@ -1,0 +1,196 @@
+[gd_scene load_steps=23 format=3 uid="uid://civfl7oqq8opj"]
+
+[ext_resource type="Texture2D" uid="uid://b8p51mx5c4g20" path="res://enivronment/autumn_field_puresky_4k.exr" id="1_opjqo"]
+[ext_resource type="PackedScene" uid="uid://cj00jm78rng6q" path="res://grassIsland.tscn" id="2_mcc20"]
+[ext_resource type="PackedScene" uid="uid://0myexbcst06a" path="res://bean2.tscn" id="3_8gtu8"]
+[ext_resource type="PackedScene" uid="uid://f73hmnmgq2up" path="res://box_grapple.tscn" id="4_ilomu"]
+[ext_resource type="PackedScene" uid="uid://b6knc7wh0hnym" path="res://target.tscn" id="5_bm5l3"]
+[ext_resource type="FontFile" uid="uid://cre70xujsdxx0" path="res://VCR_OSD_MONO_1.001.ttf" id="6_hyxyp"]
+[ext_resource type="Texture2D" uid="uid://mgihhhjraal8" path="res://texutre/Tim-Hortons-logo.png" id="7_5jumq"]
+[ext_resource type="Script" path="res://look.gd" id="8_1r40a"]
+[ext_resource type="Script" path="res://timhortons.gd" id="9_b8tul"]
+[ext_resource type="Script" path="res://gem_10.gd" id="10_2iajw"]
+[ext_resource type="PackedScene" uid="uid://nkuj3cyhvye7" path="res://GLB format/jewel.glb" id="11_l06i6"]
+[ext_resource type="PackedScene" uid="uid://b3txilr4q3v5h" path="res://grapple_area_node.tscn" id="12_5qcld"]
+[ext_resource type="PackedScene" uid="uid://bocxhkd2arpln" path="res://knife_area_node.tscn" id="13_ke21x"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_a7f58"]
+panorama = ExtResource("1_opjqo")
+
+[sub_resource type="Sky" id="Sky_1f7kj"]
+sky_material = SubResource("PanoramaSkyMaterial_a7f58")
+
+[sub_resource type="Environment" id="Environment_tvu28"]
+resource_local_to_scene = true
+background_mode = 2
+background_color = Color(0.992157, 0.992157, 0.992157, 1)
+background_energy_multiplier = 0.33
+sky = SubResource("Sky_1f7kj")
+glow_enabled = true
+glow_strength = 1.62
+glow_bloom = 0.1
+
+[sub_resource type="Animation" id="Animation_jc38k"]
+resource_name = "upDown"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 28, 23, 1, 5, 1, 28, 40, 1)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tmaxw"]
+_data = {
+"upDown": SubResource("Animation_jc38k")
+}
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_f5drj"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_owvgg"]
+viewport_path = NodePath("SubViewport2")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ekqqk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3k4xx"]
+
+[node name="level_10" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_tvu28")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, 0, 120, 0)
+
+[node name="grassIsland" parent="." instance=ExtResource("2_mcc20")]
+transform = Transform3D(10.66, 0, 0, 0, 1, 0, 0, 0, 11.28, 0, 2, 25)
+
+[node name="bean" parent="." instance=ExtResource("3_8gtu8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 25)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, 0)
+radius = 45.0
+height = 50.0
+sides = 40
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGCylinder3D"]
+operation = 2
+radius = 40.0
+height = 50.0
+sides = 40
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCylinder3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.9917, 18.7807, 0.992326)
+operation = 2
+size = Vector3(11.6393, 5.66197, 5.14048)
+
+[node name="grassIsland2" parent="." instance=ExtResource("2_mcc20")]
+transform = Transform3D(2.5, 0, 0, 0, 1, 0, 0, 0, 2.5, -20, 8, 21)
+
+[node name="grassIsland5" parent="." instance=ExtResource("2_mcc20")]
+transform = Transform3D(2.5, 0, 0, 0, 1, 0, 0, 0, 2.5, 18, 23, 1)
+
+[node name="grassIsland6" parent="." instance=ExtResource("2_mcc20")]
+transform = Transform3D(2.5, 0, 0, 0, 1, 0, 0, 0, 2.5, 28, 33.123, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="grassIsland6"]
+autoplay = "upDown"
+libraries = {
+"": SubResource("AnimationLibrary_tmaxw")
+}
+
+[node name="grassIsland7" parent="." instance=ExtResource("2_mcc20")]
+transform = Transform3D(8.5, 0, 0, 0, 1, 0, 0, 0, 2.5, 43.5, 40, 1)
+
+[node name="grassIsland3" parent="." instance=ExtResource("2_mcc20")]
+transform = Transform3D(2.5, 0, 0, 0, 1, 0, 0, 0, 2.5, -29, 13, 10)
+
+[node name="grassIsland4" parent="." instance=ExtResource("2_mcc20")]
+transform = Transform3D(2.5, 0, 0, 0, 1, 0, 0, 0, 2.5, -30, 19, -3)
+
+[node name="BoxGrapple" parent="." instance=ExtResource("4_ilomu")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -18, 28, -3)
+
+[node name="BoxGrapple3" parent="." instance=ExtResource("4_ilomu")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 34, -3)
+
+[node name="target" parent="." instance=ExtResource("5_bm5l3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.9301, 47.1214, 2.30684)
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(250, 40)
+
+[node name="Label" type="Label" parent="SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("6_hyxyp")
+theme_override_font_sizes/font_size = 40
+text = " LOOK BACK!"
+
+[node name="SubViewport2" type="SubViewport" parent="."]
+size = Vector2i(3840, 1000)
+
+[node name="Label" type="TextureRect" parent="SubViewport2"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_5jumq")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 57.9301, 45.4719, 2.30684)
+visible = false
+texture = SubResource("ViewportTexture_f5drj")
+script = ExtResource("8_1r40a")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31, 43, 0.912594)
+size = Vector3(8, 10, 10)
+script = ExtResource("9_b8tul")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.307892, 2.14425, 0.138907)
+operation = 2
+size = Vector3(7.44302, 9.61013, 8.6299)
+
+[node name="Sprite3D2" type="Sprite3D" parent="CSGBox3D"]
+transform = Transform3D(-1.09432e-08, 0, 1, 0, 0.232436, 0, -0.25035, 0, -4.37114e-08, 4.06607, 2.47189, 0.142493)
+texture = SubResource("ViewportTexture_owvgg")
+
+[node name="gem_9" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.9748, 43.6818, 0.129399)
+visible = false
+script = ExtResource("10_2iajw")
+
+[node name="jewel" parent="gem_9" instance=ExtResource("11_l06i6")]
+transform = Transform3D(2.37209, 0, 0, 0, 2.37209, 0, 0, 0, 2.37209, 0, -0.447384, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="gem_9"]
+shape = SubResource("BoxShape3D_ekqqk")
+
+[node name="void" type="Area3D" parent="."]
+transform = Transform3D(10.4937, 0, 527.736, 0, 1, 0, -503.904, 0, 10.99, 10.8412, -12.3558, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="void"]
+transform = Transform3D(1, 0, -1.86265e-09, 0, 1, 0, 1.86265e-09, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_3k4xx")
+
+[node name="grapple_areaNode" parent="." instance=ExtResource("12_5qcld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6341, 21.4487)
+
+[node name="knife_areaNode" parent="." instance=ExtResource("13_ke21x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.80102, 4.69942, 21.4487)
+
+[connection signal="targetHit" from="target" to="Sprite3D" method="_on_target_target_hit"]
+[connection signal="targetHit" from="target" to="CSGBox3D" method="_on_target_target_hit"]
+[connection signal="targetHit" from="target" to="gem_9" method="_on_target_target_hit"]
+[connection signal="body_entered" from="gem_9" to="gem_9" method="_on_body_entered"]
+[connection signal="body_entered" from="void" to="bean" method="_on_void_body_entered"]

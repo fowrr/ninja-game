@@ -85,3 +85,8 @@ func _on_bean_grapple_1():
 
 func _on_bean_knife_1():
 	plungerAvailable = false
+
+
+func _on_bean_voided():
+	retract()
+	emit_signal("retracted")

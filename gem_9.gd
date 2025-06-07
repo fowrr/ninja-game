@@ -1,4 +1,4 @@
-extends CSGBox3D
+extends Area3D
 
 
 # Called when the node enters the scene tree for the first time.
@@ -8,13 +8,12 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if get_parent().visible == false:
-		use_collision = false
-	else:
-		use_collision = true
+	pass
 
 
-func _on_target_target_hit():
-	get_parent().visible = true
-
+func _on_body_entered(body):
+	if body.get_name() == "bean":
+		Globals.gem_9() #handles current level 
+		Globals.win = true
+		queue_free()
 

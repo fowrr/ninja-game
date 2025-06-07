@@ -1,8 +1,6 @@
-extends CSGBox3D
-signal targetHit2
-signal redo2
+extends MeshInstance3D
 
-
+@onready var collision = $StaticBody3D/CollisionShape3D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -11,11 +9,14 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-func target_hit():
-	emit_signal("targetHit2")
+
+
+func _on_target_target_hit_2():
 	visible = false
-	use_collision = false
-	await get_tree().create_timer(4.5).timeout
-	emit_signal("redo2")
+	collision.set_deferred("collision", false)
+
+
+
+func _on_target_redo_2():
 	visible = true
-	use_collision = true
+	collision.set_deferred("collision", true)

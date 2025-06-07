@@ -1,0 +1,227 @@
+[gd_scene load_steps=21 format=3 uid="uid://dvgi7bsk65ae8"]
+
+[ext_resource type="Texture2D" uid="uid://b8p51mx5c4g20" path="res://enivronment/autumn_field_puresky_4k.exr" id="1_w6yb7"]
+[ext_resource type="PackedScene" uid="uid://cj00jm78rng6q" path="res://grassIsland.tscn" id="2_lxx5i"]
+[ext_resource type="PackedScene" uid="uid://0myexbcst06a" path="res://bean2.tscn" id="3_dd7up"]
+[ext_resource type="PackedScene" uid="uid://b3txilr4q3v5h" path="res://grapple_area_node.tscn" id="5_x3j0m"]
+[ext_resource type="PackedScene" uid="uid://f73hmnmgq2up" path="res://box_grapple.tscn" id="6_4e75g"]
+[ext_resource type="Script" path="res://gem_9.gd" id="7_u2cww"]
+[ext_resource type="PackedScene" uid="uid://nkuj3cyhvye7" path="res://GLB format/jewel.glb" id="8_iv8yb"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_4w7bu"]
+panorama = ExtResource("1_w6yb7")
+
+[sub_resource type="Sky" id="Sky_feksi"]
+sky_material = SubResource("PanoramaSkyMaterial_4w7bu")
+
+[sub_resource type="Environment" id="Environment_uqhwv"]
+resource_local_to_scene = true
+background_mode = 2
+background_color = Color(0.992157, 0.992157, 0.992157, 1)
+background_energy_multiplier = 0.33
+sky = SubResource("Sky_feksi")
+glow_enabled = true
+glow_strength = 1.62
+glow_bloom = 0.1
+
+[sub_resource type="Animation" id="Animation_a3jlg"]
+resource_name = "laser1-3"
+length = 20.0
+loop_mode = 1
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 28, 15, -2, 5, 1, 28, 15, 8, 10, 1, 28, 15, -2, 15, 1, 28, 15, -12)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../laser1_2")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 28, 15, -27, 5, 1, 28, 15, -17, 10, 1, 28, 15, -27, 15, 1, 28, 15, -37)
+tracks/2/type = "position_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../laser3")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 66.5, 15, -2, 5, 1, 66.5, 15, 8, 10, 1, 66.5, 15, -2, 15, 1, 66.5, 15, -12)
+tracks/3/type = "position_3d"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../laser3_2")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, 66, 15, -27, 5, 1, 66, 15, -17, 10, 1, 66, 15, -27, 15, 1, 66, 15, -37)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tdivt"]
+_data = {
+"laser1-3": SubResource("Animation_a3jlg")
+}
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_px8ec"]
+points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1adju"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kas2w"]
+transparency = 1
+blend_mode = 1
+albedo_color = Color(0.929412, 0, 0.317647, 1)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_5au2j"]
+points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ueutt"]
+
+[sub_resource type="Animation" id="Animation_gr2xv"]
+resource_name = "l2"
+length = 20.0
+loop_mode = 1
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("laser2")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 48.5, 15, -2, 5, 1, 48.5, 15, -12, 10, 1, 48.5, 15, -2, 15, 1, 48.5, 15, 8)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("laser2_2")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 48, 15, -27, 5, 1, 48, 15, -37, 10, 1, 48, 15, -27, 15, 1, 48, 15, -17)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c35oa"]
+_data = {
+"l2": SubResource("Animation_gr2xv")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_um505"]
+
+[node name="level_9" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_uqhwv")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.85493, 0.269474, -0.443259, 0, 0.854486, 0.519474, 0.518743, -0.444114, 0.730526, -15.6982, 24.7755, 38.3288)
+
+[node name="grassIsland" parent="." instance=ExtResource("2_lxx5i")]
+transform = Transform3D(7.96128, 0, 0, 0, 1, 0, 0, 0, 8.77183, 0, 0, 0)
+
+[node name="grassIsland2" parent="." instance=ExtResource("2_lxx5i")]
+transform = Transform3D(7.96128, 0, 0, 0, 1, 0, 0, 0, 8.77183, 0, 0, -88)
+
+[node name="bean" parent="." instance=ExtResource("3_dd7up")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.44451, 0)
+
+[node name="grapple_areaNode" parent="." instance=ExtResource("5_x3j0m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.18101, 0)
+
+[node name="BoxGrapple" parent="." instance=ExtResource("6_4e75g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2252, -18.4944)
+
+[node name="BoxGrapple2" parent="." instance=ExtResource("6_4e75g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2252, -36.4944)
+
+[node name="BoxGrapple3" parent="." instance=ExtResource("6_4e75g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2252, -56.4944)
+
+[node name="BoxGrapple4" parent="." instance=ExtResource("6_4e75g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.2252, -73.4944)
+
+[node name="void" type="Area3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10.8412, -6.13779, 0)
+
+[node name="l1" type="AnimationPlayer" parent="void"]
+root_node = NodePath("../laser1")
+autoplay = "laser1-3"
+speed_scale = 1.2
+libraries = {
+"": SubResource("AnimationLibrary_tdivt")
+}
+
+[node name="laser1" type="CollisionShape3D" parent="void"]
+transform = Transform3D(1, 0, 2.98023e-08, 0, 12.8897, 0, 0, 0, 16.6759, 28, 15, -7.07449)
+shape = SubResource("ConvexPolygonShape3D_px8ec")
+
+[node name="barrier2" type="MeshInstance3D" parent="void/laser1"]
+transform = Transform3D(1, 0, -2.84217e-14, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_1adju")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_kas2w")
+
+[node name="laser1_2" type="CollisionShape3D" parent="void"]
+transform = Transform3D(1, 0, 0, 0, 12.8897, 0, 0, 0, 16.6759, 28, 15, -32.0745)
+shape = SubResource("ConvexPolygonShape3D_5au2j")
+
+[node name="barrier3" type="MeshInstance3D" parent="void/laser1_2"]
+mesh = SubResource("BoxMesh_1adju")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_kas2w")
+
+[node name="laser2" type="CollisionShape3D" parent="void"]
+transform = Transform3D(1, 0, 0, 0, 12.8897, 0, 0, 0, 16.6759, 48.5, 15, -11.2805)
+shape = SubResource("ConvexPolygonShape3D_px8ec")
+
+[node name="barrier2" type="MeshInstance3D" parent="void/laser2"]
+transform = Transform3D(1, 0, -2.84217e-14, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_1adju")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_kas2w")
+
+[node name="laser2_2" type="CollisionShape3D" parent="void"]
+transform = Transform3D(1, 0, 0, 0, 12.8897, 0, 0, 0, 16.6759, 48, 15, -36.2805)
+shape = SubResource("ConvexPolygonShape3D_5au2j")
+
+[node name="barrier3" type="MeshInstance3D" parent="void/laser2_2"]
+mesh = SubResource("BoxMesh_1adju")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_kas2w")
+
+[node name="laser3_2" type="CollisionShape3D" parent="void"]
+transform = Transform3D(1, 0, 0, 0, 12.8897, 0, 0, 0, 16.6759, 66, 15, -32.0745)
+shape = SubResource("ConvexPolygonShape3D_5au2j")
+
+[node name="barrier3" type="MeshInstance3D" parent="void/laser3_2"]
+mesh = SubResource("BoxMesh_1adju")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_kas2w")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="void"]
+transform = Transform3D(2000, 0, -7.45058e-06, 0, 0.595, 0, 7.45058e-06, 0, 2000, 0, 0, 0)
+shape = SubResource("BoxShape3D_ueutt")
+
+[node name="laser3" type="CollisionShape3D" parent="void"]
+transform = Transform3D(1, 0, 0, 0, 12.8897, 0, 0, 0, 16.6759, 66.5, 15, -7.07449)
+shape = SubResource("ConvexPolygonShape3D_px8ec")
+
+[node name="barrier2" type="MeshInstance3D" parent="void/laser3"]
+transform = Transform3D(1, 0, -2.84217e-14, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_1adju")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_kas2w")
+
+[node name="l2" type="AnimationPlayer" parent="void"]
+autoplay = "l2"
+libraries = {
+"": SubResource("AnimationLibrary_c35oa")
+}
+
+[node name="gem_9" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.127554, 1.5, -88.0573)
+script = ExtResource("7_u2cww")
+
+[node name="jewel" parent="gem_9" instance=ExtResource("8_iv8yb")]
+transform = Transform3D(2.37209, 0, 0, 0, 2.37209, 0, 0, 0, 2.37209, 0, -0.447384, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="gem_9"]
+shape = SubResource("BoxShape3D_um505")
+
+[connection signal="body_entered" from="void" to="bean" method="_on_void_body_entered"]
+[connection signal="body_entered" from="gem_9" to="gem_9" method="_on_body_entered"]

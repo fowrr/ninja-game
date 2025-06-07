@@ -1,0 +1,209 @@
+[gd_scene load_steps=6 format=3 uid="uid://dyyhayxm34goa"]
+
+[ext_resource type="FontFile" uid="uid://cre70xujsdxx0" path="res://VCR_OSD_MONO_1.001.ttf" id="1_2p1cx"]
+[ext_resource type="Texture2D" uid="uid://dcwedc2c0md8c" path="res://texutre/blue-arrow-png.png" id="2_hp0pg"]
+[ext_resource type="Script" path="res://back_Level.gd" id="3_kiqkn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0r51w"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_056qy"]
+bg_color = Color(0.411765, 0.411765, 0.411765, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+
+[node name="controls" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1178.0
+offset_bottom = 672.0
+scale = Vector2(1.12385, 1.08701)
+color = Color(0.0705882, 0.0705882, 0.0705882, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 475.0
+offset_top = 48.0
+offset_right = 1653.0
+offset_bottom = 720.0
+scale = Vector2(0.00136602, 0.494445)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 50.0
+offset_right = 422.0
+offset_bottom = 75.0
+theme_override_fonts/font = ExtResource("1_2p1cx")
+theme_override_font_sizes/font_size = 24
+text = "(A,W,S,D) / (←,↑,↓,→)  keys"
+
+[node name="Label8" type="Label" parent="."]
+layout_mode = 0
+offset_left = 550.0
+offset_top = 50.0
+offset_right = 1082.0
+offset_bottom = 75.0
+theme_override_fonts/font = ExtResource("1_2p1cx")
+theme_override_font_sizes/font_size = 24
+text = "MOVEMENT(FORWARD,BACKWARDS,LEFT,RIGHT)"
+horizontal_alignment = 2
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 100.0
+offset_right = 422.0
+offset_bottom = 125.0
+theme_override_fonts/font = ExtResource("1_2p1cx")
+theme_override_font_sizes/font_size = 24
+text = "SPACE BAR"
+
+[node name="Label9" type="Label" parent="."]
+layout_mode = 0
+offset_left = 700.0
+offset_top = 100.0
+offset_right = 1078.0
+offset_bottom = 125.0
+theme_override_fonts/font = ExtResource("1_2p1cx")
+theme_override_font_sizes/font_size = 24
+text = "JUMP"
+horizontal_alignment = 2
+
+[node name="Label10" type="Label" parent="."]
+layout_mode = 0
+offset_left = 700.0
+offset_top = 150.0
+offset_right = 1078.0
+offset_bottom = 175.0
+theme_override_fonts/font = ExtResource("1_2p1cx")
+theme_override_font_sizes/font_size = 24
+text = "ACCES PLUNGER (GRAPPLER)"
+horizontal_alignment = 2
+
+[node name="Label11" type="Label" parent="."]
+layout_mode = 0
+offset_left = 700.0
+offset_top = 200.0
+offset_right = 1078.0
+offset_bottom = 225.0
+theme_override_fonts/font = ExtResource("1_2p1cx")
+theme_override_font_sizes/font_size = 24
+text = "ACCES KNIFE"
+horizontal_alignment = 2
+
+[node name="Label12" type="Label" parent="."]
+layout_mode = 0
+offset_left = 700.0
+offset_top = 250.0
+offset_right = 1078.0
+offset_bottom = 275.0
+theme_override_fonts/font = ExtResource("1_2p1cx")
+theme_override_font_sizes/font_size = 24
+text = "SPRINT (SPEED-UP)"
+horizontal_alignment = 2
+
+[node name="Label13" type="Label" parent="."]
+layout_mode = 0
+offset_left = 700.0
+offset_top = 300.0
+offset_right = 1078.0
+offset_bottom = 325.0
+theme_override_fonts/font = ExtResource("1_2p1cx")
+theme_override_font_sizes/font_size = 24
+text = "SHOOT (W/ GRAPPLER OR KNIFE)"
+horizontal_alignment = 2
+
+[node name="Label14" type="Label" parent="."]
+layout_mode = 0
+offset_left = 700.0
+offset_top = 350.0
+offset_right = 1092.0
+offset_bottom = 375.0
+theme_override_fonts/font = ExtResource("1_2p1cx")
+theme_override_font_sizes/font_size = 24
+text = "ZOOM-IN (KNIFE ONLY)"
+horizontal_alignment = 2
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 150.0
+offset_right = 422.0
+offset_bottom = 175.0
+theme_override_fonts/font = ExtResource("1_2p1cx")
+theme_override_font_sizes/font_size = 24
+text = "1 KEY (above awsd keys)"
+
+[node name="Label4" type="Label" parent="."]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 200.0
+offset_right = 422.0
+offset_bottom = 225.0
+theme_override_fonts/font = ExtResource("1_2p1cx")
+theme_override_font_sizes/font_size = 24
+text = "2 KEY (above awsd keys)"
+
+[node name="Label5" type="Label" parent="."]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 250.0
+offset_right = 422.0
+offset_bottom = 275.0
+theme_override_fonts/font = ExtResource("1_2p1cx")
+theme_override_font_sizes/font_size = 24
+text = "SHIFT"
+
+[node name="Label6" type="Label" parent="."]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 300.0
+offset_right = 422.0
+offset_bottom = 325.0
+theme_override_fonts/font = ExtResource("1_2p1cx")
+theme_override_font_sizes/font_size = 24
+text = "LEFT MOUSE BUTTON"
+
+[node name="Label7" type="Label" parent="."]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 350.0
+offset_right = 422.0
+offset_bottom = 375.0
+theme_override_fonts/font = ExtResource("1_2p1cx")
+theme_override_font_sizes/font_size = 24
+text = "RIGHT MOUSE BUTTON"
+
+[node name="11" type="Button" parent="."]
+offset_left = 167.0
+offset_top = 603.0
+offset_right = 745.0
+offset_bottom = 1167.0
+rotation = 3.14159
+scale = Vector2(0.175, 0.175)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_2p1cx")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_0r51w")
+theme_override_styles/hover = SubResource("StyleBoxFlat_056qy")
+text = "
+"
+icon = ExtResource("2_hp0pg")
+script = ExtResource("3_kiqkn")
+
+[connection signal="pressed" from="11" to="11" method="_on_pressed"]

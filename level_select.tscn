@@ -82,7 +82,6 @@ theme_override_fonts/font = ExtResource("2_5wgv5")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_7b5r1")
 theme_override_styles/hover = SubResource("StyleBoxFlat_7quw8")
-text = "1"
 icon = ExtResource("4_yypt3")
 script = ExtResource("5_xoqce")
 

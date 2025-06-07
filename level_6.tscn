@@ -1,14 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://5nndk5wq017f"]
+[gd_scene load_steps=20 format=3 uid="uid://5nndk5wq017f"]
 
 [ext_resource type="Texture2D" uid="uid://b8p51mx5c4g20" path="res://enivronment/autumn_field_puresky_4k.exr" id="1_4clq5"]
 [ext_resource type="PackedScene" uid="uid://cj00jm78rng6q" path="res://grassIsland.tscn" id="2_bqk14"]
 [ext_resource type="PackedScene" uid="uid://0myexbcst06a" path="res://bean2.tscn" id="3_oh6wk"]
 [ext_resource type="PackedScene" uid="uid://b3txilr4q3v5h" path="res://grapple_area_node.tscn" id="4_7pt3a"]
+[ext_resource type="Script" path="res://gem_6.gd" id="5_3qw7s"]
+[ext_resource type="PackedScene" uid="uid://nkuj3cyhvye7" path="res://GLB format/jewel.glb" id="6_2lhwh"]
+[ext_resource type="FontFile" uid="uid://cre70xujsdxx0" path="res://VCR_OSD_MONO_1.001.ttf" id="7_f7a6n"]
+[ext_resource type="PackedScene" uid="uid://f73hmnmgq2up" path="res://box_grapple.tscn" id="9_x5ydm"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_tg8iw"]
 panorama = ExtResource("1_4clq5")
 
-[sub_resource type="Sky" id="Sky_1f7kj"]
+[sub_resource type="Sky" id="Sky_hmix8"]
 sky_material = SubResource("PanoramaSkyMaterial_tg8iw")
 
 [sub_resource type="Environment" id="Environment_cb2c0"]
@@ -16,10 +20,32 @@ resource_local_to_scene = true
 background_mode = 2
 background_color = Color(0.992157, 0.992157, 0.992157, 1)
 background_energy_multiplier = 0.33
-sky = SubResource("Sky_1f7kj")
+sky = SubResource("Sky_hmix8")
 glow_enabled = true
 glow_strength = 1.62
 glow_bloom = 0.1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fv14g"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bcsoo"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_qbhv8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tbrba"]
+transparency = 1
+blend_mode = 1
+albedo_color = Color(0.929412, 0, 0.317647, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ooism"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_upn3t"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_0ls8o"]
+viewport_path = NodePath("SubViewport2")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_w6wmh"]
+viewport_path = NodePath("SubViewport3")
 
 [node name="level_6" type="Node3D"]
 
@@ -32,8 +58,156 @@ transform = Transform3D(0.85493, 0.269474, -0.443259, 0, 0.854486, 0.519474, 0.5
 [node name="grassIsland" parent="." instance=ExtResource("2_bqk14")]
 transform = Transform3D(7.96128, 0, 0, 0, 1, 0, 0, 0, 8.77183, 0, 0, 0)
 
+[node name="grassIsland2" parent="." instance=ExtResource("2_bqk14")]
+transform = Transform3D(7.96128, 0, 0, 0, 1, 0, 0, 0, 8.77183, 0, -4.95523, -446.437)
+
 [node name="bean" parent="." instance=ExtResource("3_oh6wk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.92237, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.72798, 0)
 
 [node name="grapple_areaNode" parent="." instance=ExtResource("4_7pt3a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.64673, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.54719, 0)
+
+[node name="gem_6" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.14082, -446.368)
+script = ExtResource("5_3qw7s")
+
+[node name="jewel" parent="gem_6" instance=ExtResource("6_2lhwh")]
+transform = Transform3D(2.37209, 0, 0, 0, 2.37209, 0, 0, 0, 2.37209, 0, -0.447384, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="gem_6"]
+shape = SubResource("BoxShape3D_fv14g")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(1000, 80)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("7_f7a6n")
+theme_override_font_sizes/normal_font_size = 60
+bbcode_enabled = true
+text = "[center] You can't touch the lasers!"
+
+[node name="SubViewport2" type="SubViewport" parent="."]
+size = Vector2i(1000, 250)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SubViewport2"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("7_f7a6n")
+theme_override_font_sizes/normal_font_size = 60
+bbcode_enabled = true
+text = "[center]Remember: You get only one free jump for each time you grapple AND regrapple if you're swinging slowly"
+
+[node name="void" type="Area3D" parent="."]
+transform = Transform3D(0.0208203, 0, 0.999783, 0, 1, 0, -0.999783, 0, 0.0208203, 10.8412, -6.13779, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="void"]
+transform = Transform3D(2000, 0, -7.45058e-06, 0, 0.595, 0, 7.45058e-06, 0, 2000, 0, 0, 0)
+shape = SubResource("BoxShape3D_bcsoo")
+
+[node name="barrier2" type="MeshInstance3D" parent="void"]
+transform = Transform3D(-0.0208203, 0, 425.452, 0, 19.8019, 0, -0.999783, 0, -8.85997, 220.615, 15.4935, -5.91873)
+mesh = SubResource("BoxMesh_qbhv8")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_tbrba")
+
+[node name="barrier3" type="MeshInstance3D" parent="void"]
+transform = Transform3D(-0.0208203, 0, 425.452, 0, 19.8019, 0, -0.999783, 0, -8.85997, 220.652, 15.4935, -25.0753)
+mesh = SubResource("BoxMesh_qbhv8")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_tbrba")
+
+[node name="barrier4" type="MeshInstance3D" parent="void"]
+transform = Transform3D(-8.10289e-08, 0.417584, 425.452, 1, -8.76703e-07, 3.2842e-05, 4.53916e-08, 20.0523, -8.85994, 221.181, 25.9107, -15.4577)
+mesh = SubResource("BoxMesh_qbhv8")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_tbrba")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="void"]
+transform = Transform3D(-0.0208203, 0, 425.452, 0, 19.8019, 0, -0.999783, 0, -8.85997, 220.615, 15.4935, -5.91872)
+shape = SubResource("BoxShape3D_ooism")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="void"]
+transform = Transform3D(-8.10285e-08, 0.417584, 425.452, 1, -8.76703e-07, 3.28271e-05, 4.53916e-08, 20.0523, -8.85994, 221.181, 25.9107, -15.4577)
+shape = SubResource("BoxShape3D_ooism")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="void"]
+transform = Transform3D(-0.0208203, 0, 425.452, 0, 19.8019, 0, -0.999783, 0, -8.85997, 220.652, 15.4935, -25.0753)
+shape = SubResource("BoxShape3D_ooism")
+
+[node name="BoxGrapple" parent="." instance=ExtResource("9_x5ydm")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 15.3404, -20.6982)
+
+[node name="BoxGrapple2" parent="." instance=ExtResource("9_x5ydm")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 15.3404, -51.1644)
+
+[node name="BoxGrapple3" parent="." instance=ExtResource("9_x5ydm")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 15.3404, -80.1162)
+
+[node name="BoxGrapple4" parent="." instance=ExtResource("9_x5ydm")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 15.3404, -109.013)
+
+[node name="BoxGrapple5" parent="." instance=ExtResource("9_x5ydm")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 15.3404, -138.989)
+
+[node name="BoxGrapple6" parent="." instance=ExtResource("9_x5ydm")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 15.3404, -170.905)
+
+[node name="BoxGrapple7" parent="." instance=ExtResource("9_x5ydm")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 15.3404, -200.626)
+
+[node name="BoxGrapple8" parent="." instance=ExtResource("9_x5ydm")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 15.3404, -233.367)
+
+[node name="BoxGrapple9" parent="." instance=ExtResource("9_x5ydm")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 15.3404, -266.531)
+
+[node name="BoxGrapple10" parent="." instance=ExtResource("9_x5ydm")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 15.3404, -297.294)
+
+[node name="BoxGrapple11" parent="." instance=ExtResource("9_x5ydm")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 15.3404, -328.322)
+
+[node name="BoxGrapple12" parent="." instance=ExtResource("9_x5ydm")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 15.3404, -362.133)
+
+[node name="BoxGrapple13" parent="." instance=ExtResource("9_x5ydm")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 15.3404, -389.967)
+
+[node name="BoxGrapple14" parent="." instance=ExtResource("9_x5ydm")]
+transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 15.3404, -415.878)
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.66794, 2.82376, -19.0958)
+texture = SubResource("ViewportTexture_upn3t")
+
+[node name="Sprite3D2" type="Sprite3D" parent="."]
+transform = Transform3D(0.600733, -0.19379, -0.775607, -0.102133, 0.943622, -0.314875, 0.792899, 0.268371, 0.547072, 7.66113, 7.42207, -7.16598)
+texture = SubResource("ViewportTexture_0ls8o")
+
+[node name="SubViewport3" type="SubViewport" parent="."]
+size = Vector2i(1000, 70)
+
+[node name="Label" type="Label" parent="SubViewport3"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("7_f7a6n")
+theme_override_font_sizes/font_size = 70
+text = "LEVEL 6 (EXTREMELY HARD)"
+
+[node name="Sprite3D3" type="Sprite3D" parent="."]
+transform = Transform3D(0.793695, 0.0410873, 0.606926, 0.12203, 0.966681, -0.225024, -0.59595, 0.252663, 0.762237, -6.78883, 6.39285, -7.88179)
+texture = SubResource("ViewportTexture_w6wmh")
+
+[connection signal="body_entered" from="gem_6" to="gem_6" method="_on_body_entered"]
+[connection signal="body_entered" from="void" to="bean" method="_on_void_body_entered"]

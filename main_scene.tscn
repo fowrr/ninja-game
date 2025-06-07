@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c6knomm6jobvo"]
+[gd_scene load_steps=12 format=3 uid="uid://c6knomm6jobvo"]
 
 [ext_resource type="Texture2D" uid="uid://b8p51mx5c4g20" path="res://enivronment/autumn_field_puresky_4k.exr" id="1_emgpi"]
 [ext_resource type="Texture2D" uid="uid://dg7v4ippuigqt" path="res://block-grass-corner-low.png" id="2_cny71"]
@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://pcetl67vgjhl" path="res://texutre/knife-removebg-preview.png" id="4_r0msl"]
 [ext_resource type="FontFile" uid="uid://cre70xujsdxx0" path="res://VCR_OSD_MONO_1.001.ttf" id="5_lgcap"]
 [ext_resource type="Script" path="res://Levels.gd" id="6_b02ea"]
+[ext_resource type="Script" path="res://controls.gd" id="7_pbric"]
+[ext_resource type="Script" path="res://Credits.gd" id="7_ymdy4"]
+[ext_resource type="Script" path="res://Quit_Pause.gd" id="8_nhvce"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6hy4r"]
 bg_color = Color(0.568627, 0.352941, 0.207843, 1)
@@ -111,13 +114,29 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_6hy4r")
 theme_override_styles/hover = SubResource("StyleBoxFlat_n23vp")
 text = "Credits"
+script = ExtResource("7_ymdy4")
 
-[node name="Credits2" type="Button" parent="."]
+[node name="controls" type="Button" parent="."]
+layout_mode = 0
+offset_left = 607.0
+offset_top = 416.0
+offset_right = 835.0
+offset_bottom = 445.0
+scale = Vector2(1.44393, 1.99814)
+theme_override_colors/font_color = Color(0, 0.658824, 0, 1)
+theme_override_fonts/font = ExtResource("5_lgcap")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_6hy4r")
+theme_override_styles/hover = SubResource("StyleBoxFlat_n23vp")
+text = "Controls"
+script = ExtResource("7_pbric")
+
+[node name="quit" type="Button" parent="."]
 layout_mode = 0
 offset_left = 610.0
-offset_top = 415.0
+offset_top = 496.0
 offset_right = 838.0
-offset_bottom = 444.0
+offset_bottom = 525.0
 scale = Vector2(1.44393, 1.99814)
 theme_override_colors/font_color = Color(0, 0.658824, 0, 1)
 theme_override_fonts/font = ExtResource("5_lgcap")
@@ -125,5 +144,9 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_6hy4r")
 theme_override_styles/hover = SubResource("StyleBoxFlat_n23vp")
 text = "Quit"
+script = ExtResource("8_nhvce")
 
 [connection signal="pressed" from="Levels" to="Levels" method="_on_pressed"]
+[connection signal="pressed" from="Credits" to="Credits" method="_on_pressed"]
+[connection signal="pressed" from="controls" to="controls" method="_on_pressed"]
+[connection signal="pressed" from="quit" to="quit" method="_on_pressed"]

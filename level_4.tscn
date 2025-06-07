@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c7655yxb3qjek"]
+[gd_scene load_steps=21 format=3 uid="uid://c7655yxb3qjek"]
 
 [ext_resource type="Texture2D" uid="uid://b8p51mx5c4g20" path="res://enivronment/autumn_field_puresky_4k.exr" id="1_io66g"]
 [ext_resource type="PackedScene" uid="uid://cj00jm78rng6q" path="res://grassIsland.tscn" id="2_ljj7l"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://target2.gd" id="11_6cvpo"]
 [ext_resource type="Script" path="res://target1.gd" id="12_bghc3"]
 [ext_resource type="Script" path="res://target3.gd" id="13_dj7kc"]
+[ext_resource type="FontFile" uid="uid://cre70xujsdxx0" path="res://VCR_OSD_MONO_1.001.ttf" id="14_0pxu7"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_lljw8"]
 panorama = ExtResource("1_io66g")
@@ -33,6 +34,9 @@ glow_bloom = 0.1
 [sub_resource type="BoxShape3D" id="BoxShape3D_h6pbj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_irc0t"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_x3bt0"]
+viewport_path = NodePath("SubViewport")
 
 [node name="level_4" type="Node3D"]
 
@@ -97,6 +101,23 @@ script = ExtResource("12_bghc3")
 [node name="target3" parent="." instance=ExtResource("7_t7oyf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.91347, 5.55807, -65.3727)
 script = ExtResource("13_dj7kc")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(300, 70)
+
+[node name="Label" type="Label" parent="SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("14_0pxu7")
+theme_override_font_sizes/font_size = 70
+text = "LEVEL 4"
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.838147, 0, 0.545444, 0, 1, 0, -0.545444, 0, 0.838147, -4.79144, 3.66881, -5.07369)
+texture = SubResource("ViewportTexture_x3bt0")
 
 [connection signal="body_entered" from="gem_4" to="gem_4" method="_on_body_entered"]
 [connection signal="body_entered" from="void" to="bean" method="_on_void_body_entered"]

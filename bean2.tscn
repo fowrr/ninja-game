@@ -483,6 +483,7 @@ text = "2
 [connection signal="colT" from="." to="grappleController" method="_on_bean_col_t"]
 [connection signal="pausedFalse" from="." to="knifeController" method="_on_bean_paused_false"]
 [connection signal="pausedTrue" from="." to="knifeController" method="_on_bean_paused_true"]
+[connection signal="voided" from="." to="grappleController" method="_on_bean_voided"]
 [connection signal="pressed" from="Control/pause/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="Control/pause/Resume" to="knifeController" method="_on_resume_pressed"]
 [connection signal="pressed" from="Control/pause/Quit" to="Control/pause/Quit" method="_on_pressed"]

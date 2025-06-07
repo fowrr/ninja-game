@@ -1,0 +1,131 @@
+[gd_scene load_steps=19 format=3 uid="uid://dc8mbvw65iksq"]
+
+[ext_resource type="Texture2D" uid="uid://b8p51mx5c4g20" path="res://enivronment/autumn_field_puresky_4k.exr" id="1_y4b0g"]
+[ext_resource type="PackedScene" uid="uid://cj00jm78rng6q" path="res://grassIsland.tscn" id="2_wa0u6"]
+[ext_resource type="PackedScene" uid="uid://0myexbcst06a" path="res://bean2.tscn" id="3_oc4fj"]
+[ext_resource type="PackedScene" uid="uid://b3txilr4q3v5h" path="res://grapple_area_node.tscn" id="4_qj03h"]
+[ext_resource type="Script" path="res://gem_7.gd" id="5_8yn1d"]
+[ext_resource type="PackedScene" uid="uid://nkuj3cyhvye7" path="res://GLB format/jewel.glb" id="6_s11xh"]
+[ext_resource type="PackedScene" uid="uid://b6knc7wh0hnym" path="res://target.tscn" id="7_g30jr"]
+[ext_resource type="Texture2D" uid="uid://bj5o4mebf40he" path="res://texutre/Troll-Face-Meme-PNG.webp" id="8_dj3qw"]
+[ext_resource type="PackedScene" uid="uid://bocxhkd2arpln" path="res://knife_area_node.tscn" id="9_npnlx"]
+[ext_resource type="PackedScene" uid="uid://f73hmnmgq2up" path="res://box_grapple.tscn" id="10_84bqh"]
+[ext_resource type="FontFile" uid="uid://cre70xujsdxx0" path="res://VCR_OSD_MONO_1.001.ttf" id="11_vnamm"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_g4316"]
+panorama = ExtResource("1_y4b0g")
+
+[sub_resource type="Sky" id="Sky_hd4vg"]
+sky_material = SubResource("PanoramaSkyMaterial_g4316")
+
+[sub_resource type="Environment" id="Environment_nvguv"]
+resource_local_to_scene = true
+background_mode = 2
+background_color = Color(0.992157, 0.992157, 0.992157, 1)
+background_energy_multiplier = 0.33
+sky = SubResource("Sky_hd4vg")
+glow_enabled = true
+glow_strength = 1.62
+glow_bloom = 0.1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_30fqd"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_al70p"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0u4ly"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_chl22"]
+viewport_path = NodePath("SubViewport2")
+
+[node name="level_7" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_nvguv")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.85493, 0.269474, -0.443259, 0, 0.854486, 0.519474, 0.518743, -0.444114, 0.730526, -15.6982, 24.7755, 38.3288)
+
+[node name="grassIsland" parent="." instance=ExtResource("2_wa0u6")]
+transform = Transform3D(7.96128, 0, 0, 0, 1, 0, 0, 0, 8.77183, 0, 0, 0)
+
+[node name="grassIsland2" parent="." instance=ExtResource("2_wa0u6")]
+transform = Transform3D(7.96128, 0, 0, 0, 1, 0, 0, 0, 8.77183, 0, 0, -46.0936)
+
+[node name="bean" parent="." instance=ExtResource("3_oc4fj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.92237, 0)
+
+[node name="grapple_areaNode" parent="." instance=ExtResource("4_qj03h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.49514, 1.30841, -5.32041)
+
+[node name="gem_7" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.127554, 1.5, -45.0573)
+script = ExtResource("5_8yn1d")
+
+[node name="jewel" parent="gem_7" instance=ExtResource("6_s11xh")]
+transform = Transform3D(2.37209, 0, 0, 0, 2.37209, 0, 0, 0, 2.37209, 0, -0.447384, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="gem_7"]
+shape = SubResource("BoxShape3D_30fqd")
+
+[node name="target" parent="." instance=ExtResource("7_g30jr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.118242, 3.72639, 23.0666)
+
+[node name="SubViewport" type="SubViewport" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_dj3qw")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(-0.999785, 0, -0.0207155, 0, 1, 0, 0.0207155, 0, -0.999785, 0.00353622, 3.74321, 19.783)
+texture = SubResource("ViewportTexture_al70p")
+
+[node name="Sprite3D2" type="Sprite3D" parent="."]
+transform = Transform3D(0.0808774, 0, 0.996724, 0, 1, 0, -0.996724, 0, 0.0808774, -9.88673, 3.74321, 0.310814)
+texture = SubResource("ViewportTexture_al70p")
+
+[node name="Sprite3D3" type="Sprite3D" parent="."]
+transform = Transform3D(0.0152711, 0, -0.999883, 0, 1, 0, 0.999883, 0, 0.0152711, 10.0499, 3.74321, 0.310814)
+texture = SubResource("ViewportTexture_al70p")
+
+[node name="knife_areaNode" parent="." instance=ExtResource("9_npnlx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.06163, 2.38575, -6.0711)
+
+[node name="BoxGrapple" parent="." instance=ExtResource("10_84bqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.15764, -20.9463)
+visible = false
+
+[node name="void" type="Area3D" parent="."]
+transform = Transform3D(10.4937, 0, 527.736, 0, 1, 0, -503.904, 0, 10.99, 10.8412, -12.3558, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="void"]
+transform = Transform3D(1, 0, -1.86265e-09, 0, 1, 0, 1.86265e-09, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_0u4ly")
+
+[node name="SubViewport2" type="SubViewport" parent="."]
+size = Vector2i(300, 70)
+
+[node name="Label" type="Label" parent="SubViewport2"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("11_vnamm")
+theme_override_font_sizes/font_size = 70
+text = "LEVEL 7"
+
+[node name="Sprite3D4" type="Sprite3D" parent="."]
+transform = Transform3D(0.838147, 0, 0.545444, 0, 1, 0, -0.545444, 0, 0.838147, -5.68475, 3.72949, -10.0975)
+texture = SubResource("ViewportTexture_chl22")
+
+[connection signal="body_entered" from="gem_7" to="gem_7" method="_on_body_entered"]
+[connection signal="targetHit" from="target" to="BoxGrapple/CSGBox3D" method="_on_target_target_hit"]
+[connection signal="body_entered" from="void" to="bean" method="_on_void_body_entered"]
+
+[editable path="BoxGrapple"]

@@ -91,7 +91,11 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("9_6ddbw")
 theme_override_font_sizes/font_size = 70
-text = "LEVEL 2"
+text = "LEVEL 3"
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.838147, 0, 0.545444, 0, 1, 0, -0.545444, 0, 0.838147, -7.32163, 2.94785, -0.813499)
+texture = SubResource("ViewportTexture_6dyhd")
 
 [node name="SubViewport2" type="SubViewport" parent="."]
 size = Vector2i(1000, 600)
@@ -105,10 +109,6 @@ grow_vertical = 2
 theme_override_font_sizes/normal_font_size = 72
 bbcode_enabled = true
 text = "[center]To go far, while grappling, hold forward (W or UP), and move swing around the box in a circular motion by turning your camera in a circle around the box. "
-
-[node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(0.838147, 0, 0.545444, 0, 1, 0, -0.545444, 0, 0.838147, -7.32163, 2.94785, -0.813499)
-texture = SubResource("ViewportTexture_6dyhd")
 
 [node name="Sprite3D2" type="Sprite3D" parent="."]
 transform = Transform3D(0.0750658, 0, -0.997179, 0, 1, 0, 0.997179, 0, 0.0750658, 11.9, 3.915, -2.91446)

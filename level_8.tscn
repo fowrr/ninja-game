@@ -1,0 +1,163 @@
+[gd_scene load_steps=22 format=3 uid="uid://drbdu40sxggj3"]
+
+[ext_resource type="Texture2D" uid="uid://b8p51mx5c4g20" path="res://enivronment/autumn_field_puresky_4k.exr" id="1_h2vrq"]
+[ext_resource type="PackedScene" uid="uid://cj00jm78rng6q" path="res://grassIsland.tscn" id="2_jg306"]
+[ext_resource type="PackedScene" uid="uid://0myexbcst06a" path="res://bean2.tscn" id="3_vdhgb"]
+[ext_resource type="PackedScene" uid="uid://bocxhkd2arpln" path="res://knife_area_node.tscn" id="4_wrj7q"]
+[ext_resource type="PackedScene" uid="uid://b3txilr4q3v5h" path="res://grapple_area_node.tscn" id="5_clbfy"]
+[ext_resource type="PackedScene" uid="uid://f73hmnmgq2up" path="res://box_grapple.tscn" id="6_0mw2x"]
+[ext_resource type="Script" path="res://barrier.gd" id="7_3gail"]
+[ext_resource type="Script" path="res://CSGBoxLevel8.gd" id="7_4yqyn"]
+[ext_resource type="Script" path="res://barrierLvl8.gd" id="8_fejcd"]
+[ext_resource type="PackedScene" uid="uid://b6knc7wh0hnym" path="res://target.tscn" id="8_hktj8"]
+[ext_resource type="Script" path="res://target1.gd" id="9_p1myt"]
+[ext_resource type="Script" path="res://gem_8.gd" id="12_tt7v0"]
+[ext_resource type="PackedScene" uid="uid://nkuj3cyhvye7" path="res://GLB format/jewel.glb" id="13_3hjf4"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_4w7bu"]
+panorama = ExtResource("1_h2vrq")
+
+[sub_resource type="Sky" id="Sky_feksi"]
+sky_material = SubResource("PanoramaSkyMaterial_4w7bu")
+
+[sub_resource type="Environment" id="Environment_uqhwv"]
+resource_local_to_scene = true
+background_mode = 2
+background_color = Color(0.992157, 0.992157, 0.992157, 1)
+background_energy_multiplier = 0.33
+sky = SubResource("Sky_feksi")
+glow_enabled = true
+glow_strength = 1.62
+glow_bloom = 0.1
+
+[sub_resource type="BoxMesh" id="BoxMesh_siedt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_augn2"]
+transparency = 1
+blend_mode = 1
+albedo_color = Color(0.152941, 0.466667, 1, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_t0wnr"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xc03i"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ciggt"]
+
+[node name="level_8" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_uqhwv")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.85493, 0.269474, -0.443259, 0, 0.854486, 0.519474, 0.518743, -0.444114, 0.730526, -15.6982, 24.7755, 38.3288)
+
+[node name="grassIsland" parent="." instance=ExtResource("2_jg306")]
+transform = Transform3D(7.96128, 0, 0, 0, 1, 0, 0, 0, 8.77183, 0, 0, 0)
+
+[node name="grassIsland4" parent="." instance=ExtResource("2_jg306")]
+transform = Transform3D(7.96128, 0, 0, 0, 1, 0, 0, 0, 8.77183, 0, 0, -73.7338)
+
+[node name="grassIsland2" parent="." instance=ExtResource("2_jg306")]
+transform = Transform3D(7.96128, 0, 0, 0, 1, 0, 0, 0, 5.2595, 0, 4.77629, -12.0993)
+
+[node name="grassIsland3" parent="." instance=ExtResource("2_jg306")]
+transform = Transform3D(7.96128, 0, 0, 0, 1, 0, 0, 0, 5.2595, 0, 11.5815, -19.1704)
+
+[node name="bean" parent="." instance=ExtResource("3_vdhgb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.44451, 0)
+
+[node name="knife_areaNode" parent="." instance=ExtResource("4_wrj7q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.72144, -0.482039)
+
+[node name="grapple_areaNode" parent="." instance=ExtResource("5_clbfy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.18101, 0)
+
+[node name="BoxGrapple" parent="." instance=ExtResource("6_0mw2x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 22.378, -30.5846)
+
+[node name="BoxGrapple2" parent="." instance=ExtResource("6_0mw2x")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 11.8974, -53.599)
+
+[node name="CSGBox3D" parent="BoxGrapple2" index="1"]
+script = ExtResource("7_4yqyn")
+
+[node name="barrier" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 28.8559, 0, 21.8884, 0, -1, 0, -1.26133e-06, 1.38657, 10.2508, -62.8478)
+mesh = SubResource("BoxMesh_siedt")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_augn2")
+script = ExtResource("8_fejcd")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="barrier"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="barrier/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_t0wnr")
+
+[node name="barrier2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 6.10103, 0, 6.36154, 0, -1, 0, -2.66684e-07, -11.6027, 21.4721, -38.9195)
+mesh = SubResource("BoxMesh_siedt")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_augn2")
+script = ExtResource("7_3gail")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="barrier2"]
+collision_layer = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="barrier2/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_t0wnr")
+
+[node name="barrier3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 6.10103, 0, 6.36154, 0, -1, 0, -2.66684e-07, -11.6027, 21.4721, -45.4264)
+mesh = SubResource("BoxMesh_siedt")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_augn2")
+script = ExtResource("7_3gail")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="barrier3"]
+collision_layer = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="barrier3/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_t0wnr")
+
+[node name="barrier4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.80825e-08, 0, 9.34915, 1.1, -3.67055e-07, 4.08664e-07, 4.80825e-08, 8.39723, 1.78633e-14, -11.6027, 18.4721, -42.2315)
+mesh = SubResource("BoxMesh_siedt")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_augn2")
+script = ExtResource("7_3gail")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="barrier4"]
+transform = Transform3D(1, 0, 2.84217e-14, 0, 1, 0, 4.44089e-16, -1.05879e-22, 1, 0, 0, 0)
+collision_layer = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="barrier4/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_t0wnr")
+
+[node name="target" parent="." instance=ExtResource("8_hktj8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.4864, 21.2225, -41.4538)
+script = ExtResource("9_p1myt")
+
+[node name="void" type="Area3D" parent="."]
+transform = Transform3D(10.4937, 0, 527.736, 0, 1, 0, -503.904, 0, 10.99, 10.8412, -12.3558, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="void"]
+transform = Transform3D(1, 0, -1.86265e-09, 0, 1, 0, 1.86265e-09, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_xc03i")
+
+[node name="gem_3" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.325943, 1.5, -74.3223)
+script = ExtResource("12_tt7v0")
+
+[node name="jewel" parent="gem_3" instance=ExtResource("13_3hjf4")]
+transform = Transform3D(2.37209, 0, 0, 0, 2.37209, 0, 0, 0, 2.37209, 0, -0.447384, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="gem_3"]
+shape = SubResource("BoxShape3D_ciggt")
+
+[connection signal="redo2" from="target" to="barrier" method="_on_target_redo_2"]
+[connection signal="targetHit2" from="target" to="barrier" method="_on_target_target_hit_2"]
+[connection signal="body_entered" from="void" to="bean" method="_on_void_body_entered"]
+[connection signal="body_entered" from="gem_3" to="gem_3" method="_on_body_entered"]
+
+[editable path="BoxGrapple2"]

@@ -8,6 +8,7 @@ signal voidTutTrigger
 signal barrier
 signal pausedTrue
 signal pausedFalse
+signal voided
 var vMultiplier := 1000.0
 var mouse_sens = 0.3
 @onready var hrzn = $v
@@ -77,7 +78,7 @@ func _process(delta):
 	#Code for my movement
 	#===============================================================#
 	
-	#Gets my movement (A,W,S,D or arrow keys)
+	#Gets my movement (A,W,S,D or arrow keys) and applies it from my integrate forces
 	input = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
 	var horizon_basis = mNode.basis #Check for nMode explanation (second line in unhandled input).
 	if paused == false:
@@ -89,11 +90,11 @@ func _process(delta):
 		max_speed = lerp(max_speed, 4.0, 0.5)
 		vMultiplier = 2500
 
-	if input == Vector2.ZERO and colliding == true:
+	if input == Vector2.ZERO and colliding == true:#on ground, if no input, lerp speed to 0 slowly
 		max_speed = lerp(max_speed, 0.0, 0.1)
 	
 	
-	if Globals.win == false:
+	if Globals.win == false: #when I am playing (i.e., do all of this when the gem isn't grabbed)
 		if Input.is_action_just_pressed("pause"):
 			if paused == true:
 				paused = false
@@ -134,11 +135,10 @@ func _process(delta):
 		colK()
 	if Globals.win == true:
 		winGUI.visible = true
-		winLabel.text = "You passed " + str(Globals.level_passed) +("!")
+		winLabel.text = str(Globals.level_passed)
 	elif Globals.win == false:
 		winGUI.visible = false
-	#print(launchChain)
-	#print(rope_dir)
+#col K doesn't work properly but it doesn't matter
 func colK():
 	if knifeRay.is_colliding():
 		h.albedo_color = Color(0,1,0)
@@ -176,10 +176,10 @@ func col():
 
 #This works
 func _input(event): 
-	if paused == true or Globals.win == true:
+	if paused == true or Globals.win == true: #case 1
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		freeze = true
-	elif paused == false or Globals.win == false:
+	elif paused == false or Globals.win == false: #case 2
 		freeze = false
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		if event is InputEventMouseMotion: #My movement code
@@ -207,7 +207,6 @@ func _integrate_forces(state):
 		if linear_velocity.length() >51.0:
 			linear_velocity = linear_velocity.normalized() * 50.0
 		inputVector = Vector3( 0 , 0 ,input.y)
-		#var tangent_dir = (inputVector - inputVector.dot(rope_dir) * rope_dir).normalized()
 		torque_axis = rope_dir.cross(inputVector).normalized()
 		apply_torque_impulse(torque_axis * 50)
 		
@@ -245,7 +244,8 @@ func _on_grapple_controller_launching():
 
 func _on_grapple_controller_retracted():
 	launch = false
-	plunger.visible = true
+	if gunPlunger.visible == true:
+		plunger.visible = true
 	rope_dir = null
 	vMultiplier = 5000
 
@@ -257,6 +257,7 @@ func _on_grapple_controller_point(dir_player_targ):
 func _on_void_body_entered(body):
 	if "bean" == body.get_name():
 		global_position = initial_pos
+	emit_signal("voided")
 
 func grapple_visibilty():
 	grapLogo.visible = true

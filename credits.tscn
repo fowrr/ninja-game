@@ -1,0 +1,171 @@
+[gd_scene load_steps=6 format=3 uid="uid://1uwtf2p0ck5h"]
+
+[ext_resource type="FontFile" uid="uid://cre70xujsdxx0" path="res://VCR_OSD_MONO_1.001.ttf" id="1_1myu4"]
+[ext_resource type="Texture2D" uid="uid://dcwedc2c0md8c" path="res://texutre/blue-arrow-png.png" id="2_jkj0i"]
+[ext_resource type="Script" path="res://back_Level.gd" id="3_crahj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_04ha1"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fnu0x"]
+bg_color = Color(0.411765, 0.411765, 0.411765, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+
+[node name="credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1178.0
+offset_bottom = 672.0
+color = Color(0.0705882, 0.0705882, 0.0705882, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 29.0
+offset_right = 356.0
+offset_bottom = 68.0
+theme_override_fonts/font = ExtResource("1_1myu4")
+theme_override_font_sizes/font_size = 40
+text = "Thanks to:"
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 92.0
+offset_top = 105.0
+offset_right = 414.0
+offset_bottom = 144.0
+theme_override_colors/font_color = Color(0.54902, 0.54902, 0.54902, 1)
+theme_override_fonts/font = ExtResource("1_1myu4")
+theme_override_font_sizes/font_size = 40
+text = "Dani on YouTube"
+
+[node name="Label5" type="Label" parent="."]
+layout_mode = 0
+offset_left = 648.0
+offset_top = 109.0
+offset_right = 1117.0
+offset_bottom = 148.0
+theme_override_colors/font_color = Color(0.54902, 0.847059, 0.54902, 1)
+theme_override_fonts/font = ExtResource("1_1myu4")
+theme_override_font_sizes/font_size = 20
+text = "For inspiring me with the grappling idea"
+
+[node name="Label7" type="Label" parent="."]
+layout_mode = 0
+offset_left = 648.0
+offset_top = 178.0
+offset_right = 1117.0
+offset_bottom = 217.0
+theme_override_colors/font_color = Color(0.54902, 0.847059, 0.54902, 1)
+theme_override_fonts/font = ExtResource("1_1myu4")
+theme_override_font_sizes/font_size = 20
+text = "For helping me make most of the grappler"
+
+[node name="Label8" type="Label" parent="."]
+layout_mode = 0
+offset_left = 635.0
+offset_top = 231.0
+offset_right = 1139.0
+offset_bottom = 270.0
+theme_override_colors/font_color = Color(0.54902, 0.847059, 0.54902, 1)
+theme_override_fonts/font = ExtResource("1_1myu4")
+theme_override_font_sizes/font_size = 20
+text = "For helping me understand a lot about godot"
+
+[node name="Label10" type="Label" parent="."]
+layout_mode = 0
+offset_left = 635.0
+offset_top = 308.0
+offset_right = 1139.0
+offset_bottom = 347.0
+theme_override_colors/font_color = Color(0.54902, 0.847059, 0.54902, 1)
+theme_override_fonts/font = ExtResource("1_1myu4")
+theme_override_font_sizes/font_size = 20
+text = "For teaching me so much about coding =)"
+
+[node name="Label6" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 647.0
+offset_top = 135.0
+offset_right = 1222.0
+offset_bottom = 174.0
+theme_override_colors/default_color = Color(0.54902, 0.847059, 0.54902, 1)
+theme_override_fonts/normal_font = ExtResource("1_1myu4")
+text = "(and for inspiring me to make a game such as this)"
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 0
+offset_left = 92.0
+offset_top = 172.0
+offset_right = 437.0
+offset_bottom = 211.0
+theme_override_colors/font_color = Color(0.54902, 0.54902, 0.54902, 1)
+theme_override_fonts/font = ExtResource("1_1myu4")
+theme_override_font_sizes/font_size = 40
+text = "Curtjs on YouTube"
+
+[node name="Label4" type="Label" parent="."]
+layout_mode = 0
+offset_left = 92.0
+offset_top = 236.0
+offset_right = 483.0
+offset_bottom = 275.0
+theme_override_colors/font_color = Color(0.54902, 0.54902, 0.54902, 1)
+theme_override_fonts/font = ExtResource("1_1myu4")
+theme_override_font_sizes/font_size = 40
+text = "Bramwell on YouTube"
+
+[node name="Label9" type="Label" parent="."]
+layout_mode = 0
+offset_left = 92.0
+offset_top = 308.0
+offset_right = 529.0
+offset_bottom = 347.0
+theme_override_colors/font_color = Color(0.54902, 0.54902, 0.54902, 1)
+theme_override_fonts/font = ExtResource("1_1myu4")
+theme_override_font_sizes/font_size = 40
+text = "Mr. Nemeth"
+
+[node name="Label11" type="Label" parent="."]
+layout_mode = 0
+offset_left = 198.0
+offset_top = 453.0
+offset_right = 1003.0
+offset_bottom = 492.0
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_fonts/font = ExtResource("1_1myu4")
+theme_override_font_sizes/font_size = 40
+text = "MADE BY SAHEJ MAND (JUNE 6TH, 2025)"
+
+[node name="11" type="Button" parent="."]
+offset_left = 167.0
+offset_top = 603.0
+offset_right = 745.0
+offset_bottom = 1167.0
+rotation = 3.14159
+scale = Vector2(0.175, 0.175)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_1myu4")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_04ha1")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fnu0x")
+text = "
+"
+icon = ExtResource("2_jkj0i")
+script = ExtResource("3_crahj")
+
+[connection signal="pressed" from="11" to="11" method="_on_pressed"]
