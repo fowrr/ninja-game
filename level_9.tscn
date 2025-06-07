@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dvgi7bsk65ae8"]
+[gd_scene load_steps=23 format=3 uid="uid://dvgi7bsk65ae8"]
 
 [ext_resource type="Texture2D" uid="uid://b8p51mx5c4g20" path="res://enivronment/autumn_field_puresky_4k.exr" id="1_w6yb7"]
 [ext_resource type="PackedScene" uid="uid://cj00jm78rng6q" path="res://grassIsland.tscn" id="2_lxx5i"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://f73hmnmgq2up" path="res://box_grapple.tscn" id="6_4e75g"]
 [ext_resource type="Script" path="res://gem_9.gd" id="7_u2cww"]
 [ext_resource type="PackedScene" uid="uid://nkuj3cyhvye7" path="res://GLB format/jewel.glb" id="8_iv8yb"]
+[ext_resource type="FontFile" uid="uid://cre70xujsdxx0" path="res://VCR_OSD_MONO_1.001.ttf" id="8_om1e6"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_4w7bu"]
 panorama = ExtResource("1_w6yb7")
@@ -102,6 +103,9 @@ _data = {
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_um505"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_35fgq"]
+viewport_path = NodePath("SubViewport2")
 
 [node name="level_9" type="Node3D"]
 
@@ -222,6 +226,23 @@ transform = Transform3D(2.37209, 0, 0, 0, 2.37209, 0, 0, 0, 2.37209, 0, -0.44738
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="gem_9"]
 shape = SubResource("BoxShape3D_um505")
+
+[node name="SubViewport2" type="SubViewport" parent="."]
+size = Vector2i(300, 70)
+
+[node name="Label" type="Label" parent="SubViewport2"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("8_om1e6")
+theme_override_font_sizes/font_size = 70
+text = "LEVEL 9"
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -4, 3, -8)
+texture = SubResource("ViewportTexture_35fgq")
 
 [connection signal="body_entered" from="void" to="bean" method="_on_void_body_entered"]
 [connection signal="body_entered" from="gem_9" to="gem_9" method="_on_body_entered"]

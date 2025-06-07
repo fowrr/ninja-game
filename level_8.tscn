@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://drbdu40sxggj3"]
+[gd_scene load_steps=24 format=3 uid="uid://drbdu40sxggj3"]
 
 [ext_resource type="Texture2D" uid="uid://b8p51mx5c4g20" path="res://enivronment/autumn_field_puresky_4k.exr" id="1_h2vrq"]
 [ext_resource type="PackedScene" uid="uid://cj00jm78rng6q" path="res://grassIsland.tscn" id="2_jg306"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://target1.gd" id="9_p1myt"]
 [ext_resource type="Script" path="res://gem_8.gd" id="12_tt7v0"]
 [ext_resource type="PackedScene" uid="uid://nkuj3cyhvye7" path="res://GLB format/jewel.glb" id="13_3hjf4"]
+[ext_resource type="FontFile" uid="uid://cre70xujsdxx0" path="res://VCR_OSD_MONO_1.001.ttf" id="14_jrvo3"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_4w7bu"]
 panorama = ExtResource("1_h2vrq")
@@ -43,6 +44,9 @@ data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0
 [sub_resource type="BoxShape3D" id="BoxShape3D_xc03i"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ciggt"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_sqty1"]
+viewport_path = NodePath("SubViewport2")
 
 [node name="level_8" type="Node3D"]
 
@@ -154,6 +158,23 @@ transform = Transform3D(2.37209, 0, 0, 0, 2.37209, 0, 0, 0, 2.37209, 0, -0.44738
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="gem_3"]
 shape = SubResource("BoxShape3D_ciggt")
+
+[node name="SubViewport2" type="SubViewport" parent="."]
+size = Vector2i(300, 70)
+
+[node name="Label" type="Label" parent="SubViewport2"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("14_jrvo3")
+theme_override_font_sizes/font_size = 70
+text = "LEVEL 8"
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.756744, 0, 0.653711, 0, 1, 0, -0.653711, 0, 0.756744, -2.97783, 4.91212, -4.95484)
+texture = SubResource("ViewportTexture_sqty1")
 
 [connection signal="redo2" from="target" to="barrier" method="_on_target_redo_2"]
 [connection signal="targetHit2" from="target" to="barrier" method="_on_target_target_hit_2"]

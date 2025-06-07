@@ -40,7 +40,7 @@ offset_left = 475.0
 offset_top = 48.0
 offset_right = 1653.0
 offset_bottom = 720.0
-scale = Vector2(0.00136602, 0.494445)
+scale = Vector2(-0.000342737, 0.575606)
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
@@ -139,6 +139,17 @@ theme_override_font_sizes/font_size = 24
 text = "ZOOM-IN (KNIFE ONLY)"
 horizontal_alignment = 2
 
+[node name="Label15" type="Label" parent="."]
+layout_mode = 0
+offset_left = 700.0
+offset_top = 400.0
+offset_right = 1092.0
+offset_bottom = 425.0
+theme_override_fonts/font = ExtResource("1_2p1cx")
+theme_override_font_sizes/font_size = 24
+text = "PAUSE THE GAME"
+horizontal_alignment = 2
+
 [node name="Label3" type="Label" parent="."]
 layout_mode = 0
 offset_left = 44.0
@@ -188,6 +199,16 @@ offset_bottom = 375.0
 theme_override_fonts/font = ExtResource("1_2p1cx")
 theme_override_font_sizes/font_size = 24
 text = "RIGHT MOUSE BUTTON"
+
+[node name="Label16" type="Label" parent="."]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 400.0
+offset_right = 422.0
+offset_bottom = 425.0
+theme_override_fonts/font = ExtResource("1_2p1cx")
+theme_override_font_sizes/font_size = 24
+text = "ESCAPE"
 
 [node name="11" type="Button" parent="."]
 layout_mode = 0
