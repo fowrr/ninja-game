@@ -13,10 +13,10 @@ func _process(delta):
 
 func _on_target_target_hit_2():
 	visible = false
-	collision.set_deferred("collision", false)
+	collision.set_deferred("disabled", true)
 
 
 
 func _on_target_redo_2():
 	visible = true
-	collision.set_deferred("collision", true)
+	collision.set_deferred("disabled", false)
