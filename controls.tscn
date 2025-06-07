@@ -190,6 +190,7 @@ theme_override_font_sizes/font_size = 24
 text = "RIGHT MOUSE BUTTON"
 
 [node name="11" type="Button" parent="."]
+layout_mode = 0
 offset_left = 167.0
 offset_top = 603.0
 offset_right = 745.0

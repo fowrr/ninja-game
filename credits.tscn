@@ -28,8 +28,10 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
 offset_right = 1178.0
 offset_bottom = 672.0
+scale = Vector2(1.1294, 1.06031)
 color = Color(0.0705882, 0.0705882, 0.0705882, 1)
 
 [node name="Label" type="Label" parent="."]
@@ -142,16 +144,28 @@ text = "Mr. Nemeth"
 
 [node name="Label11" type="Label" parent="."]
 layout_mode = 0
-offset_left = 198.0
-offset_top = 453.0
-offset_right = 1003.0
-offset_bottom = 492.0
+offset_left = 218.0
+offset_top = 498.0
+offset_right = 1023.0
+offset_bottom = 537.0
 theme_override_colors/font_color = Color(1, 1, 0, 1)
 theme_override_fonts/font = ExtResource("1_1myu4")
 theme_override_font_sizes/font_size = 40
 text = "MADE BY SAHEJ MAND (JUNE 6TH, 2025)"
 
+[node name="Label12" type="Label" parent="."]
+layout_mode = 0
+offset_left = 257.0
+offset_top = 391.0
+offset_right = 1062.0
+offset_bottom = 447.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_1myu4")
+theme_override_font_sizes/font_size = 60
+text = "THANKS FOR PLAYING!!!"
+
 [node name="11" type="Button" parent="."]
+layout_mode = 0
 offset_left = 167.0
 offset_top = 603.0
 offset_right = 745.0
